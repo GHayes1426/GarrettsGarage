@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garrett's Garage | Honda & Acura Specialists</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C8102E;
+    --red-dark: #9B0C23;
+    --red-glow: rgba(200,16,46,0.25);
+    --black: #080808;
+    --surface: #131313;
+    --surface2: #1C1C1C;
+    --border: #2A2A2A;
+    --text: #F0F0F0;
+    --text-muted: #888;
+    --white: #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(8,8,8,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    height: 68px;
+    display: flex; align-items: center;
+  }
+  .nav-inner {
+    max-width: 1280px; width: 100%; margin: 0 auto;
+    padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 22px;
+    letter-spacing: 0.04em; color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--red); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: var(--text-muted); text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600; font-size: 15px; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--red); }
+  .nav-cta {
+    background: var(--red); color: var(--white);
+    padding: 9px 22px; border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 15px; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--red-dark); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 68px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: 
+      linear-gradient(135deg, rgba(200,16,46,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 50%, rgba(200,16,46,0.06) 0%, transparent 60%);
+  }
+  .hero-slash {
+    position: absolute; right: -60px; top: 0; bottom: 0; width: 55%;
+    background: var(--surface);
+    transform: skewX(-8deg);
+    overflow: hidden;
+  }
+  .hero-slash::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><line x1="0" y1="0" x2="60" y2="60" stroke="%23C8102E" stroke-width="0.4" opacity="0.15"/></svg>');
+  }
+  .hero-slash-img {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    transform: skewX(8deg);
+    padding: 60px;
+  }
+  .hero-slash-img .logo-display {
+    width: 100%; max-width: 380px;
+    filter: drop-shadow(0 0 60px rgba(200,16,46,0.3));
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 1280px; width: 100%; margin: 0 auto;
+    padding: 0 32px;
+    max-width: 560px; margin-left: max(32px, calc(50vw - 640px));
+  }
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 13px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 40px; height: 2px; background: var(--red);
+  }
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: clamp(52px, 7vw, 80px);
+    line-height: 0.95; letter-spacing: -0.01em;
+    text-transform: uppercase; color: var(--white);
+    margin-bottom: 24px;
+  }
+  .hero h1 em { color: var(--red); font-style: normal; }
+  .hero-sub {
+    font-size: 17px; color: var(--text-muted);
+    line-height: 1.7; margin-bottom: 40px;
+    max-width: 440px;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--red); color: var(--white);
+    padding: 14px 32px; border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 16px; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.2s; border: 2px solid var(--red);
+    cursor: pointer; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    padding: 14px 32px; border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 16px; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none;
+    border: 2px solid var(--border); transition: all 0.2s;
+    cursor: pointer; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--red); color: var(--red); }
+
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 60px;
+    padding-top: 40px; border-top: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 36px; color: var(--red); line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 100px 0; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 12px; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: clamp(36px, 5vw, 56px);
+    text-transform: uppercase; color: var(--white);
+    line-height: 1; letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+  .section-title span { color: var(--red); }
+  .section-desc {
+    color: var(--text-muted); font-size: 16px; max-width: 520px;
+    line-height: 1.7; margin-bottom: 56px;
+  }
+  .slash-divider {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 24px;
+  }
+  .slash-divider::before, .slash-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  .slash-divider-inner {
+    display: flex; gap: 4px;
+  }
+  .slash-divider-inner span {
+    width: 3px; height: 20px; background: var(--red);
+    transform: skewX(-15deg);
+  }
+  .slash-divider-inner span:nth-child(2) { opacity: 0.5; }
+  .slash-divider-inner span:nth-child(3) { opacity: 0.25; }
+
+  /* ── ABOUT / SPECIALTIES ── */
+  .about { background: var(--surface); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .specialty-list { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+  .specialty-item {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 20px;
+    background: var(--black); border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    border-radius: 0 4px 4px 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600; font-size: 17px; letter-spacing: 0.04em;
+    transition: border-color 0.2s;
+  }
+  .specialty-item:hover { border-color: var(--red); background: var(--surface2); }
+  .specialty-icon { font-size: 20px; }
+  .about-text h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 48px; text-transform: uppercase; color: var(--white); line-height: 1; margin-bottom: 20px; }
+  .about-text h2 span { color: var(--red); }
+  .about-text p { color: var(--text-muted); font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
+  .badge-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .badge {
+    padding: 6px 14px; border: 1px solid var(--border);
+    border-radius: 2px; font-size: 12px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-muted);
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+  }
+  .badge.red { border-color: var(--red); color: var(--red); }
+
+  /* ── SERVICES ── */
+  .filter-bar {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .filter-btn {
+    padding: 8px 20px;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text-muted); cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 14px; letter-spacing: 0.1em;
+    text-transform: uppercase; border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--red); border-color: var(--red); color: var(--white);
+  }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .service-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; overflow: hidden;
+    transition: all 0.25s; cursor: default;
+    position: relative;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--red); transform: scaleX(0);
+    transform-origin: left; transition: transform 0.25s;
+  }
+  .service-card:hover { border-color: var(--red); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(200,16,46,0.15); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card-body { padding: 28px; }
+  .service-cat {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--red); font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; margin-bottom: 10px;
+  }
+  .service-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 22px; text-transform: uppercase;
+    color: var(--white); margin-bottom: 10px;
+  }
+  .service-card p { color: var(--text-muted); font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
+  .service-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 20px; color: var(--white);
+  }
+  .service-price span { font-size: 13px; color: var(--text-muted); font-weight: 400; }
+  .service-icon-wrap {
+    width: 44px; height: 44px;
+    background: rgba(200,16,46,0.12); border: 1px solid rgba(200,16,46,0.25);
+    border-radius: 4px; display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 20px;
+  }
+
+  /* ── COMPLETED JOBS ── */
+  .jobs { background: var(--surface); }
+  .jobs-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+  }
+  .job-card {
+    background: var(--black); border: 1px solid var(--border);
+    border-radius: 4px; overflow: hidden; transition: all 0.25s;
+    cursor: pointer; text-decoration: none; color: inherit;
+    display: block;
+  }
+  .job-card:hover { border-color: var(--red); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(200,16,46,0.12); }
+  .job-img {
+    width: 100%; aspect-ratio: 16/9;
+    background: var(--surface2);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .job-img-placeholder {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--text-muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 13px; letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .job-img-placeholder .car-icon { font-size: 48px; opacity: 0.3; }
+  .job-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 60%);
+  }
+  .job-tag {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--red); color: var(--white);
+    padding: 4px 10px; border-radius: 2px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .job-body { padding: 20px 24px; }
+  .job-body h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 20px; text-transform: uppercase;
+    color: var(--white); margin-bottom: 6px;
+  }
+  .job-meta {
+    font-size: 13px; color: var(--text-muted);
+    display: flex; gap: 16px; align-items: center;
+  }
+  .job-meta-dot { color: var(--red); }
+  .job-review-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 12px; color: var(--red);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 14px; letter-spacing: 0.06em;
+    text-transform: uppercase; text-decoration: none;
+  }
+  .job-review-link:hover { text-decoration: underline; }
+
+  /* ── REVIEWS ── */
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .review-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 28px;
+    transition: all 0.25s; cursor: pointer;
+    text-decoration: none; color: inherit; display: block;
+    position: relative;
+  }
+  .review-card:hover { border-color: var(--red); box-shadow: 0 8px 24px rgba(200,16,46,0.1); }
+  .review-stars { color: var(--red); font-size: 16px; margin-bottom: 14px; letter-spacing: 2px; }
+  .review-text {
+    font-size: 15px; color: var(--text); line-height: 1.7;
+    margin-bottom: 20px; font-style: italic;
+  }
+  .review-author {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .review-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(200,16,46,0.15); border: 2px solid var(--red);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 16px; color: var(--red);
+    flex-shrink: 0;
+  }
+  .review-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 16px; color: var(--white);
+    text-transform: uppercase;
+  }
+  .review-vehicle { font-size: 12px; color: var(--text-muted); }
+  .review-job-link {
+    position: absolute; bottom: 20px; right: 20px;
+    font-size: 11px; color: var(--red);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* ── SCHEDULE ── */
+  .schedule { background: var(--surface); }
+  .schedule-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: start;
+  }
+  .schedule-info h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 48px; text-transform: uppercase;
+    color: var(--white); line-height: 1; margin-bottom: 20px;
+  }
+  .schedule-info h2 span { color: var(--red); }
+  .schedule-info p { color: var(--text-muted); font-size: 16px; line-height: 1.8; margin-bottom: 28px; }
+  .info-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .info-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: rgba(200,16,46,0.1); border: 1px solid rgba(200,16,46,0.3);
+    border-radius: 3px; display: flex; align-items: center;
+    justify-content: center; font-size: 18px;
+  }
+  .info-content strong {
+    display: block; font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 16px; color: var(--white);
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .info-content span { color: var(--text-muted); font-size: 14px; }
+
+  /* Form */
+  .schedule-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 13px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    background: var(--black); border: 1px solid var(--border);
+    color: var(--white); padding: 12px 16px; border-radius: 3px;
+    font-family: 'Barlow', sans-serif; font-size: 15px;
+    outline: none; transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--red);
+  }
+  .form-group select option { background: var(--surface2); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .radio-group { display: flex; gap: 16px; }
+  .radio-label {
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer; padding: 10px 20px;
+    border: 1px solid var(--border); border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 14px; letter-spacing: 0.06em;
+    text-transform: uppercase; transition: all 0.2s; flex: 1;
+    justify-content: center;
+  }
+  .radio-label input { accent-color: var(--red); }
+  .radio-label:has(input:checked) {
+    border-color: var(--red); background: rgba(200,16,46,0.1); color: var(--red);
+  }
+  .form-submit { width: 100%; margin-top: 8px; }
+
+  /* ── CONTACT ── */
+  .contact-bar {
+    background: var(--red); padding: 80px 0;
+  }
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 40px; align-items: center;
+  }
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .contact-icon {
+    width: 48px; height: 48px; flex-shrink: 0;
+    background: rgba(255,255,255,0.15); border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .contact-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 13px; letter-spacing: 0.15em;
+    text-transform: uppercase; opacity: 0.75; margin-bottom: 4px;
+  }
+  .contact-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 20px; line-height: 1.3;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black); padding: 60px 0 32px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 48px; gap: 40px;
+  }
+  .footer-brand p { color: var(--text-muted); font-size: 14px; max-width: 280px; margin-top: 12px; line-height: 1.7; }
+  .footer-brand h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 28px; text-transform: uppercase;
+  }
+  .footer-brand h3 span { color: var(--red); }
+  .footer-links h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 14px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--white); margin-bottom: 16px;
+  }
+  .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a {
+    color: var(--text-muted); text-decoration: none; font-size: 14px;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--red); }
+  .footer-bottom {
+    border-top: 1px solid var(--border); padding-top: 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--text-muted); font-size: 13px;
+  }
+  .footer-bottom span { color: var(--red); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 2000;
+    background: rgba(0,0,0,0.85);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px; opacity: 0; pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; max-width: 700px; width: 100%;
+    max-height: 85vh; overflow-y: auto;
+    transform: translateY(24px); transition: transform 0.25s;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-header {
+    padding: 24px 28px; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .modal-header h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 24px; text-transform: uppercase; color: var(--white);
+  }
+  .modal-close {
+    background: none; border: none; color: var(--text-muted);
+    font-size: 24px; cursor: pointer; line-height: 1;
+    padding: 4px; transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--red); }
+  .modal-body { padding: 28px; }
+  .modal-job-tag {
+    display: inline-block;
+    background: var(--red); color: var(--white);
+    padding: 4px 12px; border-radius: 2px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .modal-img {
+    width: 100%; aspect-ratio: 16/9;
+    background: var(--surface2); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px; font-size: 72px; opacity: 0.3;
+  }
+  .modal-details {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-bottom: 20px;
+  }
+  .modal-detail {
+    background: var(--black); padding: 12px 16px;
+    border-radius: 3px; border: 1px solid var(--border);
+  }
+  .modal-detail label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .modal-detail strong { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 16px; }
+  .modal-review-section { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .modal-review-section h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 18px; text-transform: uppercase;
+    margin-bottom: 14px; color: var(--white);
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 32px; right: 32px; z-index: 3000;
+    background: var(--surface); border: 1px solid var(--red);
+    border-radius: 4px; padding: 16px 24px;
+    transform: translateY(80px); opacity: 0;
+    transition: all 0.3s; pointer-events: none;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 17px; color: var(--red); text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .toast-body { font-size: 14px; color: var(--text-muted); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero-slash { display: none; }
+    .hero-content { max-width: 100%; margin-left: 0; padding: 80px 24px; }
+    .about-grid, .schedule-grid, .contact-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .modal-details { grid-template-columns: 1fr; }
+    .footer-top { flex-direction: column; }
+    nav .nav-links { display: none; }
+    .footer-bottom { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">GARRETT'S <span>GARAGE</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#jobs">Completed Jobs</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#schedule" class="nav-cta">Book Service</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-slash">
+    <div class="hero-slash-img">
+      <!-- SVG Logo Recreation -->
+      <svg class="logo-display" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <!-- GG Wrench Icon representation -->
+        <g transform="translate(80,40)">
+          <!-- Left G - white -->
+          <path d="M60 30 A60 60 0 1 0 60 150 L60 110 L90 110 L90 150 L120 150 L120 90 L75 90 L75 110 L60 110 A30 30 0 1 1 90 60 L90 30 Z" fill="#FFFFFF" transform="translate(-10,0)"/>
+          <!-- Wrench on left G -->
+          <circle cx="90" cy="90" r="8" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+          <!-- Right G - red -->
+          <path d="M60 30 A60 60 0 1 0 60 150 L60 110 L90 110 L90 150 L120 150 L120 90 L75 90 L75 110 L60 110 A30 30 0 1 1 90 60 L90 30 Z" fill="#C8102E" transform="translate(110,0)"/>
+          <!-- Wrench on right G -->
+          <circle cx="200" cy="90" r="8" fill="none" stroke="#C8102E" stroke-width="4"/>
+        </g>
+        <!-- GARRETT'S text -->
+        <text x="200" y="245" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="52" fill="#FFFFFF" letter-spacing="-1">GARRETT'S</text>
+        <!-- GARAGE text with bars -->
+        <line x1="20" y1="268" x2="85" y2="268" stroke="#888" stroke-width="1.5"/>
+        <text x="200" y="292" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="52" fill="#C8102E" letter-spacing="4">GARAGE</text>
+        <line x1="315" y1="268" x2="380" y2="268" stroke="#888" stroke-width="1.5"/>
+        <!-- Tagline -->
+        <text x="200" y="322" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="500" font-size="16" fill="#888" letter-spacing="3">DEALER QUALITY WITHOUT DEALER PRICE</text>
+        <!-- Honda | Acura -->
+        <text x="140" y="370" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="800" font-size="20" fill="#C8102E" letter-spacing="2">HONDA</text>
+        <line x1="200" y1="352" x2="200" y2="382" stroke="#555" stroke-width="1"/>
+        <text x="260" y="370" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="800" font-size="20" fill="#FFFFFF" letter-spacing="2">ACURA</text>
+      </svg>
+    </div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Honda &amp; Acura Specialists</div>
+    <h1>Dealer <em>Quality.</em><br>Real Prices.</h1>
+    <p class="hero-sub">Garrett's Garage delivers factory-level expertise on your Honda or Acura — without the dealership markup. Trusted by hundreds of locals to keep their vehicles running right.</p>
+    <div class="hero-actions">
+      <a href="#schedule" class="btn-primary">Schedule Service</a>
+      <a href="#services" class="btn-outline">Our Services</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Jobs Completed</div>
+      </div>
+      <div>
+        <div class="stat-num">4.9★</div>
+        <div class="stat-label">Avg. Rating</div>
+      </div>
+      <div>
+        <div class="stat-num">12yr</div>
+        <div class="stat-label">Experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label">Who We Are</div>
+        <h2>Built on <span>Expertise</span></h2>
+        <p>Garrett's Garage was founded on a simple belief: you shouldn't have to pay dealership prices to get dealership-quality service. With over 12 years of specialized experience in Honda and Acura vehicles, we've built our reputation one satisfied customer at a time.</p>
+        <p>Every technician here is factory-trained, and we use OEM or OEM-equivalent parts on every job — because your vehicle deserves nothing less.</p>
+        <div class="badge-row">
+          <span class="badge red">Honda Certified</span>
+          <span class="badge red">Acura Specialist</span>
+          <span class="badge">OEM Parts</span>
+          <span class="badge">Licensed & Insured</span>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">What We Do</div>
+        <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 20px;">From routine maintenance to complex engine work — we handle it all.</p>
+        <div class="specialty-list">
+          <div class="specialty-item"><span class="specialty-icon">🔧</span> Engine Diagnostics & Repair</div>
+          <div class="specialty-item"><span class="specialty-icon">🛞</span> Brake & Suspension Systems</div>
+          <div class="specialty-item"><span class="specialty-icon">⚙️</span> Transmission Service</div>
+          <div class="specialty-item"><span class="specialty-icon">🌡️</span> A/C & Heating Systems</div>
+          <div class="specialty-item"><span class="specialty-icon">🔋</span> Electrical & Battery Service</div>
+          <div class="specialty-item"><span class="specialty-icon">🛢️</span> Scheduled Maintenance</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-label">What We Offer</div>
+    <div class="section-title">Our <span>Services</span></div>
+    <p class="section-desc">Specialized Honda and Acura service at honest prices. Filter by category to find exactly what you need.</p>
+
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all">All Services</button>
+      <button class="filter-btn" data-filter="maintenance">Maintenance</button>
+      <button class="filter-btn" data-filter="engine">Engine</button>
+      <button class="filter-btn" data-filter="brakes">Brakes & Suspension</button>
+      <button class="filter-btn" data-filter="transmission">Transmission</button>
+      <button class="filter-btn" data-filter="electrical">Electrical</button>
+      <button class="filter-btn" data-filter="ac">A/C & Heating</button>
+    </div>
+
+    <div class="services-grid" id="servicesGrid">
+    </div>
+  </div>
+</section>
+
+<!-- COMPLETED JOBS -->
+<section class="jobs" id="jobs">
+  <div class="container">
+    <div class="section-label">Proof of Work</div>
+    <div class="section-title">Completed <span>Jobs</span></div>
+    <p class="section-desc">Real vehicles, real results. Click any job to see full details — and the customer review behind it.</p>
+    <div class="jobs-grid" id="jobsGrid"></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <div class="section-label">Customer Feedback</div>
+    <div class="section-title">What They're <span>Saying</span></div>
+    <p class="section-desc">Click any review to see the completed job it came from.</p>
+    <div class="reviews-grid" id="reviewsGrid"></div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="schedule" id="schedule">
+  <div class="container">
+    <div class="schedule-grid">
+      <div class="schedule-info">
+        <div class="section-label">Book an Appointment</div>
+        <h2>Schedule <span>Service</span></h2>
+        <p>Ready to get your Honda or Acura taken care of? Fill out the form and we'll confirm your appointment within a few hours.</p>
+
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div class="info-content">
+            <strong>Our Location</strong>
+            <span>1247 Engine Blvd, Suite A<br>Your City, ST 00000</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📞</div>
+          <div class="info-content">
+            <strong>Call or Text</strong>
+            <span>(555) 123-4567</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🕐</div>
+          <div class="info-content">
+            <strong>Hours</strong>
+            <span>Mon – Fri: 8:00 AM – 6:00 PM<br>Sat: 8:00 AM – 3:00 PM</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div class="info-content">
+            <strong>Email</strong>
+            <span>garrett@garrettsgarage.com</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="schedule-form" id="scheduleForm">
+          <div style="background: var(--black); border: 1px solid var(--border); border-radius: 4px; padding: 28px;">
+            <p style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 18px; text-transform: uppercase; color: var(--white); margin-bottom: 20px; letter-spacing: 0.04em;">Your Information</p>
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" id="fname" placeholder="John">
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" id="lname" placeholder="Smith">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" id="phone" placeholder="(555) 000-0000">
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="john@email.com">
+              </div>
+            </div>
+
+            <p style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 18px; text-transform: uppercase; color: var(--white); margin: 24px 0 16px; letter-spacing: 0.04em;">Vehicle Details</p>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Make</label>
+                <select id="make">
+                  <option value="">Select Make</option>
+                  <option>Honda</option>
+                  <option>Acura</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Year</label>
+                <input type="number" id="year" placeholder="2019" min="1990" max="2025">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Model</label>
+              <input type="text" id="model" placeholder="e.g. Civic, Accord, CR-V, MDX...">
+            </div>
+
+            <p style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 18px; text-transform: uppercase; color: var(--white); margin: 24px 0 16px; letter-spacing: 0.04em;">Service Details</p>
+            <div class="form-group">
+              <label>Type of Service</label>
+              <select id="serviceType">
+                <option value="">Select Service</option>
+                <option>Oil Change / Scheduled Maintenance</option>
+                <option>Brake Inspection / Repair</option>
+                <option>Engine Diagnostics</option>
+                <option>Transmission Service</option>
+                <option>A/C Service</option>
+                <option>Electrical / Battery</option>
+                <option>Suspension / Steering</option>
+                <option>Tires</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Preferred Date</label>
+              <input type="date" id="apptDate">
+            </div>
+
+            <p style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 16px; text-transform: uppercase; color: var(--white); margin: 20px 0 12px; letter-spacing: 0.04em;">Service Type</p>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="dropoff" value="dropoff" checked> 🔑 Drop-Off
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="dropoff" value="pickup"> 🚗 Needs Pickup
+              </label>
+            </div>
+
+            <div class="form-group" style="margin-top: 16px;">
+              <label>Additional Notes</label>
+              <textarea id="notes" placeholder="Any symptoms, warning lights, or other details…"></textarea>
+            </div>
+
+            <button class="btn-primary form-submit" onclick="submitAppointment()">
+              Request Appointment →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT BAR -->
+<div class="contact-bar" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Address</div>
+          <div class="contact-value">1247 Engine Blvd, Suite A<br>Your City, ST 00000</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">(555) 123-4567</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">garrett@garrettsgarage.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>GARRETT'S <span>GARAGE</span></h3>
+        <p>Dealer quality without dealer price. Honda and Acura specialists serving our community for over 12 years.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#jobs">Completed Jobs</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#schedule">Book Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Oil Changes</a></li>
+          <li><a href="#services">Brake Service</a></li>
+          <li><a href="#services">Engine Repair</a></li>
+          <li><a href="#services">Transmission</a></li>
+          <li><a href="#services">A/C & Heating</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Hours</h4>
+        <ul>
+          <li><a>Mon – Fri: 8am – 6pm</a></li>
+          <li><a>Saturday: 8am – 3pm</a></li>
+          <li><a>Sunday: Closed</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 Garrett's Garage. All rights reserved.</div>
+      <div>Built for <span>Honda & Acura</span> owners</div>
+    </div>
+  </div>
+</footer>
+
+<!-- JOB MODAL -->
+<div class="modal-overlay" id="jobModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Job Details</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-title">✅ Appointment Requested!</div>
+  <div class="toast-body">We'll confirm your booking within a few hours.</div>
+</div>
+
+<script>
+// ── DATA ──
+const services = [
+  { cat: 'maintenance', icon: '🛢️', name: 'Oil Change & Filter', desc: 'Full synthetic or conventional oil change with filter replacement and multi-point inspection.', price: 'From $49', priceNote: '/visit' },
+  { cat: 'maintenance', icon: '🔍', name: 'Multi-Point Inspection', desc: 'Comprehensive 27-point inspection covering brakes, fluids, belts, hoses, and more.', price: 'Free', priceNote: ' with service' },
+  { cat: 'maintenance', icon: '💧', name: 'Fluid Services', desc: 'Coolant, brake fluid, power steering, and transmission fluid flush and fill services.', price: 'From $79', priceNote: '/service' },
+  { cat: 'engine', icon: '🔧', name: 'Engine Diagnostics', desc: 'Computer scan plus hands-on diagnosis to identify the root cause of check engine lights or unusual symptoms.', price: 'From $89', priceNote: '/diagnostic' },
+  { cat: 'engine', icon: '⚡', name: 'Timing Belt / Chain', desc: 'Factory-spec timing belt or chain replacement with tensioners and water pump where applicable.', price: 'From $349', priceNote: '/job' },
+  { cat: 'engine', icon: '🌀', name: 'Head Gasket Repair', desc: 'Full head gasket replacement with resurfacing and pressure testing. Guaranteed work.', price: 'From $899', priceNote: '/job' },
+  { cat: 'brakes', icon: '🛑', name: 'Brake Pad Replacement', desc: 'OEM-quality pads front or rear with hardware kit and brake dust check.', price: 'From $149', priceNote: '/axle' },
+  { cat: 'brakes', icon: '⭕', name: 'Rotor Replacement', desc: 'Rotors machined or replaced to spec — paired with new pads for peak stopping power.', price: 'From $249', priceNote: '/axle' },
+  { cat: 'brakes', icon: '🔩', name: 'Suspension & Struts', desc: 'Shocks, struts, control arms, and alignment — handle vibration and uneven wear before it gets worse.', price: 'From $299', priceNote: '/corner' },
+  { cat: 'transmission', icon: '⚙️', name: 'Transmission Service', desc: 'Fluid drain and fill or full flush with filter replacement. CVT and automatic specialists.', price: 'From $199', priceNote: '/service' },
+  { cat: 'transmission', icon: '🔄', name: 'Transmission Rebuild', desc: 'Full transmission rebuild using quality rebuild kits — backed by a 12-month warranty.', price: 'From $1,499', priceNote: '/job' },
+  { cat: 'electrical', icon: '🔋', name: 'Battery Service', desc: 'Battery test, replacement, and charging system inspection. Honda OEM batteries available.', price: 'From $99', priceNote: '/installed' },
+  { cat: 'electrical', icon: '💡', name: 'Electrical Diagnosis', desc: 'Pinpoint shorts, bad grounds, sensor failures, and other electrical gremlins in your Honda/Acura.', price: 'From $89', priceNote: '/hour' },
+  { cat: 'ac', icon: '❄️', name: 'A/C Recharge', desc: 'Refrigerant recharge with leak inspection to get your cabin cool again.', price: 'From $129', priceNote: '/service' },
+  { cat: 'ac', icon: '🌡️', name: 'A/C Compressor Replacement', desc: 'Full compressor R&R with dye test and system recharge. OEM compressors available.', price: 'From $599', priceNote: '/job' },
+];
+
+const jobs = [
+  { id: 1, title: '2018 Honda Accord Engine Rebuild', cat: 'Engine', desc: 'Complete engine rebuild after oil starvation. New rings, bearings, and head work.', vehicle: '2018 Honda Accord 2.0T', tech: 'Garrett', hours: '18 hrs', reviewId: 1 },
+  { id: 2, title: '2020 Acura MDX Transmission', cat: 'Transmission', desc: 'Full 9-speed automatic rebuild after shuddering under acceleration.', vehicle: '2020 Acura MDX SH-AWD', tech: 'Garrett', hours: '12 hrs', reviewId: 2 },
+  { id: 3, title: '2016 Honda Civic Brake Overhaul', cat: 'Brakes', desc: 'Four-wheel brake overhaul with new rotors, pads, and calipers front and rear.', vehicle: '2016 Honda Civic Si', tech: 'Garrett', hours: '4 hrs', reviewId: 3 },
+  { id: 4, title: '2019 Honda CR-V Timing Chain', cat: 'Engine', desc: 'Timing chain and tensioner replacement along with VTC actuator. Oil consumption addressed.', vehicle: '2019 Honda CR-V 1.5T', tech: 'Garrett', hours: '8 hrs', reviewId: 4 },
+  { id: 5, title: '2015 Acura TLX Head Gasket', cat: 'Engine', desc: 'Head gasket replacement with resurfacing on the SH-AWD 3.5L V6. New timing belt included.', vehicle: '2015 Acura TLX 3.5L', tech: 'Garrett', hours: '14 hrs', reviewId: 5 },
+  { id: 6, title: '2021 Honda Pilot A/C System', cat: 'A/C', desc: 'Compressor, condenser, and orifice tube replacement on 3.5L V6. Rear zone also serviced.', vehicle: '2021 Honda Pilot Elite', tech: 'Garrett', hours: '6 hrs', reviewId: 6 },
+];
+
+const reviews = [
+  { id: 1, name: 'Marcus T.', vehicle: '2018 Honda Accord', stars: 5, text: 'Garrett completely rebuilt my engine after a catastrophic failure. His pricing was less than half what the dealership quoted and the work was flawless. Running better than ever.', jobId: 1 },
+  { id: 2, name: 'Priya K.', vehicle: '2020 Acura MDX', stars: 5, text: 'My MDX had a terrifying transmission shudder. Garrett diagnosed it same day and had it rebuilt in under a week. Communication was excellent throughout. Absolutely the best.', jobId: 2 },
+  { id: 3, name: 'Derek S.', vehicle: '2016 Honda Civic Si', stars: 5, text: 'Full brake job done right. He showed me the worn-out parts before and after. Honest, fast, and way cheaper than the dealer. I\'ll never go anywhere else for my Civic.', jobId: 3 },
+  { id: 4, name: 'Alicia R.', vehicle: '2019 Honda CR-V', stars: 5, text: 'CR-V timing chain rattling on cold start — Garrett fixed the known Honda issue properly and even addressed the oil consumption problem. Saved me from a major breakdown.', jobId: 4 },
+  { id: 5, name: 'James W.', vehicle: '2015 Acura TLX', stars: 5, text: 'Head gasket and timing belt both done at the same time. Great value and he kept me updated with photos throughout. My TLX feels brand new. Highly recommend.', jobId: 5 },
+  { id: 6, name: 'Sandra M.', vehicle: '2021 Honda Pilot', stars: 5, text: 'A/C died in the middle of summer. Garrett had it ice cold again within two days. He also noticed a small brake issue during his inspection and pointed it out — real integrity.', jobId: 6 },
+];
+
+// ── RENDER SERVICES ──
+function renderServices(filter = 'all') {
+  const grid = document.getElementById('servicesGrid');
+  const filtered = filter === 'all' ? services : services.filter(s => s.cat === filter);
+  grid.innerHTML = filtered.map(s => `
+    <div class="service-card" data-cat="${s.cat}">
+      <div class="service-card-body">
+        <div class="service-icon-wrap">${s.icon}</div>
+        <div class="service-cat">${s.cat.toUpperCase()}</div>
+        <h3>${s.name}</h3>
+        <p>${s.desc}</p>
+        <div class="service-price">${s.price} <span>${s.priceNote}</span></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── FILTER LOGIC ──
+document.getElementById('filterBar').addEventListener('click', e => {
+  if (e.target.classList.contains('filter-btn')) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    renderServices(e.target.dataset.filter);
+  }
+});
+
+// ── RENDER JOBS ──
+function renderJobs() {
+  document.getElementById('jobsGrid').innerHTML = jobs.map(j => `
+    <a class="job-card" onclick="openJobModal(${j.id}); return false;" href="#">
+      <div class="job-img">
+        <div class="job-img-placeholder">
+          <div class="car-icon">🚗</div>
+          <div>${j.vehicle}</div>
+        </div>
+        <div class="job-overlay"></div>
+        <div class="job-tag">${j.cat}</div>
+      </div>
+      <div class="job-body">
+        <h3>${j.title}</h3>
+        <div class="job-meta">
+          <span>${j.vehicle}</span>
+          <span class="job-meta-dot">•</span>
+          <span>${j.hours}</span>
+        </div>
+        <div class="job-review-link">View Review →</div>
+      </div>
+    </a>
+  `).join('');
+}
+
+// ── RENDER REVIEWS ──
+function renderReviews() {
+  document.getElementById('reviewsGrid').innerHTML = reviews.map(r => `
+    <a class="review-card" onclick="openJobModal(${r.jobId}); return false;" href="#">
+      <div class="review-stars">${'★'.repeat(r.stars)}</div>
+      <p class="review-text">"${r.text}"</p>
+      <div class="review-author">
+        <div class="review-avatar">${r.name.charAt(0)}</div>
+        <div>
+          <div class="review-name">${r.name}</div>
+          <div class="review-vehicle">${r.vehicle}</div>
+        </div>
+      </div>
+      <div class="review-job-link">See the Job →</div>
+    </a>
+  `).join('');
+}
+
+// ── MODAL ──
+function openJobModal(jobId) {
+  const job = jobs.find(j => j.id === jobId);
+  const review = reviews.find(r => r.jobId === jobId);
+  if (!job) return;
+
+  document.getElementById('modalTitle').textContent = job.title;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-job-tag">${job.cat}</div>
+    <div class="modal-img">🚗</div>
+    <p style="color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 20px;">${job.desc}</p>
+    <div class="modal-details">
+      <div class="modal-detail"><label>Vehicle</label><strong>${job.vehicle}</strong></div>
+      <div class="modal-detail"><label>Technician</label><strong>${job.tech}</strong></div>
+      <div class="modal-detail"><label>Labor Time</label><strong>${job.hours}</strong></div>
+      <div class="modal-detail"><label>Job Type</label><strong>${job.cat}</strong></div>
+    </div>
+    ${review ? `
+    <div class="modal-review-section">
+      <h4>Customer Review</h4>
+      <div class="review-card" style="cursor: default; pointer-events: none;">
+        <div class="review-stars">${'★'.repeat(review.stars)}</div>
+        <p class="review-text">"${review.text}"</p>
+        <div class="review-author">
+          <div class="review-avatar">${review.name.charAt(0)}</div>
+          <div>
+            <div class="review-name">${review.name}</div>
+            <div class="review-vehicle">${review.vehicle}</div>
+          </div>
+        </div>
+      </div>
+    </div>` : ''}
+  `;
+
+  document.getElementById('jobModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('jobModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('jobModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('jobModal')) closeModal();
+});
+
+// ── APPOINTMENT SUBMISSION ──
+function submitAppointment() {
+  const fname = document.getElementById('fname').value.trim();
+  const lname = document.getElementById('lname').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const make = document.getElementById('make').value;
+  const model = document.getElementById('model').value.trim();
+  const year = document.getElementById('year').value.trim();
+  const serviceType = document.getElementById('serviceType').value;
+  const apptDate = document.getElementById('apptDate').value;
+  const dropoff = document.querySelector('input[name="dropoff"]:checked')?.value;
+  const notes = document.getElementById('notes').value.trim();
+
+  if (!fname || !lname || !phone || !make || !model || !year || !serviceType || !apptDate) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  // Simulate database save
+  const appointment = {
+    id: Date.now(),
+    customer: { fname, lname, phone, email },
+    vehicle: { make, model, year },
+    service: { serviceType, apptDate, dropoff, notes },
+    submitted: new Date().toISOString()
+  };
+
+  // Store in localStorage (simulating DB)
+  const existing = JSON.parse(localStorage.getItem('gg_appointments') || '[]');
+  existing.push(appointment);
+  localStorage.setItem('gg_appointments', JSON.stringify(existing));
+
+  // Store customer record
+  const customers = JSON.parse(localStorage.getItem('gg_customers') || '[]');
+  const existingCustomer = customers.find(c => c.phone === phone);
+  if (!existingCustomer) {
+    customers.push({ id: Date.now(), fname, lname, phone, email, vehicles: [`${year} ${make} ${model}`], firstVisit: new Date().toISOString() });
+  } else {
+    const veh = `${year} ${make} ${model}`;
+    if (!existingCustomer.vehicles.includes(veh)) existingCustomer.vehicles.push(veh);
+  }
+  localStorage.setItem('gg_customers', JSON.stringify(customers));
+
+  // Reset form
+  ['fname','lname','phone','email','model','year','notes','apptDate'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('make').value = '';
+  document.getElementById('serviceType').value = '';
+
+  // Show toast
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 4000);
+}
+
+// ── INIT ──
+renderServices();
+renderJobs();
+renderReviews();
+
+// Animate on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.service-card, .job-card, .review-card, .specialty-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
