@@ -35,44 +35,205 @@
 
   /* ── NAV ── */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-    background: rgba(8,8,8,0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    height: 68px;
-    display: flex; align-items: center;
-  }
-  .nav-inner {
-    max-width: 1280px; width: 100%; margin: 0 auto;
-    padding: 0 32px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .nav-logo {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: 22px;
-    letter-spacing: 0.04em; color: var(--white);
-    text-decoration: none;
-  }
-  .nav-logo span { color: var(--red); }
-  .nav-links { display: flex; gap: 36px; list-style: none; }
-  .nav-links a {
-    color: var(--text-muted); text-decoration: none;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600; font-size: 15px; letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--red); }
-  .nav-cta {
-    background: var(--red); color: var(--white);
-    padding: 9px 22px; border-radius: 3px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 15px; letter-spacing: 0.08em;
-    text-transform: uppercase; text-decoration: none;
-    transition: background 0.2s;
-  }
-  .nav-cta:hover { background: var(--red-dark); }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 
+  background: #000;
+  border-bottom: 1px solid var(--border);
+
+  height: clamp(70px, 8vw, 80px);
+  margin: 0;
+  border-top: none;
+}
+  
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.burger {
+  width: 32px;
+  height: 24px;
+  position: relative;
+  z-index: 1002;
+
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.burger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+
+  background: white;
+  border-radius: 3px;
+
+  transition: all 0.3s ease;
+}
+  
+.burger.open span:nth-child(1) {
+  transform: translateY(10.8px) rotate(45deg);
+}
+
+.burger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger.open span:nth-child(3) {
+  transform: translateY(-10.8px) rotate(-45deg);
+}
+
+.nav-inner {
+  max-width: 1280px;
+  width: 100%;
+  height: 100%;
+
+  margin: 0 auto;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.nav-logo img {
+  height: clamp(30px, 4vw, 48px);
+  width: auto;
+  display: block;
+}
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  color: var(--text-muted); text-decoration: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600; font-size: 15px; letter-spacing: 0.08em;
+  text-transform: uppercase;   transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--red); }
+.nav-cta {
+  background: var(--red); color: var(--white);
+  padding: 9px 22px; border-radius: 3px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 15px; letter-spacing: 0.08em;
+  text-transform: uppercase; text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--red-dark); }
+  
+.mobile-menu {
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  height: 48px;
+
+  display: flex;
+  flex-direction: row;
+
+  background: #56000e;
+  z-index: 999;
+
+  overflow: hidden;
+
+  max-height: 0;
+  opacity: 0;
+
+  transition:
+    max-height 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.mobile-menu.open {
+  max-height: 48px;
+  opacity: 1;
+}
+
+.mobile-menu a {
+  flex: 1;
+
+  padding: 12px 6px;
+
+  color: white;
+  text-decoration: none;
+
+  text-align: center;
+
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  border: 1px solid rgb(0, 0, 0);
+  
+  transition: background 0.25s ease;
+}
+
+.mobile-menu a:last-child {
+  border-right: none;
+}
+
+.mobile-menu a:hover {
+  background: #991229;
+}
+  
+.floating-book-btn {
+  position: fixed;
+
+  top: calc(var(--nav-height) + 48px);
+  right: 0px;
+
+  z-index: 998;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 48px;
+  padding: 12px 22px;
+
+  background: var(--red);
+  color: #fff;
+
+  text-decoration: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  border: 1px solid rgba(255,255,255,0.15);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,.3);
+
+  
+  transition:
+    top 0.3s ease,
+    right 0.3s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.floating-book-btn:hover {
+  background: var(--red-dark);
+  transform: translateY(2px);
+}
   /* ── HERO ── */
   .hero {
     min-height: 100vh;
@@ -622,6 +783,7 @@
     .footer-top { flex-direction: column; }
     nav .nav-links { display: none; }
     .footer-bottom { flex-direction: column; gap: 12px; }
+    .burger { display: flex;}
   }
 </style>
 </head>
@@ -630,17 +792,39 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#home" class="nav-logo">GARRETT'S <span>GARAGE</span></a>
+
+    <a href="#home" class="nav-logo">
+      <img src="images/banner.png" alt="Garrett's Garage">
+    </a>
+
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
-      <li><a href="#jobs">Completed Jobs</a></li>
       <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#jobs">Completed Jobs</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="#schedule" class="nav-cta">Book Service</a>
+
+    <button class="burger" id="burger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
   </div>
 </nav>
+  
+<a href="#schedule" class="floating-book-btn">
+    Book Service
+</a>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#jobs">Past jobs</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#contact">Contact</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -713,7 +897,6 @@
           <span class="badge red">Honda Certified</span>
           <span class="badge red">Acura Specialist</span>
           <span class="badge">OEM Parts</span>
-          <span class="badge">Licensed & Insured</span>
         </div>
       </div>
       <div>
@@ -1201,6 +1384,25 @@ function submitAppointment() {
   const toast = document.getElementById('toast');
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 4000);
+  
+}
+  
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const burger = document.getElementById('burger');
+  const bookBtn = document.querySelector('.floating-book-btn');
+  const nav = document.querySelector('nav');
+
+  menu.classList.toggle('open');
+  burger.classList.toggle('open');
+
+  const navHeight = nav.offsetHeight;
+
+  if (menu.classList.contains('open')) {
+    bookBtn.style.top = `${navHeight + 48}px`;
+  } else {
+    bookBtn.style.top = `${navHeight}px`;
+  }
 }
 
 // ── INIT ──
@@ -1223,6 +1425,47 @@ document.querySelectorAll('.service-card, .job-card, .review-card, .specialty-it
   el.style.transform = 'translateY(20px)';
   el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
   observer.observe(el);
+});
+  
+function updateNavOffsets() {
+  const nav = document.querySelector('nav');
+  const menu = document.getElementById('mobileMenu');
+  const bookBtn = document.querySelector('.floating-book-btn');
+
+  const navHeight = nav.getBoundingClientRect().height;
+
+  document.documentElement.style.setProperty(
+    '--nav-height',
+    `${navHeight}px`
+  );
+
+  const menuHeight = menu.classList.contains('open')
+    ? menu.getBoundingClientRect().height
+    : 0;
+
+  bookBtn.style.top = `${navHeight + menuHeight}px`;
+}
+
+document.querySelectorAll('#mobileMenu a').forEach(link => {
+  link.addEventListener('click', () => {
+    const menu = document.getElementById('mobileMenu');
+    const burger = document.getElementById('burger');
+
+    menu.classList.remove('open');
+    burger.classList.remove('open');
+
+    updateNavOffsets();
+  });
+});
+  
+window.addEventListener('load', updateNavOffsets);
+window.addEventListener('resize', () => {
+  updateNavOffsets();
+
+  if (window.innerWidth > 900) {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('burger').classList.remove('open');
+  }
 });
 </script>
 </body>
