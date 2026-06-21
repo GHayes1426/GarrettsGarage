@@ -353,9 +353,71 @@
     text-transform: uppercase; color: var(--text-muted);
     margin-top: 4px;
   }
+  
+  .hero-info-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: clamp(8px, 2vw, 16px);
+    margin: 0 0 clamp(24px, 3vw, 32px);
+
+    width: 100%;
+    max-width: clamp(320px, 40vw, 700px);
+  }
+
+.hero-info-card {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1vw, 12px);
+
+  padding: clamp(8px, 1.5vw, 14px);
+
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+
+  transition: all 0.25s ease;
+}
+
+.hero-info-card:hover {
+  border-color: var(--red);
+  background: rgba(200,16,46,0.08);
+  transform: translateY(-2px);
+}
+
+.hero-info-icon {
+  width: clamp(32px, 5vw, 42px);
+  height: clamp(32px, 5vw, 42px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: clamp(14px, 2vw, 18px);
+
+  background: rgba(200,16,46,0.12);
+  border: 1px solid rgba(200,16,46,0.3);
+  border-radius: 4px;
+}
+
+.hero-info-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: clamp(11px, 1.4vw, 14px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.hero-info-text {
+  font-size: clamp(10px, 1.3vw, 13px);
+  color: var(--text-muted);
+}
 
   /* ── SECTION COMMONS ── */
-  section { padding: 100px 0; }
+  section { padding: 50px 0; }
   .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
   .section-label {
     font-family: 'Barlow Condensed', sans-serif;
@@ -396,7 +458,7 @@
   .about { background: var(--surface); }
   .about-grid {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 80px; align-items: center;
+    gap: 50px; align-items: top;
   }
   .specialty-list { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
   .specialty-item {
@@ -932,6 +994,20 @@
     .burger {
         display: flex;
     }
+    
+    .specialty-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .specialty-item {
+    min-height: 72px;
+    padding: 14px;
+    font-size: 15px;
+    line-height: 1.2;
+  }
+    
 }
 </style>
 </head>
@@ -997,6 +1073,38 @@
     <div class="hero-eyebrow">Honda &amp; Acura Specialists</div>
     <h1>Dealer <em>Quality.</em><br>Real Prices.</h1>
     <p class="hero-sub">Garrett's Garage delivers factory-level expertise on your Honda or Acura — without the dealership markup. Trusted by hundreds of locals to keep their vehicles running right.</p>
+    
+    <div class="hero-info-cards">
+      <a href="https://maps.app.goo.gl/N8Ex2wkkWZ6U2Zyj8"
+         class="hero-info-card"
+         target="_blank">
+
+        <div class="hero-info-icon">📍</div>
+        <div>
+          <div class="hero-info-title">Location</div>
+          <div class="hero-info-text">Hollywood, MD</div>
+        </div>
+      </a>
+
+      <a href="tel:+12405233675" class="hero-info-card">
+        <div class="hero-info-icon">📞</div>
+        <div>
+          <div class="hero-info-title">Call or Text</div>
+          <div class="hero-info-text">(240) 523-3675</div>
+        </div>
+      </a>
+
+      <a href="mailto:garrettshollywood@gmail.com" class="hero-info-card">
+        <div class="hero-info-icon">✉️</div>
+        <div>
+          <div class="hero-info-title">Email</div>
+          <div class="hero-info-text">Email Us</div>
+        </div>
+      </a>
+    </div>
+
+<div class="hero-actions">
+    
     <div class="hero-actions">
       <a href="#schedule" class="btn-primary">Schedule Service</a>
       <a href="#services" class="btn-outline">Our Services</a>
@@ -1007,7 +1115,7 @@
         <div class="stat-label">Avg. Rating</div>
       </div>
       <div>
-        <div class="stat-num">12yr</div>
+        <div class="stat-num">6yr</div>
         <div class="stat-label"><u>Experience</u></div>
       </div>
       <div>
@@ -1104,28 +1212,28 @@
           <div class="info-icon">📍</div>
           <div class="info-content">
             <strong>Our Location</strong>
-            <span>1247 Engine Blvd, Suite A<br>Your City, ST 00000</span>
+            <span>25215 Vista Road<br>Hollywood, MD 20636</span>
           </div>
         </div>
         <div class="info-item">
           <div class="info-icon">📞</div>
           <div class="info-content">
             <strong>Call or Text</strong>
-            <span>(555) 123-4567</span>
+            <span>(240) 523-3675</span>
           </div>
         </div>
         <div class="info-item">
           <div class="info-icon">🕐</div>
           <div class="info-content">
             <strong>Hours</strong>
-            <span>Mon – Fri: 8:00 AM – 6:00 PM<br>Sat: 8:00 AM – 3:00 PM</span>
+            <span>Mon – Fri: 11:00 AM – 11:00 PM<br>Sat: 11:00 AM – Midnight<br>Sun: 11 AM - 5 PM</span>
           </div>
         </div>
         <div class="info-item">
           <div class="info-icon">✉️</div>
           <div class="info-content">
             <strong>Email</strong>
-            <span>garrett@garrettsgarage.com</span>
+            <span>garrettshollywood@gmail.com</span>
           </div>
         </div>
       </div>
@@ -1224,29 +1332,6 @@
 <!-- CONTACT BAR -->
 <div class="contact-bar" id="contact">
   <div class="container">
-    <div class="contact-grid">
-      <div class="contact-item">
-        <div class="contact-icon">📍</div>
-        <div>
-          <div class="contact-label">Address</div>
-          <div class="contact-value">1247 Engine Blvd, Suite A<br>Your City, ST 00000</div>
-        </div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">📞</div>
-        <div>
-          <div class="contact-label">Phone</div>
-          <div class="contact-value">(555) 123-4567</div>
-        </div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">✉️</div>
-        <div>
-          <div class="contact-label">Email</div>
-          <div class="contact-value">garrett@garrettsgarage.com</div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -1256,7 +1341,7 @@
     <div class="footer-top">
       <div class="footer-brand">
         <h3>GARRETT'S <span>GARAGE</span></h3>
-        <p>Dealer quality without dealer price. Honda and Acura specialists serving our community for over 12 years.</p>
+        <p>Dealer quality without dealer price. Honda and Acura specialists serving our community for over 6 years.</p>
       </div>
       <div class="footer-links">
         <h4>Navigate</h4>
@@ -1281,9 +1366,9 @@
       <div class="footer-links">
         <h4>Hours</h4>
         <ul>
-          <li><a>Mon – Fri: 8am – 6pm</a></li>
-          <li><a>Saturday: 8am – 3pm</a></li>
-          <li><a>Sunday: Closed</a></li>
+          <li><a><span style="color: rgb(136, 136, 136);">Mon – Fri: 11:00 AM – 11:00 PM</span><br style="color: rgb(136, 136, 136);"><span style="color: rgb(136, 136, 136);">Sat: 11:00 AM – Midnight</span><br style="color: rgb(136, 136, 136);"><span style="color: rgb(136, 136, 136);">Sun: 11 AM - 5 PM</span></a></li>
+          <li></li>
+          <li></li>
         </ul>
       </div>
     </div>
