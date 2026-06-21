@@ -400,16 +400,45 @@
   }
   .specialty-list { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
   .specialty-item {
-    display: flex; align-items: center; gap: 16px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 16px;
     padding: 16px 20px;
-    background: var(--black); border: 1px solid var(--border);
+    background: var(--black);
+    border: 1px solid var(--border);
     border-left: 3px solid var(--red);
     border-radius: 0 4px 4px 0;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 600; font-size: 17px; letter-spacing: 0.04em;
-    transition: border-color 0.2s;
+    transition: border-color 0.25s ease,
+                background 0.25s ease;
   }
-  .specialty-item:hover { border-color: var(--red); background: var(--surface2); }
+  
+  .specialty-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 3px;
+    height: 100%;
+
+    background: rgba(200,16,46,0.12);
+
+    transition: width 0.3s ease;
+  }
+  
+  .specialty-item:hover {
+    border-color: var(--red);
+    background: var(--surface2);
+  }
+
+  .specialty-item:hover::before {
+    width: 100%;
+  } 
+  
   .specialty-icon { font-size: 20px; }
   .about-text h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 48px; text-transform: uppercase; color: var(--white); line-height: 1; margin-bottom: 20px; }
   .about-text h2 span { color: var(--red); }
@@ -1008,12 +1037,12 @@
         <div class="section-label">What We Do</div>
         <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 20px;">From routine maintenance to complex engine work — we handle it all.</p>
         <div class="specialty-list">
+          <div class="specialty-item"><span class="specialty-icon">🛢️</span> Scheduled Maintenance</div>
           <div class="specialty-item"><span class="specialty-icon">🔧</span> Engine Diagnostics & Repair</div>
-          <div class="specialty-item"><span class="specialty-icon">🛞</span> Brake & Suspension Systems</div>
-          <div class="specialty-item"><span class="specialty-icon">⚙️</span> Transmission Service</div>
+          <div class="specialty-item"><span class="specialty-icon">🛑</span> Brakes &amp; Suspension Repair</div>
+          <div class="specialty-item"><span class="specialty-icon">⚙️</span>Air and Cabin Filter Replacement</div>
           <div class="specialty-item"><span class="specialty-icon">🌡️</span> A/C & Heating Systems</div>
           <div class="specialty-item"><span class="specialty-icon">🔋</span> Electrical & Battery Service</div>
-          <div class="specialty-item"><span class="specialty-icon">🛢️</span> Scheduled Maintenance</div>
         </div>
       </div>
     </div>
