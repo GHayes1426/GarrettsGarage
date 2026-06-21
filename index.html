@@ -50,6 +50,7 @@
 }
   
 .nav-right {
+  margin-left: auto;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -64,6 +65,8 @@
   display: none;
   flex-direction: column;
   justify-content: space-between;
+  
+  margin-left: auto;
 
   background: none;
   border: none;
@@ -103,7 +106,6 @@
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .nav-logo {
@@ -111,6 +113,7 @@
   align-items: center;
   height: 100%;
   flex-shrink: 0;
+  margin-right: clamp(24px, 4vw, 64px);
 }
 
 .nav-logo img {
@@ -118,11 +121,11 @@
   width: auto;
   display: block;
 }
-.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links { display: flex; gap: clamp(16px, 2vw, 36px); list-style: none; flex: 1; justify-content: flex-start;}
 .nav-links a {
   color: var(--text-muted); text-decoration: none;
   font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 600; font-size: 15px; letter-spacing: 0.08em;
+  font-weight: 600; font-size: clamp(8px, 2vw, 20px); letter-spacing: 0.08em;
   text-transform: uppercase;   transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--red); }
@@ -230,22 +233,21 @@
     transform 0.25s ease;
 }
 
-.floating-book-btn:hover {
-  background: var(--red-dark);
-  transform: translateY(2px);
-}
+.floating-book-btn:hover { background: var(--white); border-color: var(--red-dark); color: var(--red); }
   /* ── HERO ── */
   .hero {
-    min-height: 100vh;
-    display: flex; align-items: center;
+    min-height: auto;
+    display: flex; 
+    align-items: flex-start;
     position: relative;
     overflow: hidden;
     padding-top: 68px;
+    padding-bottom: clamp(30px, 4vw, 60px);
   }
   .hero-bg {
     position: absolute; inset: 0;
     background: 
-      linear-gradient(135deg, rgba(200,16,46,0.08) 0%, transparent 50%),
+      linear-gradient(135deg, rgba(200,16,46,0.22) 0%, transparent 50%),
       radial-gradient(ellipse at 80% 50%, rgba(200,16,46,0.06) 0%, transparent 60%);
   }
   .hero-slash {
@@ -257,27 +259,32 @@
   .hero-slash::after {
     content: '';
     position: absolute; inset: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><line x1="0" y1="0" x2="60" y2="60" stroke="%23C8102E" stroke-width="0.4" opacity="0.15"/></svg>');
+    z-index: 1;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><line x1="0" y1="0" x2="60" y2="60" stroke="%23C8102E" stroke-width="0.4" opacity="2"/></svg>');
   }
   .hero-slash-img {
     position: absolute; inset: 0;
+    z-index: 2;
     display: flex; align-items: center; justify-content: center;
     transform: skewX(8deg);
     padding: 60px;
   }
   .hero-slash-img .logo-display {
-    width: 100%; max-width: 380px;
+    width: 100%;
     filter: drop-shadow(0 0 60px rgba(200,16,46,0.3));
     animation: float 4s ease-in-out infinite;
   }
   @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+    0%,100% { transform: translateX(-30px) translateY(0); }
+    50% { transform: translateX(-30px) translateY(-12px); }
   }
   .hero-content {
     position: relative; z-index: 2;
     max-width: 1280px; width: 100%; margin: 0 auto;
-    padding: 0 32px;
+    padding:
+        clamp(30px, 4vw, 50px)
+        32px
+        clamp(20px, 3vw, 40px);
     max-width: 560px; margin-left: max(32px, calc(50vw - 640px));
   }
   .hero-eyebrow {
@@ -302,22 +309,28 @@
   .hero-sub {
     font-size: 17px; color: var(--text-muted);
     line-height: 1.7; margin-bottom: 40px;
-    max-width: 440px;
+    max-width: clamp(100px, 40vw, 440px);
   }
-  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .hero-actions { display: flex; gap: clamp(10px, 1vw, 16px); flex-wrap: wrap; }
   .btn-primary {
     background: var(--red); color: var(--white);
-    padding: 14px 32px; border-radius: 3px;
+    padding:
+      clamp(5px, 1vw, 14px)
+      clamp(10px, 2vw, 32px);
+    border-radius: 3px;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700; font-size: 16px; letter-spacing: 0.08em;
     text-transform: uppercase; text-decoration: none;
     transition: all 0.2s; border: 2px solid var(--red);
     cursor: pointer; display: inline-block;
   }
-  .btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); }
+  .btn-primary:hover { background: var(--white); border-color: var(--red-dark); color: var(--red); }
   .btn-outline {
     background: transparent; color: var(--white);
-    padding: 14px 32px; border-radius: 3px;
+    padding:
+      clamp(5px, 1vw, 14px)
+      clamp(10px, 2vw, 32px);
+    border-radius: 3px;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700; font-size: 16px; letter-spacing: 0.08em;
     text-transform: uppercase; text-decoration: none;
@@ -327,15 +340,16 @@
   .btn-outline:hover { border-color: var(--red); color: var(--red); }
 
   .hero-stats {
-    display: flex; gap: 40px; margin-top: 60px;
-    padding-top: 40px; border-top: 1px solid var(--border);
+    display: flex; gap: clamp(20px, 3vw, 40px); margin-top: clamp(20px, 3vw, 40px);
+    width: clamp(250px, 25vw, 400px);
+    padding-top: clamp(15px, 2vw, 30px); border-top: 1px solid var(--border);
   }
   .stat-num {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: 36px; color: var(--red); line-height: 1;
+    font-weight: 900; font-size: clamp(24px, 2.5vw, 36px); color: var(--red); line-height: 1;
   }
   .stat-label {
-    font-size: 12px; letter-spacing: 0.1em;
+    font-size: clamp(10px, 0.8vw, 12px); letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--text-muted);
     margin-top: 4px;
   }
@@ -774,17 +788,122 @@
   .toast-body { font-size: 14px; color: var(--text-muted); }
 
   /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    .hero-slash { display: none; }
-    .hero-content { max-width: 100%; margin-left: 0; padding: 80px 24px; }
-    .about-grid, .schedule-grid, .contact-grid { grid-template-columns: 1fr; }
-    .form-row { grid-template-columns: 1fr; }
-    .modal-details { grid-template-columns: 1fr; }
-    .footer-top { flex-direction: column; }
-    nav .nav-links { display: none; }
-    .footer-bottom { flex-direction: column; gap: 12px; }
-    .burger { display: flex;}
-  }
+  @media (max-width: 800px) {
+
+    .hero {
+        padding-top: 40px;
+        min-height: auto;
+        padding-bottom: 20px;
+    }
+    
+    .hero-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(0deg, rgba(200,16,46,0.22) 0%, transparent 75%)
+    }
+
+    .hero-slash {
+        inset: 0;
+        width: 100%;
+        right: 0;
+        transform: none;
+        z-index: 0;
+        background: transparent;
+    }
+
+    .hero-slash::after {
+        opacity: 0.6;
+    }
+
+    .hero-slash-img {
+      position: absolute;
+      inset: -3%;
+      overflow: hidden;
+      background-image: url("images/gg.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: clamp(450px, 100vw, 1000px);
+      opacity: 0.2;
+    }
+
+    .hero-slash-img .logo-display {
+        display: none;
+        width: clamp(900px, 150vw, 1600px);
+        max-width: none;
+        height: auto;
+        position: absolute;
+        left: 50%;
+        right: 50%;
+        transform: none;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 3;
+        max-width: 680px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 100px 32px 80px;
+        padding-bottom: 20px;
+    }
+
+    .hero-sub {
+        max-width: 100%;
+        font-weight: 500;
+        color: rgba(240, 240, 240, 0.82);
+    }
+
+    .btn-outline {
+      border-color: var(--text-muted);
+    }
+    
+    .hero-stats {
+        border-color: var(--white);
+        width: 100%;
+        max-width: 500px;
+        gap: clamp(12px, 4vw, 24px);
+    }
+
+    .stat-num {
+        font-size: clamp(24px, 7vw, 40px);
+    }
+
+    .stat-label {
+        font-size: clamp(12px, 3vw, 16px);
+    }
+
+    .about-grid,
+    .schedule-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-details {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-top {
+        flex-direction: column;
+    }
+
+    nav .nav-links {
+        display: none;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .burger {
+        display: flex;
+    }
+}
 </style>
 </head>
 <body>
@@ -831,33 +950,19 @@
   <div class="hero-bg"></div>
   <div class="hero-slash">
     <div class="hero-slash-img">
-      <!-- SVG Logo Recreation -->
-      <svg class="logo-display" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-        <!-- GG Wrench Icon representation -->
-        <g transform="translate(80,40)">
-          <!-- Left G - white -->
-          <path d="M60 30 A60 60 0 1 0 60 150 L60 110 L90 110 L90 150 L120 150 L120 90 L75 90 L75 110 L60 110 A30 30 0 1 1 90 60 L90 30 Z" fill="#FFFFFF" transform="translate(-10,0)"/>
-          <!-- Wrench on left G -->
-          <circle cx="90" cy="90" r="8" fill="none" stroke="#FFFFFF" stroke-width="4"/>
-          <!-- Right G - red -->
-          <path d="M60 30 A60 60 0 1 0 60 150 L60 110 L90 110 L90 150 L120 150 L120 90 L75 90 L75 110 L60 110 A30 30 0 1 1 90 60 L90 30 Z" fill="#C8102E" transform="translate(110,0)"/>
-          <!-- Wrench on right G -->
-          <circle cx="200" cy="90" r="8" fill="none" stroke="#C8102E" stroke-width="4"/>
-        </g>
-        <!-- GARRETT'S text -->
-        <text x="200" y="245" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="52" fill="#FFFFFF" letter-spacing="-1">GARRETT'S</text>
-        <!-- GARAGE text with bars -->
-        <line x1="20" y1="268" x2="85" y2="268" stroke="#888" stroke-width="1.5"/>
-        <text x="200" y="292" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="900" font-size="52" fill="#C8102E" letter-spacing="4">GARAGE</text>
-        <line x1="315" y1="268" x2="380" y2="268" stroke="#888" stroke-width="1.5"/>
-        <!-- Tagline -->
-        <text x="200" y="322" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="500" font-size="16" fill="#888" letter-spacing="3">DEALER QUALITY WITHOUT DEALER PRICE</text>
-        <!-- Honda | Acura -->
-        <text x="140" y="370" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="800" font-size="20" fill="#C8102E" letter-spacing="2">HONDA</text>
-        <line x1="200" y1="352" x2="200" y2="382" stroke="#555" stroke-width="1"/>
-        <text x="260" y="370" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="800" font-size="20" fill="#FFFFFF" letter-spacing="2">ACURA</text>
-      </svg>
-    </div>
+    <picture>
+      <source
+        media="(max-width: 700px)"
+        srcset="images/gg.png"
+      >
+
+      <img
+        src="images/hero-img.png"
+        alt="Garrett's Garage Hero Vehicle"
+        class="logo-display"
+      />
+    </picture>
+</div>
   </div>
   <div class="hero-content">
     <div class="hero-eyebrow">Honda &amp; Acura Specialists</div>
@@ -869,16 +974,16 @@
     </div>
     <div class="hero-stats">
       <div>
-        <div class="stat-num">500+</div>
-        <div class="stat-label">Jobs Completed</div>
-      </div>
-      <div>
-        <div class="stat-num">4.9★</div>
+        <div class="stat-num">5.0★</div>
         <div class="stat-label">Avg. Rating</div>
       </div>
       <div>
         <div class="stat-num">12yr</div>
-        <div class="stat-label">Experience</div>
+        <div class="stat-label"><u>Experience</u></div>
+      </div>
+      <div>
+        <div class="stat-num" id="todayHours">--</div>
+        <div class="stat-label">Today's Hours</div>
       </div>
     </div>
   </div>
@@ -1467,6 +1572,25 @@ window.addEventListener('resize', () => {
     document.getElementById('burger').classList.remove('open');
   }
 });
+  
+function updateTodayHours() {
+  const schedule = {
+    0: { day: "Sunday", hours: "11AM–5PM" },
+    1: { day: "Monday", hours: "11AM–11PM" },
+    2: { day: "Tuesday", hours: "11AM–11PM" },
+    3: { day: "Wednesday", hours: "11AM–11PM" },
+    4: { day: "Thursday", hours: "11AM–11PM" },
+    5: { day: "Friday", hours: "11AM–11PM" },
+    6: { day: "Saturday", hours: "11AM–12AM" }
+  };
+
+  const today = schedule[new Date().getDay()];
+
+  document.getElementById("todayHours").textContent = today.hours;
+  document.getElementById("todayLabel").textContent = today.day;
+}
+
+updateTodayHours();
 </script>
 </body>
 </html>
