@@ -129,6 +129,11 @@
   text-transform: uppercase;   transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--red); }
+  
+.nav-links a.active {
+  color: var(--red);
+}
+
 .nav-cta {
   background: var(--red); color: var(--white);
   padding: 9px 22px; border-radius: 3px;
@@ -298,6 +303,10 @@
     content: ''; display: block;
     width: 40px; height: 2px; background: var(--red);
   }
+  .hero-eyebrow::after {
+    content: ''; display: block;
+    width: 40px; height: 2px; background: var(--red);
+  }
   .hero h1 {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900; font-size: clamp(52px, 7vw, 80px);
@@ -417,7 +426,16 @@
 }
 
   /* ── SECTION COMMONS ── */
-  section { padding: 50px 0; }
+  section { 
+    padding: 50px 0;
+    scroll-margin-top: 75px;
+  }
+  
+  section,
+  #contact {
+    scroll-margin-top: calc(var(--nav-height));
+  }
+  
   .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
   .section-label {
     font-family: 'Barlow Condensed', sans-serif;
@@ -460,6 +478,32 @@
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 50px; align-items: top;
   }
+  
+  .services-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-top: 24px;
+
+    color: var(--red);
+    text-decoration: none;
+
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    transition: gap 0.2s ease,
+                color 0.2s ease;
+  }
+
+.services-link:hover {
+  gap: 10px;
+  color: var(--white);
+}
+  
   .specialty-list { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
   .specialty-item {
     position: relative;
@@ -513,64 +557,6 @@
     font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
   }
   .badge.red { border-color: var(--red); color: var(--red); }
-
-  /* ── SERVICES ── */
-  .filter-bar {
-    display: flex; gap: 8px; flex-wrap: wrap;
-    margin-bottom: 40px;
-  }
-  .filter-btn {
-    padding: 8px 20px;
-    background: var(--surface); border: 1px solid var(--border);
-    color: var(--text-muted); cursor: pointer;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 14px; letter-spacing: 0.1em;
-    text-transform: uppercase; border-radius: 2px;
-    transition: all 0.2s;
-  }
-  .filter-btn:hover, .filter-btn.active {
-    background: var(--red); border-color: var(--red); color: var(--white);
-  }
-  .services-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-  }
-  .service-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 4px; overflow: hidden;
-    transition: all 0.25s; cursor: default;
-    position: relative;
-  }
-  .service-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0;
-    height: 3px; background: var(--red); transform: scaleX(0);
-    transform-origin: left; transition: transform 0.25s;
-  }
-  .service-card:hover { border-color: var(--red); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(200,16,46,0.15); }
-  .service-card:hover::before { transform: scaleX(1); }
-  .service-card-body { padding: 28px; }
-  .service-cat {
-    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--red); font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; margin-bottom: 10px;
-  }
-  .service-card h3 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800; font-size: 22px; text-transform: uppercase;
-    color: var(--white); margin-bottom: 10px;
-  }
-  .service-card p { color: var(--text-muted); font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
-  .service-price {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 20px; color: var(--white);
-  }
-  .service-price span { font-size: 13px; color: var(--text-muted); font-weight: 400; }
-  .service-icon-wrap {
-    width: 44px; height: 44px;
-    background: rgba(200,16,46,0.12); border: 1px solid rgba(200,16,46,0.25);
-    border-radius: 4px; display: flex; align-items: center; justify-content: center;
-    font-size: 22px; margin-bottom: 20px;
-  }
 
   /* ── COMPLETED JOBS ── */
   .jobs { background: var(--surface); }
@@ -687,9 +673,27 @@
   .schedule-info h2 span { color: var(--red); }
   .schedule-info p { color: var(--text-muted); font-size: 16px; line-height: 1.8; margin-bottom: 28px; }
   .info-item {
-    display: flex; gap: 16px; align-items: flex-start;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
     margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-decoration: none;
+    color: inherit;
+    transition: 
+      border-color 0.25s ease,
+      background 0.25s ease,
+      transform 0.25s ease;
   }
+  
+  .info-item:hover {
+    border-color: var(--red);
+    background: rgba(200,16,46,0.06);
+    transform: translateX(4px);
+  }
+  
   .info-icon {
     width: 40px; height: 40px; flex-shrink: 0;
     background: rgba(200,16,46,0.1); border: 1px solid rgba(200,16,46,0.3);
@@ -942,7 +946,19 @@
     .hero-sub {
         max-width: 100%;
         font-weight: 500;
+        margin-bottom: 40px;
         color: rgba(240, 240, 240, 0.82);
+    }
+    
+    .hero-info-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      gap: clamp(8px, 2vw, 16px);
+      margin: 0 0 clamp(24px, 3vw, 32px);
+
+      width: 100%;
+      max-width: clamp(320px, 40vw, 700px);
     }
 
     .btn-outline {
@@ -1022,8 +1038,8 @@
     </a>
 
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
+      <li><a href="#home">About</a></li>
+      <li><a href="#about">Services</a></li>
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="#jobs">Completed Jobs</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -1043,10 +1059,10 @@
 </a>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#about">About</a>
-  <a href="#services">Services</a>
-  <a href="#jobs">Past jobs</a>
+  <a href="#home">About</a>
+  <a href="#about">Services</a>
   <a href="#reviews">Reviews</a>
+  <a href="#jobs">Past jobs</a>
   <a href="#contact">Contact</a>
 </div>
 
@@ -1072,10 +1088,10 @@
   <div class="hero-content">
     <div class="hero-eyebrow">Honda &amp; Acura Specialists</div>
     <h1>Dealer <em>Quality.</em><br>Real Prices.</h1>
-    <p class="hero-sub">Garrett's Garage delivers factory-level expertise on your Honda or Acura — without the dealership markup. Trusted by hundreds of locals to keep their vehicles running right.</p>
+    <p class="hero-sub">Garrett's Garage delivers factory-level expertise on your Honda or Acura — without the dealership markup. Trusted by locals to keep their vehicles running right.</p>
     
     <div class="hero-info-cards">
-      <a href="https://maps.app.goo.gl/N8Ex2wkkWZ6U2Zyj8"
+      <a href="https://www.google.com/maps/place/Garrett%E2%80%99s+Garage/@38.6270242,-77.3302342,10z/data=!4m6!3m5!1s0x89b765288f856479:0x92c8d74c1635c9a2!8m2!3d38.3601797!4d-76.5685214!16s%2Fg%2F11nhk9b_qs?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D"
          class="hero-info-card"
          target="_blank">
 
@@ -1124,6 +1140,7 @@
       </div>
     </div>
   </div>
+  </div>
 </section>
 
 <!-- ABOUT -->
@@ -1133,8 +1150,8 @@
       <div class="about-text">
         <div class="section-label">Who We Are</div>
         <h2>Built on <span>Expertise</span></h2>
-        <p>Garrett's Garage was founded on a simple belief: you shouldn't have to pay dealership prices to get dealership-quality service. With over 12 years of specialized experience in Honda and Acura vehicles, we've built our reputation one satisfied customer at a time.</p>
-        <p>Every technician here is factory-trained, and we use OEM or OEM-equivalent parts on every job — because your vehicle deserves nothing less.</p>
+        <p>Garrett's Garage was founded on a simple belief: you shouldn't have to pay dealership prices to get dealership-quality service. With over 6 years of specialized experience in Honda and Acura vehicles, we've built our reputation one satisfied customer at a time.</p>
+        <p>We use OEM or OEM-equivalent parts on every job — because your vehicle deserves nothing less.</p>
         <div class="badge-row">
           <span class="badge red">Honda Certified</span>
           <span class="badge red">Acura Specialist</span>
@@ -1147,45 +1164,16 @@
         <div class="specialty-list">
           <div class="specialty-item"><span class="specialty-icon">🛢️</span> Scheduled Maintenance</div>
           <div class="specialty-item"><span class="specialty-icon">🔧</span> Engine Diagnostics & Repair</div>
+          <div class="specialty-item"><span class="specialty-icon">🔋</span> Head Gasket Replacement (1.5T/2.0T)</div>
           <div class="specialty-item"><span class="specialty-icon">🛑</span> Brakes &amp; Suspension Repair</div>
-          <div class="specialty-item"><span class="specialty-icon">⚙️</span>Air and Cabin Filter Replacement</div>
-          <div class="specialty-item"><span class="specialty-icon">🌡️</span> A/C & Heating Systems</div>
-          <div class="specialty-item"><span class="specialty-icon">🔋</span> Electrical & Battery Service</div>
+          <div class="specialty-item"><span class="specialty-icon">⚙️</span>Transmission and Clutch Replacement</div>
+          <div class="specialty-item"><span class="specialty-icon">🌡️</span>A/C & Heating Systems (R-134a)</div>
         </div>
+        <a href="services.html" class="services-link">
+          View Full Service Catalog →
+        </a>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services">
-  <div class="container">
-    <div class="section-label">What We Offer</div>
-    <div class="section-title">Our <span>Services</span></div>
-    <p class="section-desc">Specialized Honda and Acura service at honest prices. Filter by category to find exactly what you need.</p>
-
-    <div class="filter-bar" id="filterBar">
-      <button class="filter-btn active" data-filter="all">All Services</button>
-      <button class="filter-btn" data-filter="maintenance">Maintenance</button>
-      <button class="filter-btn" data-filter="engine">Engine</button>
-      <button class="filter-btn" data-filter="brakes">Brakes & Suspension</button>
-      <button class="filter-btn" data-filter="transmission">Transmission</button>
-      <button class="filter-btn" data-filter="electrical">Electrical</button>
-      <button class="filter-btn" data-filter="ac">A/C & Heating</button>
-    </div>
-
-    <div class="services-grid" id="servicesGrid">
-    </div>
-  </div>
-</section>
-
-<!-- COMPLETED JOBS -->
-<section class="jobs" id="jobs">
-  <div class="container">
-    <div class="section-label">Proof of Work</div>
-    <div class="section-title">Completed <span>Jobs</span></div>
-    <p class="section-desc">Real vehicles, real results. Click any job to see full details — and the customer review behind it.</p>
-    <div class="jobs-grid" id="jobsGrid"></div>
   </div>
 </section>
 
@@ -1198,6 +1186,16 @@
     <div class="reviews-grid" id="reviewsGrid"></div>
   </div>
 </section>
+  
+<!-- COMPLETED JOBS -->
+<section class="jobs" id="jobs">
+  <div class="container">
+    <div class="section-label">Proof of Work</div>
+    <div class="section-title">Completed <span>Jobs</span></div>
+    <p class="section-desc">Real vehicles, real results. Click any job to see full details — and the customer review behind it.</p>
+    <div class="jobs-grid" id="jobsGrid"></div>
+  </div>
+</section>
 
 <!-- SCHEDULE -->
 <section class="schedule" id="schedule">
@@ -1208,34 +1206,45 @@
         <h2>Schedule <span>Service</span></h2>
         <p>Ready to get your Honda or Acura taken care of? Fill out the form and we'll confirm your appointment within a few hours.</p>
 
-        <div class="info-item">
+        <a
+          href="https://www.google.com/maps/place/Garrett%E2%80%99s+Garage/@38.6270242,-77.3302342,10z/data=!4m6!3m5!1s0x89b765288f856479:0x92c8d74c1635c9a2!8m2!3d38.3601797!4d-76.5685214!16s%2Fg%2F11nhk9b_qs?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D"
+          target="_blank"
+          class="info-item"
+        >
           <div class="info-icon">📍</div>
           <div class="info-content">
             <strong>Our Location</strong>
             <span>25215 Vista Road<br>Hollywood, MD 20636</span>
           </div>
-        </div>
-        <div class="info-item">
+        </a>
+
+        <a href="tel:+12405233675" class="info-item">
           <div class="info-icon">📞</div>
           <div class="info-content">
             <strong>Call or Text</strong>
             <span>(240) 523-3675</span>
           </div>
-        </div>
-        <div class="info-item">
+        </a>
+
+        <a href="#contact" class="info-item">
           <div class="info-icon">🕐</div>
           <div class="info-content">
             <strong>Hours</strong>
-            <span>Mon – Fri: 11:00 AM – 11:00 PM<br>Sat: 11:00 AM – Midnight<br>Sun: 11 AM - 5 PM</span>
+            <span>
+              Mon – Fri: 11:00 AM – 11:00 PM<br>
+              Sat: 11:00 AM – Midnight<br>
+              Sun: 11 AM - 5 PM
+            </span>
           </div>
-        </div>
-        <div class="info-item">
+        </a>
+
+        <a href="mailto:garrettshollywood@gmail.com" class="info-item">
           <div class="info-icon">✉️</div>
           <div class="info-content">
             <strong>Email</strong>
             <span>garrettshollywood@gmail.com</span>
           </div>
-        </div>
+        </a>
       </div>
 
       <div>
@@ -1330,10 +1339,10 @@
 </section>
 
 <!-- CONTACT BAR -->
-<div class="contact-bar" id="contact">
+<section class="contact-bar" id="contact">
   <div class="container">
   </div>
-</div>
+</section>
 
 <!-- FOOTER -->
 <footer>
@@ -1433,32 +1442,6 @@ const reviews = [
   { id: 5, name: 'James W.', vehicle: '2015 Acura TLX', stars: 5, text: 'Head gasket and timing belt both done at the same time. Great value and he kept me updated with photos throughout. My TLX feels brand new. Highly recommend.', jobId: 5 },
   { id: 6, name: 'Sandra M.', vehicle: '2021 Honda Pilot', stars: 5, text: 'A/C died in the middle of summer. Garrett had it ice cold again within two days. He also noticed a small brake issue during his inspection and pointed it out — real integrity.', jobId: 6 },
 ];
-
-// ── RENDER SERVICES ──
-function renderServices(filter = 'all') {
-  const grid = document.getElementById('servicesGrid');
-  const filtered = filter === 'all' ? services : services.filter(s => s.cat === filter);
-  grid.innerHTML = filtered.map(s => `
-    <div class="service-card" data-cat="${s.cat}">
-      <div class="service-card-body">
-        <div class="service-icon-wrap">${s.icon}</div>
-        <div class="service-cat">${s.cat.toUpperCase()}</div>
-        <h3>${s.name}</h3>
-        <p>${s.desc}</p>
-        <div class="service-price">${s.price} <span>${s.priceNote}</span></div>
-      </div>
-    </div>
-  `).join('');
-}
-
-// ── FILTER LOGIC ──
-document.getElementById('filterBar').addEventListener('click', e => {
-  if (e.target.classList.contains('filter-btn')) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    e.target.classList.add('active');
-    renderServices(e.target.dataset.filter);
-  }
-});
 
 // ── RENDER JOBS ──
 function renderJobs() {
@@ -1625,7 +1608,6 @@ function toggleMenu() {
 }
 
 // ── INIT ──
-renderServices();
 renderJobs();
 renderReviews();
 
@@ -1686,6 +1668,42 @@ window.addEventListener('resize', () => {
     document.getElementById('burger').classList.remove('open');
   }
 });
+  
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+function updateActiveNav() {
+  let current = '';
+
+  document.querySelectorAll('section[id]').forEach(section => {
+    const top = section.offsetTop;
+    const bottom = top + section.offsetHeight;
+
+    console.log(
+      section.id,
+      'top:', top,
+      'bottom:', bottom,
+      'scrollY:', window.scrollY
+    );
+
+    if (window.scrollY >= top - 120) {
+      current = section.id;
+    }
+  });
+
+  console.log('ACTIVE:', current);
+
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+
+    if (link.getAttribute('href') === `#${current}`) {
+      link.classList.add('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', updateActiveNav);
+window.addEventListener('load', updateActiveNav);
   
 function updateTodayHours() {
   const schedule = {
