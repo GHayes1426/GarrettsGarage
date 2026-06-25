@@ -348,6 +348,50 @@
           box-shadow: 0 8px 24px rgba(0,0,0,.15);
         }
           
+        .review-text {
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+          
+        .review-modal {
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,.8);
+          display: none;
+          align-items: center;
+          justify-content: center;
+          z-index: 5000;
+        }
+
+        .review-modal.show {
+          display: flex;
+        }
+
+        .review-modal-content {
+          background: var(--surface);
+          border: 1px solid var(--red);
+          border-radius: 6px;
+          padding: 32px;
+          width: min(700px, 90vw);
+          max-height: 80vh;
+          overflow-y: auto;
+        }
+
+        .review-close {
+          position: absolute;
+          top: 18px;
+          right: 18px;
+          z-index: 2;
+          float: right;
+          background: none;
+          border: none;
+          color: white;
+          font-size: 24px;
+          cursor: pointer;
+        }
+          
         .rating-filter {
           display: flex;
           gap: 4px;
@@ -364,6 +408,73 @@
         .filter-star.hovered,
         .filter-star.active {
           color: var(--red);
+        }
+        
+        #modalName {
+          font-family: 'Barlow Condensed', sans-serif;
+          font-weight: 800;
+          font-size: 42px;
+          text-transform: uppercase;
+          color: var(--white);
+          margin: 0;
+        }
+          
+        #modalText {
+          color: var(--white);
+          font-style: italic;
+          font-size: 18px;
+          line-height: 1.8;
+          margin-top: 20px;
+          margin-bottom: 24px;
+        }
+          
+        .review-job-link {
+          display: inline-block;
+          color: var(--red);
+          text-decoration: none;
+          font-family: 'Barlow Condensed', sans-serif;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: .08em;
+          transition: .2s;
+        }
+
+        .review-job-link:hover {
+          color: white;
+        }
+          
+        .review-modal-content {
+          position: relative;
+        }
+
+        .review-modal-content::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: var(--red);
+        }
+          
+        .modal-title-row {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          flex-wrap: wrap;
+        }
+          
+        .modal-vehicle {
+          color: var(--text-muted);
+          font-size: 20px;
+          font-weight: 500;
+          padding-left: 20px;
+        }
+
+        .modal-stars {
+          color: #FFD700;
+          font-size: 28px;
+          padding-right: 40px;
         }
           
         /* Mobile Burger */
@@ -557,64 +668,17 @@
           <span class="filter-star" data-rating="4">★</span>
           <span class="filter-star" data-rating="5">★</span>
         </div>
-        <input
-          type="text"
-          id="reviewSearch"
-          placeholder="Search reviews..."
-          class="review-search"
-        >
+        <input type="text" id="reviewSearch" placeholder="Search reviews..." class="review-search">
       </div>
         <div class="reviews-grid" id="reviewsGrid">
       </div>
     </div>
   </div>
 </section>
+<script src="data.js"></script>
 <script>
 
 let selectedRating = null;
-
-const reviews = [
-  {
-    title: "Saved My Accord",
-    name: "Marcus T.",
-    vehicle: "2018 Honda Accord",
-    stars: 5,
-    text: "Garrett completely rebuilt my engine and had me back on the road in just a few days. The car runs better than it ever has.",
-    service: "Engine Rebuild"
-  },
-  {
-    title: "Transmission Feels Brand New",
-    name: "Priya K.",
-    vehicle: "2020 Acura MDX",
-    stars: 4,
-    text: "My MDX had a terrifying transmission shudder. Garrett diagnosed it immediately and fixed the issue.",
-    service: "Transmission Rebuild"
-  },
-  {
-    title: "Transmission Feels Brand New",
-    name: "Priya K.",
-    vehicle: "2020 Acura MDX",
-    stars: 3,
-    text: "My MDX had a terrifying transmission shudder. Garrett diagnosed it immediately and fixed the issue.",
-    service: "Transmission Rebuild"
-  },
-  {
-    title: "Transmission Feels Brand New",
-    name: "Priya K.",
-    vehicle: "2020 Acura MDX",
-    stars: 2,
-    text: "My MDX had a terrifying transmission shudder. Garrett diagnosed it immediately and fixed the issue.",
-    service: "Transmission Rebuild"
-  },
-  {
-    title: "Transmission Feels Brand New",
-    name: "Priya K.",
-    vehicle: "2020 Acura MDX",
-    stars: 1,
-    text: "My MDX had a terrifying transmission shudder. Garrett diagnosed it immediately and fixed the issue.",
-    service: "Transmission Rebuild"
-  }
-];
 
 // ── RENDER REVIEWS ──
 function renderReviews() {
@@ -637,13 +701,13 @@ function renderReviews() {
   if (search) {
     filtered = filtered.filter(r =>
       (
-        r.title +
+        r.jobTitle +
         ' ' +
         r.text +
         ' ' +
         r.vehicle +
         ' ' +
-        r.service +
+        r.category +
         ' ' +
         r.name
       )
@@ -654,14 +718,14 @@ function renderReviews() {
 
   document.getElementById('reviewsGrid').innerHTML =
     filtered.map(r => `
-      <div class="review-card">
+      <div class="review-card" onclick="openReview(${r.id})">
         <div class="review-card-body">
 
           <div class="review-header">
             <div>
               <h3>${r.name}</h3>
               <div class="review-meta">
-                ${r.vehicle} • ${r.service}
+                ${r.vehicle} • ${r.category}
               </div>
             </div>
 
@@ -671,14 +735,41 @@ function renderReviews() {
           </div>
 
           <div class="review-title">
-            ${r.title}
+            ${r.jobTitle}
           </div>
 
-          <p>"${r.text}"</p>
+          <p class="review-text">"${r.text}"</p>
 
         </div>
       </div>
     `).join('');
+}
+  
+function openReview(id) {
+  const review = reviews.find(r => r.id === id);
+
+  document.getElementById('modalName').textContent =
+    review.name;
+
+  document.getElementById('modalVehicle').textContent =
+    review.vehicle;
+
+  document.getElementById('modalStars').textContent =
+    "★".repeat(review.stars);
+
+  document.getElementById('modalText').textContent =
+    review.text;
+
+  document.getElementById('modalJobLink').href =
+    '/index.html#jobs';
+
+  document.getElementById('reviewModal')
+    .classList.add('show');
+}
+
+function closeReview() {
+  document.getElementById('reviewModal')
+    .classList.remove('show');
 }
 
 function updateNavOffsets() {
@@ -799,5 +890,36 @@ stars.forEach(star => {
 renderReviews();
 
 </script>
+  <div
+    class="review-modal"
+    id="reviewModal"
+    onclick="closeReview()"
+  >
+  <div
+    class="review-modal-content"
+    onclick="event.stopPropagation()"
+  >
+
+    <button class="review-close" onclick="closeReview()">✕</button>
+
+    <div class="review-header">
+      <div class="modal-title-row">
+        <h3 id="modalName"></h3>
+        <div id="modalVehicle" class="modal-vehicle"></div>
+      </div>
+
+      <div id="modalStars" class="modal-stars"></div>
+    </div>
+
+    <div id="modalJob" class="review-title"></div>
+
+    <p id="modalText"></p>
+
+    <a id="modalJobLink" class="review-job-link">
+      View Completed Job →
+    </a>
+
+  </div>
+</div>
 </body>
 </html>
