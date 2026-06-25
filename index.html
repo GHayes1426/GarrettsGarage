@@ -490,7 +490,7 @@
     text-transform: uppercase;
 
     transition: gap 0.2s ease,
-                color 0.2s ease;
+      color 0.2s ease;
   }
 
 .page-link:hover {
@@ -612,6 +612,113 @@
   .job-review-link:hover { text-decoration: underline; }
 
   /* ── REVIEWS ── */
+  .review-viewport {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .featured-review {
+    flex: 0 0 100%;
+    min-width: 100%;
+    height: 240px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .review-carousel {
+    position: relative;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  
+  .review-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(.22,.61,.36,1);
+  }
+
+  .review-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 56px;
+    height: 56px;
+
+    border: 1px solid var(--border);
+    background: var(--surface);
+
+    color: var(--white);
+    font-size: 24px;
+
+    cursor: pointer;
+    transition: .25s ease;
+  }
+  
+  .review-arrow.prev {
+    left: 0;
+  }
+
+  .review-arrow.next {
+    right: 0;
+  }
+
+  .review-arrow:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .featured-review {
+    min-width: 80%;
+    margin: 0 10%;
+    flex-shrink: 0;
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px;
+    border-radius: 4px;
+
+    opacity: 1;
+    transform: translateX(0);
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease;
+  }
+
+  .featured-review.changing {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  .review-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    margin-top: 24px;
+  }
+
+  .review-dot {
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+    background: #444;
+
+    cursor: pointer;
+  }
+
+  .review-dot.active {
+    background: var(--red);
+  }
+  
   .reviews-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
@@ -628,9 +735,13 @@
   .review-text {
     font-size: 15px; color: var(--text); line-height: 1.7;
     margin-bottom: 20px; font-style: italic;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .review-author {
-    display: flex; align-items: center; gap: 12px;
+    display: flex; align-items: center; gap: 12px; margin-top: auto;
   }
   .review-avatar {
     width: 40px; height: 40px; border-radius: 50%;
@@ -909,7 +1020,7 @@
       position: absolute;
       inset: -3%;
       overflow: hidden;
-      background-image: url("images/GG.png");
+      background-image: url("images/gg.png");
       background-repeat: no-repeat;
       background-position: center;
       background-size: clamp(450px, 100vw, 1000px);
@@ -1068,7 +1179,7 @@
     <picture>
       <source
         media="(max-width: 700px)"
-        srcset="images/GG.png"
+        srcset="images/gg.png"
       >
 
       <img
@@ -1178,13 +1289,21 @@
 <!-- REVIEWS -->
 <section id="reviews">
   <div class="container">
-    <div class="section-label">Customer Feedback</div>
-    <div class="section-title">What They're <span>Saying</span></div>
-    <p class="section-desc">Click any review to see the completed job it came from.</p>
-    <div class="reviews-grid" id="reviewsGrid"></div>
+  <div class="section-label">What They're Saying</div>
+  <div class="section-title">Customer <span>Reviews</span></div>
+  <div class="review-carousel">
+    <button class="review-arrow prev" onclick="prevReview()">‹</button>
+    <div class="review-viewport">
+      <div class="review-track" id="reviewTrack">
+        <!-- all review cards here -->
+      </div>
+    </div>
+    <button class="review-arrow next" onclick="nextReview()">›</button>
+  </div>
+  <div class="review-dots" id="reviewDots"></div>
     <a href="reviews.html" class="page-link">
-          View All Reviews →
-        </a>
+      View All Reviews →
+    </a>
   </div>
 </section>
   
@@ -1405,7 +1524,7 @@
   <div class="toast-title">✅ Appointment Requested!</div>
   <div class="toast-body">We'll confirm your booking within a few hours.</div>
 </div>
-
+<script src="data.js"></script>
 <script>
 // ── DATA ──
 const services = [
@@ -1424,24 +1543,6 @@ const services = [
   { cat: 'electrical', icon: '💡', name: 'Electrical Diagnosis', desc: 'Pinpoint shorts, bad grounds, sensor failures, and other electrical gremlins in your Honda/Acura.', price: 'From $89', priceNote: '/hour' },
   { cat: 'ac', icon: '❄️', name: 'A/C Recharge', desc: 'Refrigerant recharge with leak inspection to get your cabin cool again.', price: 'From $129', priceNote: '/service' },
   { cat: 'ac', icon: '🌡️', name: 'A/C Compressor Replacement', desc: 'Full compressor R&R with dye test and system recharge. OEM compressors available.', price: 'From $599', priceNote: '/job' },
-];
-
-const jobs = [
-  { id: 1, title: '2018 Honda Accord Engine Rebuild', cat: 'Engine', desc: 'Complete engine rebuild after oil starvation. New rings, bearings, and head work.', vehicle: '2018 Honda Accord 2.0T', tech: 'Garrett', hours: '18 hrs', reviewId: 1 },
-  { id: 2, title: '2020 Acura MDX Transmission', cat: 'Transmission', desc: 'Full 9-speed automatic rebuild after shuddering under acceleration.', vehicle: '2020 Acura MDX SH-AWD', tech: 'Garrett', hours: '12 hrs', reviewId: 2 },
-  { id: 3, title: '2016 Honda Civic Brake Overhaul', cat: 'Brakes', desc: 'Four-wheel brake overhaul with new rotors, pads, and calipers front and rear.', vehicle: '2016 Honda Civic Si', tech: 'Garrett', hours: '4 hrs', reviewId: 3 },
-  { id: 4, title: '2019 Honda CR-V Timing Chain', cat: 'Engine', desc: 'Timing chain and tensioner replacement along with VTC actuator. Oil consumption addressed.', vehicle: '2019 Honda CR-V 1.5T', tech: 'Garrett', hours: '8 hrs', reviewId: 4 },
-  { id: 5, title: '2015 Acura TLX Head Gasket', cat: 'Engine', desc: 'Head gasket replacement with resurfacing on the SH-AWD 3.5L V6. New timing belt included.', vehicle: '2015 Acura TLX 3.5L', tech: 'Garrett', hours: '14 hrs', reviewId: 5 },
-  { id: 6, title: '2021 Honda Pilot A/C System', cat: 'A/C', desc: 'Compressor, condenser, and orifice tube replacement on 3.5L V6. Rear zone also serviced.', vehicle: '2021 Honda Pilot Elite', tech: 'Garrett', hours: '6 hrs', reviewId: 6 },
-];
-
-const reviews = [
-  { id: 1, name: 'Marcus T.', vehicle: '2018 Honda Accord', stars: 5, text: 'Garrett completely rebuilt my engine after a catastrophic failure. His pricing was less than half what the dealership quoted and the work was flawless. Running better than ever.', jobId: 1 },
-  { id: 2, name: 'Priya K.', vehicle: '2020 Acura MDX', stars: 5, text: 'My MDX had a terrifying transmission shudder. Garrett diagnosed it same day and had it rebuilt in under a week. Communication was excellent throughout. Absolutely the best.', jobId: 2 },
-  { id: 3, name: 'Derek S.', vehicle: '2016 Honda Civic Si', stars: 5, text: 'Full brake job done right. He showed me the worn-out parts before and after. Honest, fast, and way cheaper than the dealer. I\'ll never go anywhere else for my Civic.', jobId: 3 },
-  { id: 4, name: 'Alicia R.', vehicle: '2019 Honda CR-V', stars: 5, text: 'CR-V timing chain rattling on cold start — Garrett fixed the known Honda issue properly and even addressed the oil consumption problem. Saved me from a major breakdown.', jobId: 4 },
-  { id: 5, name: 'James W.', vehicle: '2015 Acura TLX', stars: 5, text: 'Head gasket and timing belt both done at the same time. Great value and he kept me updated with photos throughout. My TLX feels brand new. Highly recommend.', jobId: 5 },
-  { id: 6, name: 'Sandra M.', vehicle: '2021 Honda Pilot', stars: 5, text: 'A/C died in the middle of summer. Garrett had it ice cold again within two days. He also noticed a small brake issue during his inspection and pointed it out — real integrity.', jobId: 6 },
 ];
 
 // ── RENDER JOBS ──
@@ -1469,22 +1570,96 @@ function renderJobs() {
   `).join('');
 }
 
-// ── RENDER REVIEWS ──
+// ── REVIEW CAROUSEL ──
+let currentReview = 0;
+
+function updateCarousel() {
+  const track = document.getElementById('reviewTrack');
+
+  track.style.transform =
+    `translateX(-${currentReview * 100}%)`;
+
+  document.getElementById('reviewDots').innerHTML =
+    reviews.map((_, i) => `
+      <span
+        class="review-dot ${i === currentReview ? 'active' : ''}"
+        onclick="goToReview(${i})"
+      ></span>
+    `).join('');
+}
+  
+let carouselInterval;
 function renderReviews() {
-  document.getElementById('reviewsGrid').innerHTML = reviews.map(r => `
-    <a class="review-card" onclick="openJobModal(${r.jobId}); return false;" href="#">
-      <div class="review-stars">${'★'.repeat(r.stars)}</div>
-      <p class="review-text">"${r.text}"</p>
-      <div class="review-author">
-        <div class="review-avatar">${r.name.charAt(0)}</div>
-        <div>
-          <div class="review-name">${r.name}</div>
-          <div class="review-vehicle">${r.vehicle}</div>
+  document.getElementById('reviewTrack').innerHTML =
+    reviews.map(review => `
+      <div class="featured-review">
+        <div class="review-stars">
+          ${'★'.repeat(review.stars)}
+        </div>
+
+        <p class="review-text">
+          "${review.text}"
+        </p>
+
+        <div class="review-author">
+          <div class="review-avatar">
+            ${review.name.charAt(0)}
+          </div>
+
+          <div>
+            <div class="review-name">${review.name}</div>
+            <div class="review-vehicle">${review.vehicle}</div>
+          </div>
         </div>
       </div>
-      <div class="review-job-link">See the Job →</div>
-    </a>
-  `).join('');
+    `).join('');
+
+  document.getElementById('reviewDots').innerHTML =
+    reviews.map((_, i) => `
+      <span
+        class="review-dot ${i === currentReview ? 'active' : ''}"
+        onclick="goToReview(${i})"
+      ></span>
+    `).join('');
+
+  updateCarousel();
+}
+
+function nextReview() {
+  currentReview++;
+
+  if (currentReview >= reviews.length) {
+    currentReview = 0;
+  }
+
+  updateCarousel();
+}
+
+function prevReview() {
+  currentReview--;
+
+  if (currentReview < 0) {
+    currentReview = reviews.length - 1;
+  }
+
+  updateCarousel();
+}
+  
+function goToReview(index) {
+  currentReview = index;
+  renderReviews();
+  restartCarousel();
+}
+
+function startCarousel() {
+  carouselInterval = setInterval(() => {
+    nextReview();
+  }, 5000);
+}
+
+function restartCarousel() {
+  clearInterval(carouselInterval);
+  startCarousel();
 }
 
 // ── MODAL ──
@@ -1611,6 +1786,7 @@ function toggleMenu() {
 // ── INIT ──
 renderJobs();
 renderReviews();
+startCarousel();
 
 // Animate on scroll
 const observer = new IntersectionObserver((entries) => {
@@ -1735,19 +1911,18 @@ window.addEventListener('load', updateActiveNav);
   
 function updateTodayHours() {
   const schedule = {
-    0: { day: "Sunday", hours: "11AM–5PM" },
-    1: { day: "Monday", hours: "11AM–11PM" },
-    2: { day: "Tuesday", hours: "11AM–11PM" },
-    3: { day: "Wednesday", hours: "11AM–11PM" },
-    4: { day: "Thursday", hours: "11AM–11PM" },
-    5: { day: "Friday", hours: "11AM–11PM" },
-    6: { day: "Saturday", hours: "11AM–12AM" }
+    0: { day: "Sunday", hours: "11am – 5pm" },
+    1: { day: "Monday", hours: "11am – 11pm" },
+    2: { day: "Tuesday", hours: "11am – 11pm" },
+    3: { day: "Wednesday", hours: "11am – 11pm" },
+    4: { day: "Thursday", hours: "11am – 11pm" },
+    5: { day: "Friday", hours: "11am – 11pm" },
+    6: { day: "Saturday", hours: "11am – 12pm" }
   };
 
   const today = schedule[new Date().getDay()];
 
   document.getElementById("todayHours").textContent = today.hours;
-  document.getElementById("todayLabel").textContent = today.day;
 }
 
 updateTodayHours();
