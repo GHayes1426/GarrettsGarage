@@ -293,20 +293,12 @@
     max-width: 560px; margin-left: max(32px, calc(50vw - 640px));
   }
   .hero-eyebrow {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 13px;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--red); margin-bottom: 20px;
-    display: flex; align-items: center; gap: 12px;
+    height: clamp(60px, 4vw, 48px);
+    width: auto;
+    padding-bottom: 20px;
+    display: block;
   }
-  .hero-eyebrow::before {
-    content: ''; display: block;
-    width: 40px; height: 2px; background: var(--red);
-  }
-  .hero-eyebrow::after {
-    content: ''; display: block;
-    width: 40px; height: 2px; background: var(--red);
-  }
+  
   .hero h1 {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900; font-size: clamp(52px, 7vw, 80px);
@@ -383,7 +375,7 @@
 
   padding: clamp(8px, 1.5vw, 14px);
 
-  background: rgba(255,255,255,0.03);
+  background: rgba(33, 33, 33, 0.77);
   border: 1px solid var(--border);
   border-radius: 4px;
 
@@ -392,7 +384,7 @@
 
 .hero-info-card:hover {
   border-color: var(--red);
-  background: rgba(200,16,46,0.08);
+  background: rgba(85, 3, 17, 0.85);
   transform: translateY(-2px);
 }
 
@@ -435,6 +427,8 @@
   #contact {
     scroll-margin-top: calc(var(--nav-height));
   }
+  
+  
   
   .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
   .section-label {
@@ -479,7 +473,7 @@
     gap: 50px; align-items: top;
   }
   
-  .services-link {
+  .page-link {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -499,7 +493,7 @@
                 color 0.2s ease;
   }
 
-.services-link:hover {
+.page-link:hover {
   gap: 10px;
   color: var(--white);
 }
@@ -708,7 +702,7 @@
   .info-content span { color: var(--text-muted); font-size: 14px; }
 
   /* Form */
-  .schedule-form { display: flex; flex-direction: column; gap: 16px; }
+  .schedule-form { display: flex; flex-direction: column; gap: 16px;}
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .form-group { display: flex; flex-direction: column; gap: 6px; }
   .form-group label {
@@ -1042,7 +1036,7 @@
       <li><a href="#about">Services</a></li>
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="#jobs">Completed Jobs</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#schedule">Contact</a></li>
     </ul>
 
     <button class="burger" id="burger" onclick="toggleMenu()">
@@ -1063,7 +1057,7 @@
   <a href="#about">Services</a>
   <a href="#reviews">Reviews</a>
   <a href="#jobs">Past jobs</a>
-  <a href="#contact">Contact</a>
+  <a href="#schedule">Contact</a>
 </div>
 
 <!-- HERO -->
@@ -1086,7 +1080,11 @@
 </div>
   </div>
   <div class="hero-content">
-    <div class="hero-eyebrow">Honda &amp; Acura Specialists</div>
+    <img
+        src="images/HAlogos.png"
+        alt="Garrett's Garage Hero Vehicle"
+        class="hero-eyebrow"
+      />
     <h1>Dealer <em>Quality.</em><br>Real Prices.</h1>
     <p class="hero-sub">Garrett's Garage delivers factory-level expertise on your Honda or Acura — without the dealership markup. Trusted by locals to keep their vehicles running right.</p>
     
@@ -1127,15 +1125,15 @@
     </div>
     <div class="hero-stats">
       <div>
-        <div class="stat-num">5.0★</div>
+        <div class="stat-num">5.0 ★</div>
         <div class="stat-label">Avg. Rating</div>
       </div>
       <div>
-        <div class="stat-num">6yr</div>
+        <div class="stat-num">6 yr</div>
         <div class="stat-label">Experience</div>
       </div>
       <div>
-        <div class="stat-num" id="todayHours">--</div>
+        <div class="stat-num" id="todayHours">11AM – 11PM</div>
         <div class="stat-label">Today's Hours</div>
       </div>
     </div>
@@ -1154,8 +1152,8 @@
         <p>We use OEM or OEM-equivalent parts on every job — because your vehicle deserves nothing less.</p>
         <div class="badge-row">
           <span class="badge red">Honda Certified</span>
-          <span class="badge red">Acura Specialist</span>
-          <span class="badge">OEM Parts</span>
+          <span class="badge red">Acura Certified</span>
+          <span class="badge red">OEM Parts</span>
         </div>
       </div>
       <div>
@@ -1169,7 +1167,7 @@
           <div class="specialty-item"><span class="specialty-icon">⚙️</span>Transmission and Clutch Replacement</div>
           <div class="specialty-item"><span class="specialty-icon">🌡️</span>A/C & Heating Systems (R-134a)</div>
         </div>
-        <a href="services.html" class="services-link">
+        <a href="services.html" class="page-link">
           View Full Service Catalog →
         </a>
       </div>
@@ -1184,6 +1182,9 @@
     <div class="section-title">What They're <span>Saying</span></div>
     <p class="section-desc">Click any review to see the completed job it came from.</p>
     <div class="reviews-grid" id="reviewsGrid"></div>
+    <a href="reviews.html" class="page-link">
+          View All Reviews →
+        </a>
   </div>
 </section>
   
@@ -1672,31 +1673,58 @@ window.addEventListener('resize', () => {
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
 
+let navLock = false;
+
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    navLock = true;
+
+    navLinks.forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+
+    const targetId = link.getAttribute('href').replace('#', '');
+    const target = document.getElementById(targetId);
+
+    function checkArrival() {
+      if (!target) {
+        navLock = false;
+        return;
+      }
+
+      const distance = Math.abs(target.getBoundingClientRect().top - 80);
+
+      if (distance < 10) {
+        navLock = false;
+        window.removeEventListener('scroll', checkArrival);
+      }
+    }
+
+    window.addEventListener('scroll', checkArrival);
+  });
+});
+
 function updateActiveNav() {
+  if (navLock) return;
+
   let current = '';
 
-  document.querySelectorAll('section[id]').forEach(section => {
+  sections.forEach(section => {
     const top = section.offsetTop;
-    const bottom = top + section.offsetHeight;
-
-    console.log(
-      section.id,
-      'top:', top,
-      'bottom:', bottom,
-      'scrollY:', window.scrollY
-    );
 
     if (window.scrollY >= top - 120) {
       current = section.id;
     }
   });
 
-  console.log('ACTIVE:', current);
-
   navLinks.forEach(link => {
     link.classList.remove('active');
 
-    if (link.getAttribute('href') === `#${current}`) {
+    const href = link.getAttribute('href');
+
+    if (
+      href === `#${current}` ||
+      (current === 'schedule' && href === '#schedule')
+    ) {
       link.classList.add('active');
     }
   });
