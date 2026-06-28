@@ -1,0 +1,309 @@
+body {
+  margin: 0;
+  position: relative;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 70px,
+    rgba(200, 16, 46, 0.28) 70px,
+    rgba(200, 16, 46, 0.28) 72px
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.85) 25%,
+    rgba(0, 0, 0, 0.45) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: "";
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  height: 800px;
+  background: linear-gradient(
+    to bottom,
+    rgba(200, 16, 46, 0.28) 0%,
+    rgba(200, 16, 46, 0.12) 30%,
+    rgba(200, 16, 46, 0.04) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.nav-home {
+  display: flex;
+  align-items: center;
+  padding: 10px 22px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  text-decoration: none;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.25s ease;
+}
+.nav-home:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+.section-label {
+  color: var(--text);
+  padding-top: 0;
+}
+.page-hero {
+  padding: 10px 0 100px;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+}
+.page-hero .container {
+  position: relative;
+  z-index: 1;
+}
+#jobs {
+  position: relative;
+  overflow: hidden;
+  padding-top: 0;
+  margin-top: 0;
+  padding-top: calc(var(--nav-height) + 20px);
+  padding-bottom: 80px;
+}
+#jobs .container {
+  position: relative;
+  z-index: 1;
+}
+.page-hero .container {
+  position: relative;
+  z-index: 2;
+}
+.page-hero h1 {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 900;
+  font-size: clamp(48px, 7vw, 80px);
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+.page-hero h1 span {
+  color: var(--red);
+}
+.page-hero p {
+  max-width: 650px;
+  color: var(--text-muted);
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+.section-desc {
+  color: var(--text);
+  max-width: 700px;
+  margin-bottom: 40px;
+}
+.btn-primary {
+  display: inline-block;
+  background: var(--red);
+  color: white;
+  text-decoration: none;
+  padding: 12px 28px;
+  border-radius: 4px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.job-category h2 {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(28px, 4vw, 42px);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.job-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.job-img-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.car-icon {
+  font-size: 48px;
+  opacity: 0.3;
+}
+.job-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8, 8, 8, 0.8) 0%, transparent 60%);
+}
+.job-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--red);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 2px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.job-body {
+  padding: 20px 24px;
+}
+.job-body h3 {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.job-meta {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.job-meta-dot {
+  color: var(--red);
+}
+.job-review-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  color: var(--red);
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.job-review-link:hover {
+  text-decoration: underline;
+}
+.job-item:hover::before {
+  width: 100%;
+  opacity: 0.08;
+}
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.filter-btn {
+  padding: 8px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+}
+.jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+.job-card {
+  background: var(--black);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.25s;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.job-card:hover {
+  border-color: var(--red);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(200, 16, 46, 0.12);
+}
+.job-card h3 {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.job-card p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.jobs-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+.jobs-search {
+  flex: 1;
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--white);
+  padding: 15px 20px;
+  border-radius: 4px;
+  font-family: "Barlow", sans-serif;
+}
+.jobs-search:focus {
+  outline: none;
+  border-color: var(--red);
+}
+.mobile-menu a {
+  border: 1px solid #000;
+}
+.floating-book-btn {
+  right: 0;
+}
+
+@media (max-width: 800px) {
+}
