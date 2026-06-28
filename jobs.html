@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Garrett's Garage | Services</title>
+        <title>Garrett's Garage | Completed Jobs</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
             href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap"
@@ -19,6 +19,7 @@
                 --text: #f0f0f0;
                 --text-muted: #888;
                 --white: #ffffff;
+                --nav-height: 80px;
             }
 
             *,
@@ -229,7 +230,7 @@
                 z-index: 1;
             }
 
-            #services {
+            #jobs {
                 position: relative;
                 overflow: hidden;
                 padding-top: 0;
@@ -238,7 +239,7 @@
                 padding-bottom: 80px;
             }
 
-            #services .container {
+            #jobs .container {
                 position: relative;
                 z-index: 1;
             }
@@ -301,82 +302,112 @@
                 text-transform: uppercase;
             }
 
-            .service-category {
-                margin-bottom: 80px;
-            }
-
-            .service-category h2 {
+            .job-category h2 {
                 font-family: "Barlow Condensed", sans-serif;
                 font-size: clamp(28px, 4vw, 42px);
                 text-transform: uppercase;
                 margin-bottom: 24px;
             }
-
-            .service-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 20px;
-            }
-
-            .service-item {
+            
+            .job-img {
+                width: 100%;
+                aspect-ratio: 16 / 9;
+                background: var(--surface2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 position: relative;
                 overflow: hidden;
-
-                background: var(--surface);
-                border: 1px solid var(--border);
-                border-radius: 4px;
-
-                padding: 28px;
-
-                transition:
-                    transform 0.25s ease,
-                    border-color 0.25s ease,
-                    box-shadow 0.25s ease;
             }
 
-            .service-item::before {
-                content: "";
+            .job-img-placeholder {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                color: var(--text-muted);
+                font-family: "Barlow Condensed", sans-serif;
+                font-weight: 700;
+                font-size: 13px;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+            }
 
+            .car-icon {
+                font-size: 48px;
+                opacity: 0.3;
+            }
+
+            .job-overlay {
                 position: absolute;
-                top: 0;
-                left: 0;
+                inset: 0;
+                background: linear-gradient(to top, rgba(8, 8, 8, 0.8) 0%, transparent 60%);
+            }
 
-                width: 4px;
-                height: 100%;
-
+            .job-tag {
+                position: absolute;
+                top: 12px;
+                left: 12px;
                 background: var(--red);
-
-                transition: width 0.3s ease;
+                color: white;
+                padding: 4px 10px;
+                border-radius: 2px;
+                font-family: "Barlow Condensed", sans-serif;
+                font-weight: 700;
+                font-size: 12px;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
             }
 
-            .service-item:hover {
-                transform: translateY(-6px);
-
-                border-color: var(--red);
-
-                box-shadow: 0 12px 30px rgba(200, 16, 46, 0.15);
+            .job-body {
+                padding: 20px 24px;
             }
 
-            .service-item:hover::before {
+            .job-body h3 {
+                font-family: "Barlow Condensed", sans-serif;
+                font-weight: 800;
+                font-size: 20px;
+                text-transform: uppercase;
+                color: var(--white);
+                margin-bottom: 6px;
+            }
+
+            .job-meta {
+                display: flex;
+                gap: 16px;
+                align-items: center;
+                font-size: 13px;
+                color: var(--text-muted);
+            }
+
+            .job-meta-dot {
+                color: var(--red);
+            }
+
+            .job-review-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                margin-top: 12px;
+                color: var(--red);
+                font-family: "Barlow Condensed", sans-serif;
+                font-weight: 700;
+                font-size: 14px;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                text-decoration: none;
+            }
+
+            .job-review-link:hover {
+                text-decoration: underline;
+            }
+
+            .job-item:hover::before {
                 width: 100%;
                 opacity: 0.08;
             }
 
-            .service-item h3 {
-                margin-bottom: 10px;
-                color: var(--white);
-            }
-
-            .service-item p {
-                color: var(--text-muted);
-            }
-
-            .service-cta {
-                background: var(--surface);
-                text-align: center;
-            }
-
-            /* ── SERVICES ── */
+            /* ── JOBS ── */
             .filter-bar {
                 display: flex;
                 gap: 8px;
@@ -403,53 +434,30 @@
                 border-color: var(--red);
                 color: var(--white);
             }
-            .services-grid {
+            .jobs-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
                 gap: 20px;
             }
-            .service-card {
-                background: var(--surface);
+            .job-card {
+                background: var(--black);
                 border: 1px solid var(--border);
                 border-radius: 4px;
                 overflow: hidden;
                 transition: all 0.25s;
-                cursor: default;
-                position: relative;
+                cursor: pointer;
+                text-decoration: none;
+                color: inherit;
+                display: block;
             }
-            .service-card::before {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 3px;
-                background: var(--red);
-                transform: scaleX(0);
-                transform-origin: left;
-                transition: transform 0.25s;
-            }
-            .service-card:hover {
+            
+            .job-card:hover {
                 border-color: var(--red);
                 transform: translateY(-4px);
-                box-shadow: 0 16px 40px rgba(200, 16, 46, 0.15);
+                box-shadow: 0 12px 32px rgba(200, 16, 46, 0.12);
             }
-            .service-card:hover::before {
-                transform: scaleX(1);
-            }
-            .service-card-body {
-                padding: 28px;
-            }
-            .service-cat {
-                font-size: 11px;
-                letter-spacing: 0.15em;
-                text-transform: uppercase;
-                color: var(--red);
-                font-family: "Barlow Condensed", sans-serif;
-                font-weight: 700;
-                margin-bottom: 10px;
-            }
-            .service-card h3 {
+            
+            .job-card h3 {
                 font-family: "Barlow Condensed", sans-serif;
                 font-weight: 800;
                 font-size: 22px;
@@ -457,34 +465,34 @@
                 color: var(--white);
                 margin-bottom: 10px;
             }
-            .service-card p {
+            .job-card p {
                 color: var(--text-muted);
                 font-size: 14px;
                 line-height: 1.7;
                 margin-bottom: 16px;
             }
-            .service-price {
-                font-family: "Barlow Condensed", sans-serif;
-                font-weight: 700;
-                font-size: 20px;
-                color: var(--white);
-            }
-            .service-price span {
-                font-size: 13px;
-                color: var(--text-muted);
-                font-weight: 400;
-            }
-            .service-icon-wrap {
-                width: 44px;
-                height: 44px;
-                background: rgba(200, 16, 46, 0.12);
-                border: 1px solid rgba(200, 16, 46, 0.25);
-                border-radius: 4px;
+
+            .jobs-controls {
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 22px;
-                margin-bottom: 20px;
+                flex-direction: column;
+                gap: 18px;
+                margin-bottom: 32px;
+            }
+
+            .jobs-search {
+                flex: 1;
+                width: 100%;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                color: var(--white);
+                padding: 15px 20px;
+                border-radius: 4px;
+                font-family: "Barlow", sans-serif;
+            }
+
+            .jobs-search:focus {
+                outline: none;
+                border-color: var(--red);
             }
 
             /* Mobile Burger */
@@ -634,9 +642,9 @@
 
                 <ul class="nav-links">
                     <li><a href="/index.html">About</a></li>
-                    <li><a href="/services.html" class="active">Services</a></li>
+                    <li><a href="/services.html">Services</a></li>
                     <li><a href="/reviews.html">Reviews</a></li>
-                    <li><a href="/index.html#jobs">Completed Jobs</a></li>
+                    <li><a href="/jobs.html" class="active">Completed Jobs</a></li>
                     <li><a href="/index.html#schedule">Contact</a></li>
                 </ul>
 
@@ -652,34 +660,35 @@
 
         <div class="mobile-menu" id="mobileMenu">
             <a href="/index.html">About</a>
-            <a href="/services.html" class="active">Services</a>
+            <a href="/services.html">Services</a>
             <a href="/reviews.html">Reviews</a>
-            <a href="/index.html#jobs">Past jobs</a>
+            <a href="/jobs.html" class="active">Past jobs</a>
             <a href="/index.html#schedule">Contact</a>
         </div>
 
-        <!-- SERVICES -->
-        <section id="services">
+        <!-- JOBS -->
+        <section id="jobs">
             <div class="container">
-                <div class="section-label">What We Offer</div>
-                <div class="section-title">Our <span>Services</span></div>
-                <p class="section-desc">
-                    Specialized Honda and Acura service at honest prices. Filter by category to find exactly what you
-                    need.
-                </p>
+                <div class="section-label">What We've Done</div>
+                <div class="section-title">Completed&nbsp;<span>jobs</span></div>
+                <p class="section-desc">Real repairs completed by our expert technicians.</p>
 
-                <div class="filter-bar" id="filterBar">
-                    <button class="filter-btn active" data-filter="all">All Services</button>
-                    <button class="filter-btn" data-filter="maintenance">Maintenance</button>
-                    <button class="filter-btn" data-filter="engine">Engine</button>
-                    <button class="filter-btn" data-filter="brakes">Brakes & Suspension</button>
-                    <button class="filter-btn" data-filter="transmission">Transmission</button>
-                    <button class="filter-btn" data-filter="ac">A/C & Heating</button>
+                <div class="jobs-controls">
+                    <input type="text" id="jobSearch" placeholder="Search completed jobs..." class="jobs-search" />
+                    <div class="filter-bar" id="filterBar">
+                        <button class="filter-btn active" data-filter="all">All Jobs</button>
+                        <button class="filter-btn" data-filter="Maintenance">Maintenance</button>
+                        <button class="filter-btn" data-filter="Engine">Engine</button>
+                        <button class="filter-btn" data-filter="Brakes & Suspension">Brakes & Suspension</button>
+                        <button class="filter-btn" data-filter="Transmission">Transmission</button>
+                        <button class="filter-btn" data-filter="A/C & Heating">A/C & Heating</button>
+                    </div>
                 </div>
 
-                <div class="services-grid" id="servicesGrid"></div>
+                <div class="jobs-grid" id="jobsGrid"></div>
             </div>
         </section>
+        <script src="data.js"></script>
         <script>
             function getJob(jobId) {
                 return jobs.find((j) => j.jobId === jobId);
@@ -693,107 +702,69 @@
                 return reviews.find((r) => r.reviewId === reviewId);
             }
 
-            const services = [
-                {
-                    cat: "maintenance",
-                    icon: "🛢️",
-                    name: "Oil Change & Filter",
-                    desc: "Full synthetic or conventional oil change with filter replacement and multi-point inspection.",
-                    price: "From $100",
-                    priceNote: "/visit"
-                },
-                {
-                    cat: "maintenance",
-                    icon: "🔍",
-                    name: "Multi-Point Inspection",
-                    desc: "Comprehensive inspection covering brakes, fluids, belts, hoses, and more.",
-                    price: "Free",
-                    priceNote: " with service"
-                },
-                {
-                    cat: "engine",
-                    icon: "🔧",
-                    name: "Engine Diagnostics",
-                    desc: "Computer scan plus hands-on diagnosis to identify the root cause of check engine lights or unusual symptoms.",
-                    price: "From $100",
-                    priceNote: "/diagnostic"
-                },
-                {
-                    cat: "engine",
-                    icon: "⚡",
-                    name: "Timing Belt Package",
-                    desc: "Factory-spec timing belt replacement with tensioners.",
-                    price: "From $1300",
-                    priceNote: "/job"
-                },
-                {
-                    cat: "engine",
-                    icon: "⛓️",
-                    name: "Timing Chain Package",
-                    desc: "Factory-spec chain replacement with tensioners. VTC Actuator",
-                    price: "From $1400",
-                    priceNote: "/job"
-                },
-                {
-                    cat: "engine",
-                    icon: "🌀",
-                    name: "Head Gasket Repair",
-                    desc: "Full head gasket replacement with warpage inspection. Guaranteed work.",
-                    price: "From $2500",
-                    priceNote: "/without ARP Head Studs"
-                },
-                {
-                    cat: "brakes",
-                    icon: "🛑",
-                    name: "Brake Pad & Rotor Replacement",
-                    desc: "OEM-quality pads and rotors for peak stopping power with hardware kit and brake dust check.",
-                    price: "From $350",
-                    priceNote: "/axle"
-                },
-                {
-                    cat: "brakes",
-                    icon: "🔩",
-                    name: "Suspension & Struts",
-                    desc: "Shocks, struts, control arms, handle vibration and uneven wear before it gets worse.",
-                    price: "From $900",
-                    priceNote: "/corner"
-                },
-                {
-                    cat: "transmission",
-                    icon: "⚙️",
-                    name: "Transmission Service",
-                    desc: "Fluid drain and fill. CVT, ATF, MTF",
-                    price: "From $170",
-                    priceNote: "/service"
-                },
-                {
-                    cat: "ac",
-                    icon: "❄️",
-                    name: "R-134a A/C Services",
-                    desc: "Refrigerant recharge with leak inspection to get your cabin cool again.",
-                    price: "From $180",
-                    priceNote: "/must pass full AC System Vacuum Test"
-                }
-            ];
+            // ── RENDER JOBS ──
+            let currentFilter = "all";
 
-            // ── RENDER SERVICES ──
-            function renderServices(filter = "all") {
-                const grid = document.getElementById("servicesGrid");
-                const filtered = filter === "all" ? services : services.filter((s) => s.cat === filter);
-                grid.innerHTML = filtered
-                    .map(
-                        (s) => `
-    <div class="service-card" data-cat="${s.cat}">
-      <div class="service-card-body">
-        <div class="service-icon-wrap">${s.icon}</div>
-        <div class="service-cat">${s.cat.toUpperCase()}</div>
-        <h3>${s.name}</h3>
-        <p>${s.desc}</p>
-        <div class="service-price">${s.price} <span>${s.priceNote}</span></div>
-      </div>
-    </div>
-  `
-                    )
+            function renderJobs() {
+                const search = document.getElementById("jobSearch").value.toLowerCase().trim();
+
+                let filtered = jobs;
+
+                if (currentFilter !== "all") {
+                    filtered = filtered.filter((job) => job.category === currentFilter);
+                }
+
+                if (search) {
+                    filtered = filtered.filter((job) =>
+                        (job.title + " " + job.vehicle + " " + job.category + " " + job.description)
+                            .toLowerCase()
+                            .includes(search)
+                    );
+                }
+
+                document.getElementById("jobsGrid").innerHTML = filtered
+                    .map((job) => {
+                        const review = getReviewByJob(job.jobId);
+
+                        return `
+                <a class="job-card"
+                   onclick="openJobModal(${job.jobId}); return false;"
+                   href="#">
+
+                    <div class="job-img">
+                        <div class="job-img-placeholder">
+                            <div class="car-icon">🚗</div>
+                            <div>${job.vehicle}</div>
+                        </div>
+
+                        <div class="job-overlay"></div>
+
+                        <div class="job-tag">
+                            ${job.category}
+                        </div>
+                    </div>
+
+                    <div class="job-body">
+
+                        <h3>${job.title}</h3>
+
+                        <div class="job-meta">
+                            <span>${job.vehicle}</span>
+                            <span class="job-meta-dot">•</span>
+                            <span>${job.hours}</span>
+                        </div>
+
+                        ${
+                            review
+                                ? `<div class="job-review-link">View Review →</div>`
+                                : `<div class="job-review-link" style="opacity:.5">No Review Yet</div>`
+                        }
+
+                    </div>
+
+                </a>
+            `;
+                    })
                     .join("");
             }
 
@@ -816,11 +787,15 @@
 
             // ── FILTER LOGIC ──
             document.getElementById("filterBar").addEventListener("click", (e) => {
-                if (e.target.classList.contains("filter-btn")) {
-                    document.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
-                    e.target.classList.add("active");
-                    renderServices(e.target.dataset.filter);
-                }
+                if (!e.target.classList.contains("filter-btn")) return;
+
+                document.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+
+                e.target.classList.add("active");
+
+                currentFilter = e.target.dataset.filter;
+
+                renderJobs();
             });
 
             document.querySelectorAll("#mobileMenu a").forEach((link) => {
@@ -838,14 +813,16 @@
             function toggleMenu() {
                 const menu = document.getElementById("mobileMenu");
                 const burger = document.getElementById("burger");
-
                 menu.classList.toggle("open");
                 burger.classList.toggle("open");
-
                 updateNavOffsets();
             }
 
-            renderServices();
+            // Search
+            document.getElementById("jobSearch").addEventListener("input", renderJobs);
+
+            // Initial render
+            renderJobs();
         </script>
     </body>
 </html>

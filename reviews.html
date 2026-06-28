@@ -1,483 +1,531 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Garrett's Garage | Reviews</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
-        <style>
-        :root {
-          --red: #C8102E;
-          --red-dark: #9B0C23;
-          --red-glow: rgba(200,16,46,0.25);
-          --black: #080808;
-          --surface: #131313;
-          --surface2: #1C1C1C;
-          --border: #2A2A2A;
-          --text: #F0F0F0;
-          --text-muted: #888;
-          --white: #FFFFFF;
-        }
-            
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-            
-        html { scroll-behavior: smooth; }
+  <head>
+    <meta charset="UTF-8" />
+    <title>Garrett's Garage | Reviews</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap"
+      rel="stylesheet" />
+    <style>
+      :root {
+        --red: #c8102e;
+        --red-dark: #9b0c23;
+        --red-glow: rgba(200, 16, 46, 0.25);
+        --black: #080808;
+        --surface: #131313;
+        --surface2: #1c1c1c;
+        --border: #2a2a2a;
+        --text: #f0f0f0;
+        --text-muted: #888;
+        --white: #ffffff;
+      }
 
-        body {
-          background: var(--black);
-          color: var(--text);
-          font-family: 'Barlow', sans-serif;
-          margin: 0;
-          position: relative;
-        }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-        body::before {
-          content: '';
-          position: fixed;
-          top: 70px;
-          left: 0;
-          right: 0;
-          bottom: 0;
+      html {
+        scroll-behavior: smooth;
+      }
 
-          background:
-            repeating-linear-gradient(
-              -45deg,
-              transparent,
-              transparent 70px,
-              rgba(200,16,46,.28) 70px,
-              rgba(200,16,46,.28) 72px
-            );
+      body {
+        background: var(--black);
+        color: var(--text);
+        font-family: "Barlow", sans-serif;
+        margin: 0;
+        position: relative;
+      }
 
-          mask-image: linear-gradient(
-            to bottom,
-            rgba(0,0,0,1) 0%,
-            rgba(0,0,0,.85) 25%,
-            rgba(0,0,0,.45) 60%,
-            rgba(0,0,0,0) 100%
-          );
+      body::before {
+        content: "";
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        bottom: 0;
 
-          pointer-events: none;
-          z-index: 0;
-        }
-            
-        body::after {
-          content: '';
-          position: fixed;
-          top: 70px; /* starts below navbar */
-          left: 0;
-          right: 0;
-          height: 800px;
-          background:
-            linear-gradient(
-              to bottom,
-              rgba(200,16,46,0.28) 0%,
-              rgba(200,16,46,0.12) 30%,
-              rgba(200,16,46,0.04) 60%,
-              transparent 100%
-            );
-          pointer-events: none;
-          z-index: 0;
-        }
-            
-        nav {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          z-index: 1000;
-          background: #000;
-          border-bottom: 1px solid var(--border);
-          height: clamp(70px, 8vw, 80px);
-          margin: 0;
-          border-top: none;
-        }
-        
-        .nav-home {
-          display: flex;
-          align-items: center;
-          padding: 10px 22px;
-          border: 1px solid var(--border);
-          border-radius: 4px;
-          color: var(--text);
-          text-decoration: none;
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 700;
-          text-transform: uppercase;
-          transition: 0.25s ease;
-        }
+        background: repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 70px,
+          rgba(200, 16, 46, 0.28) 70px,
+          rgba(200, 16, 46, 0.28) 72px
+        );
 
-        .nav-home:hover {
-          border-color: var(--red);
-          color: var(--red);
-        }
+        mask-image: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(0, 0, 0, 0.85) 25%,
+          rgba(0, 0, 0, 0.45) 60%,
+          rgba(0, 0, 0, 0) 100%
+        );
 
-        .nav-inner {
-          max-width: 1280px;
-          width: 100%;
-          height: 100%;
-          margin: 0 auto;
-          padding: 0 20px;
-          display: flex;
-          align-items: center;
-        }
-            
-        .nav-logo {
-          display: flex;
-          align-items: center;
-          height: 100%;
-          flex-shrink: 0;
-          margin-right: clamp(24px, 4vw, 64px);
-        }
+        pointer-events: none;
+        z-index: 0;
+      }
 
-        .nav-logo img {
-          height: clamp(30px, 4vw, 48px);
-          width: auto;
-          display: block;
-        }
+      body::after {
+        content: "";
+        position: fixed;
+        top: 70px; /* starts below navbar */
+        left: 0;
+        right: 0;
+        height: 800px;
+        background: linear-gradient(
+          to bottom,
+          rgba(200, 16, 46, 0.28) 0%,
+          rgba(200, 16, 46, 0.12) 30%,
+          rgba(200, 16, 46, 0.04) 60%,
+          transparent 100%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
 
-        .nav-links {
-          display: flex;
-          gap: clamp(16px, 2vw, 36px);
-          list-style: none;
-          flex: 1;
-          justify-content: flex-start;
-        }
-            
-        .nav-links a {
-          color: var(--text-muted);
-          text-decoration: none;
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 600;
-          font-size: clamp(8px, 2vw, 20px);
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          transition: color 0.2s;
-        }
-        .nav-links a:hover { color: var(--red); }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: #000;
+        border-bottom: 1px solid var(--border);
+        height: clamp(70px, 8vw, 80px);
+        margin: 0;
+        border-top: none;
+      }
 
-        .nav-links a.active {
-          color: var(--red);
-        }
+      .nav-home {
+        display: flex;
+        align-items: center;
+        padding: 10px 22px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        color: var(--text);
+        text-decoration: none;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        transition: 0.25s ease;
+      }
 
-        .nav-right {
-          margin-left: auto;
-          display: flex;
-          align-items: center;
-          gap: 16px;
-        }
-            
-        .nav-cta {
-          background: var(--red);
-          color: var(--white);
-          padding: 9px 22px;
-          border-radius: 3px;
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 700;
-          font-size: 15px;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          text-decoration: none;
-          transition: background 0.2s;
-        }
-            
-        .nav-cta:hover {
-          background: var(--red-dark);
-        }
+      .nav-home:hover {
+        border-color: var(--red);
+        color: var(--red);
+      }
 
-        .container {
-          max-width: 1280px;
-          margin: 0 auto;
-          padding: 0 32px;
-        }
+      .nav-inner {
+        max-width: 1280px;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+      }
 
-        .section-label {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 700;
-          letter-spacing: 0.25em;
-          text-transform: uppercase;
-          color: var(--text);
-          margin-bottom: 16px;
-          padding-top: 0;
-        }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        flex-shrink: 0;
+        margin-right: clamp(24px, 4vw, 64px);
+      }
 
-        #reviews {
-          position: relative;
-          overflow: hidden;
-          padding-top: 0;
-          margin-top: 0;
-          padding-top: calc(var(--nav-height) + 20px);
-          padding-bottom: 80px;
-        }
-            
-        #reviews .container { 
-          position: relative;
-          z-index: 1;
-        }
+      .nav-logo img {
+        height: clamp(30px, 4vw, 48px);
+        width: auto;
+        display: block;
+      }
 
-        .section-title {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 900;
-          font-size: clamp(36px, 5vw, 56px);
-          text-transform: uppercase;
-          line-height: 1;
-          margin-bottom: 16px;
-        }
+      .nav-links {
+        display: flex;
+        gap: clamp(16px, 2vw, 36px);
+        list-style: none;
+        flex: 1;
+        justify-content: flex-start;
+      }
 
-        .section-title span {
-          color: var(--red);
-        }
+      .nav-links a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 600;
+        font-size: clamp(8px, 2vw, 20px);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--red);
+      }
 
-        .section-desc {
-          color: var(--text);
-          max-width: 700px;
-          margin-bottom: 20px;
-        }
+      .nav-links a.active {
+        color: var(--red);
+      }
 
-        .reviews-grid {
-          display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-          gap: 20px;
-        }
-          
-        .reviews-content {
-          max-width: 1000px;
-          margin: 0 auto;
-        }
-          
-        .review-card {
-          background: var(--surface); border: 1px solid var(--border);
-          border-radius: 4px; overflow: hidden;
-          transition: all 0.25s; cursor: default;
-          position: relative;
-        }
-        .review-card::before {
-          content: ''; position: absolute; top: 0; left: 0; right: 0;
-          height: 3px; background: var(--red); transform: scaleX(0);
-          transform-origin: left; transition: transform 0.25s;
-        }
-        .review-card:hover { border-color: var(--red); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(200,16,46,0.15); }
-        .review-card:hover::before { transform: scaleX(1); }
-        .review-card-body { padding: 28px; }
-        .review-cat {
-          font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
-          color: #FFD700; font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 700; margin-bottom: 10px;
-        }
-        .review-card h3 {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 800; font-size: 22px; text-transform: uppercase;
-          color: var(--white); margin-bottom: 10px;
-        }
-        .review-card p { color: var(--white); font-style: italic; font-size: 15px; line-height: 1.7; margin-bottom: 16px; }
-        .review-price {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 700; font-size: 20px; color: var(--white);
-        }
-        .review-price span { font-size: 13px; color: var(--text-muted); font-weight: 400; }
-          
-        .review-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          gap: 16px;
-          margin-bottom: 16px;
-        }
+      .nav-right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
 
-        .review-meta {
-          color: var(--text-muted);
-          font-size: 14px;
-          margin-top: 4px;
-        }
+      .nav-cta {
+        background: var(--red);
+        color: var(--white);
+        padding: 9px 22px;
+        border-radius: 3px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
 
-        .review-card h3 {
-          margin-bottom: 0;
-        }
-          
-        .review-search {
-          flex: 1;
-          min-width: 250px;
-          background: var(--surface);
-          border: 1px solid var(--border);
-          color: var(--white);
-          padding: 10px 14px;
-          border-radius: 4px;
-          font-family: 'Barlow', sans-serif;
-        }
+      .nav-cta:hover {
+        background: var(--red-dark);
+      }
 
-        .review-search:focus {
-          outline: none;
-          border-color: var(--red);
-        }
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
 
-        #ratingFilter {
-          min-width: 160px;
-        }
-          
-        .review-title {
-          color: var(--red);
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 700;
-          font-size: 20px;
-          text-transform: uppercase;
-          margin-bottom: 12px;
-        }
-          
-        .filter-bar {
-          display: flex;
-          gap: 12px;
-          flex-wrap: wrap;
-          margin-bottom: 40px;
-        }
+      .section-label {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--text);
+        margin-bottom: 16px;
+        padding-top: 0;
+      }
 
-        .filter-btn {
-          background: var(--surface);
-          border: 1px solid var(--border);
-          color: var(--white);
-          padding: 8px 16px;
-        }
-          
-        .review-controls {
-          display: flex;
-          align-items: center;
-          gap: 20px;
-          flex-wrap: wrap;
-          background: var(--surface);
-          border: 1px solid var(--border);
-          border-radius: 4px;
-          padding: 20px 24px;
-          margin-bottom: 32px;
-          box-shadow: 0 8px 24px rgba(0,0,0,.15);
-        }
-          
-        .review-text {
-          display: -webkit-box;
-          -webkit-line-clamp: 4;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-          
-        .review-modal {
-          position: fixed;
-          inset: 0;
-          background: rgba(0,0,0,.8);
-          display: none;
-          align-items: center;
-          justify-content: center;
-          z-index: 5000;
-        }
+      #reviews {
+        position: relative;
+        overflow: hidden;
+        padding-top: 0;
+        margin-top: 0;
+        padding-top: calc(var(--nav-height) + 20px);
+        padding-bottom: 80px;
+      }
 
-        .review-modal.show {
-          display: flex;
-        }
+      #reviews .container {
+        position: relative;
+        z-index: 1;
+      }
 
-        .review-modal-content {
-          background: var(--surface);
-          border: 1px solid var(--red);
-          border-radius: 6px;
-          padding: 32px;
-          width: min(700px, 90vw);
-          max-height: 80vh;
-          overflow-y: auto;
-        }
+      .section-title {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 900;
+        font-size: clamp(36px, 5vw, 56px);
+        text-transform: uppercase;
+        line-height: 1;
+        margin-bottom: 16px;
+      }
 
-        .review-close {
-          position: absolute;
-          top: 18px;
-          right: 18px;
-          z-index: 2;
-          float: right;
-          background: none;
-          border: none;
-          color: white;
-          font-size: 24px;
-          cursor: pointer;
-        }
-          
-        .rating-filter {
-          display: flex;
-          gap: 4px;
-        }
+      .section-title span {
+        color: var(--red);
+      }
 
-        .filter-star {
-          color: #555;
-          font-size: 28px;
-          cursor: pointer;
-          transition: .2s;
-        }
+      .section-desc {
+        color: var(--text);
+        max-width: 700px;
+        margin-bottom: 20px;
+      }
 
-        .filter-star.hover,
-        .filter-star.hovered,
-        .filter-star.active {
-          color: var(--red);
-        }
-        
-        #modalName {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 800;
-          font-size: 42px;
-          text-transform: uppercase;
-          color: var(--white);
-          margin: 0;
-        }
-          
-        #modalText {
-          color: var(--white);
-          font-style: italic;
-          font-size: 18px;
-          line-height: 1.8;
-          margin-top: 20px;
-          margin-bottom: 24px;
-        }
-          
-        .review-job-link {
-          display: inline-block;
-          color: var(--red);
-          text-decoration: none;
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: .08em;
-          transition: .2s;
-        }
+      .reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+      }
 
-        .review-job-link:hover {
-          color: white;
-        }
-          
-        .review-modal-content {
-          position: relative;
-        }
+      .reviews-content {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
 
-        .review-modal-content::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 3px;
-          background: var(--red);
-        }
-          
-        .modal-title-row {
-          display: flex;
-          align-items: center;
-          gap: 14px;
-          flex-wrap: wrap;
-        }
-          
-        .modal-vehicle {
-          color: var(--text-muted);
-          font-size: 20px;
-          font-weight: 500;
-          padding-left: 20px;
-        }
+      .review-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        overflow: hidden;
+        transition: all 0.25s;
+        cursor: default;
+        position: relative;
+      }
+      .review-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--red);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s;
+      }
+      .review-card:hover {
+        border-color: var(--red);
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(200, 16, 46, 0.15);
+      }
+      .review-card:hover::before {
+        transform: scaleX(1);
+      }
+      .review-card-body {
+        padding: 28px;
+      }
+      .review-cat {
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #ffd700;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .review-card h3 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 22px;
+        text-transform: uppercase;
+        color: var(--white);
+        margin-bottom: 10px;
+      }
+      .review-card p {
+        color: var(--white);
+        font-style: italic;
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 16px;
+      }
+      .review-price {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--white);
+      }
+      .review-price span {
+        font-size: 13px;
+        color: var(--text-muted);
+        font-weight: 400;
+      }
 
-        .modal-stars {
-          color: #FFD700;
-          font-size: 28px;
-          padding-right: 40px;
-        }
-          
-        /* Mobile Burger */
+      .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .review-meta {
+        color: var(--text-muted);
+        font-size: 14px;
+        margin-top: 4px;
+      }
+
+      .review-card h3 {
+        margin-bottom: 0;
+      }
+
+      .review-search {
+        flex: 1;
+        min-width: 250px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--white);
+        padding: 10px 14px;
+        border-radius: 4px;
+        font-family: "Barlow", sans-serif;
+      }
+
+      .review-search:focus {
+        outline: none;
+        border-color: var(--red);
+      }
+
+      #ratingFilter {
+        min-width: 160px;
+      }
+
+      .review-title {
+        color: var(--red);
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+
+      .filter-bar {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+      }
+
+      .filter-btn {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--white);
+        padding: 8px 16px;
+      }
+
+      .review-controls {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 20px 24px;
+        margin-bottom: 32px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      .review-text {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .review-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 5000;
+      }
+
+      .review-modal.show {
+        display: flex;
+      }
+
+      .review-modal-content {
+        background: var(--surface);
+        border: 1px solid var(--red);
+        border-radius: 6px;
+        padding: 32px;
+        width: min(700px, 90vw);
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      .review-close {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        z-index: 2;
+        float: right;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .rating-filter {
+        display: flex;
+        gap: 4px;
+      }
+
+      .filter-star {
+        color: #555;
+        font-size: 28px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .filter-star.hover,
+      .filter-star.hovered,
+      .filter-star.active {
+        color: var(--red);
+      }
+
+      #modalName {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 42px;
+        text-transform: uppercase;
+        color: var(--white);
+        margin: 0;
+      }
+
+      #modalText {
+        color: var(--white);
+        font-style: italic;
+        font-size: 18px;
+        line-height: 1.8;
+        margin-top: 20px;
+        margin-bottom: 24px;
+      }
+
+      .review-job-link {
+        display: inline-block;
+        color: var(--red);
+        text-decoration: none;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        transition: 0.2s;
+      }
+
+      .review-job-link:hover {
+        color: white;
+      }
+
+      .review-modal-content {
+        position: relative;
+      }
+
+      .review-modal-content::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--red);
+      }
+
+      .modal-title-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .modal-vehicle {
+        color: var(--text-muted);
+        font-size: 20px;
+        font-weight: 500;
+        padding-left: 20px;
+      }
+
+      .modal-stars {
+        color: #ffd700;
+        font-size: 28px;
+        padding-right: 40px;
+      }
+
+      /* Mobile Burger */
 
       .burger {
         width: 32px;
@@ -545,7 +593,7 @@
         color: white;
         text-decoration: none;
         text-align: center;
-        font-family: 'Barlow Condensed', sans-serif;
+        font-family: "Barlow Condensed", sans-serif;
         font-weight: 700;
         text-transform: uppercase;
         border: 1px solid #000;
@@ -579,17 +627,17 @@
         color: #fff;
         text-decoration: none;
 
-        font-family: 'Barlow Condensed', sans-serif;
+        font-family: "Barlow Condensed", sans-serif;
         font-weight: 700;
         font-size: 15px;
         letter-spacing: 0.08em;
         text-transform: uppercase;
 
-        border: 1px solid rgba(255,255,255,0.15);
+        border: 1px solid rgba(255, 255, 255, 0.15);
         border-top: none;
         border-radius: 0 0 4px 4px;
 
-        box-shadow: 0 4px 12px rgba(0,0,0,.3);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 
         transition:
           top 0.3s ease,
@@ -615,311 +663,261 @@
       }
     </style>
   </head>
-<body>
+  <body>
+    <nav>
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <img src="images/banner.png" alt="Garrett's Garage" />
+        </a>
 
-<nav>
-  <div class="nav-inner">
+        <ul class="nav-links">
+          <li><a href="/index.html">About</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/reviews.html" class="active">Reviews</a></li>
+          <li><a href="/index.html#jobs">Completed Jobs</a></li>
+          <li><a href="/index.html#schedule">Contact</a></li>
+        </ul>
 
-    <a href="index.html" class="nav-logo">
-      <img src="images/banner.png" alt="Garrett's Garage">
-    </a>
-
-    <ul class="nav-links">
-      <li><a href="/index.html">About</a></li>
-      <li><a href="/services.html">Services</a></li>
-      <li><a href="/reviews.html" class="active">Reviews</a></li>
-      <li><a href="/index.html#jobs">Completed Jobs</a></li>
-      <li><a href="/index.html#schedule">Contact</a></li>
-    </ul>
-
-    <button class="burger" id="burger" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
-  </div>
-</nav>
-  
-<a href="/index.html#schedule" class="floating-book-btn">
-    Book Service
-</a>
-
-<div class="mobile-menu" id="mobileMenu">
-  <a href="/index.html">About</a>
-  <a href="/services.html">Services</a>
-  <a href="/reviews.html" class="active">Reviews</a>
-  <a href="/index.html#jobs">Past jobs</a>
-  <a href="/index.html#schedule">Contact</a>
-</div>
-    
-<!-- reviews -->
-<section id="reviews">
-  <div class="container">
-    <div class="section-label">What They're Saying</div>
-    <div class="section-title">Our <span>Reviews</span></div>
-    <p class="section-desc">See what our previous customers think about our professional services</p>
-    <div class="reviews-content">
-      <div class="review-controls">
-        <div class="rating-filter" id="ratingFilter">
-          <span class="filter-star" data-rating="1">★</span>
-          <span class="filter-star" data-rating="2">★</span>
-          <span class="filter-star" data-rating="3">★</span>
-          <span class="filter-star" data-rating="4">★</span>
-          <span class="filter-star" data-rating="5">★</span>
-        </div>
-        <input type="text" id="reviewSearch" placeholder="Search reviews..." class="review-search">
+        <button class="burger" id="burger" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
-        <div class="reviews-grid" id="reviewsGrid">
-      </div>
-    </div>
-  </div>
-</section>
-<script src="data.js"></script>
-<script>
+    </nav>
 
-let selectedRating = null;
+    <a href="/index.html#schedule" class="floating-book-btn"> Book Service </a>
 
-// ── RENDER REVIEWS ──
-function renderReviews() {
-
-  const search =
-    document.getElementById('reviewSearch')?.value
-      .toLowerCase()
-      .trim() || '';
-
-  let filtered = reviews;
-
-  // Star filter
-  if (selectedRating !== null) {
-    filtered = filtered.filter(
-      r => r.stars === selectedRating
-    );
-  }
-
-  // Search filter
-  if (search) {
-    filtered = filtered.filter(r =>
-      (
-        r.jobTitle +
-        ' ' +
-        r.text +
-        ' ' +
-        r.vehicle +
-        ' ' +
-        r.category +
-        ' ' +
-        r.name
-      )
-        .toLowerCase()
-        .includes(search)
-    );
-  }
-
-  document.getElementById('reviewsGrid').innerHTML =
-    filtered.map(r => `
-      <div class="review-card" onclick="openReview(${r.id})">
-        <div class="review-card-body">
-
-          <div class="review-header">
-            <div>
-              <h3>${r.name}</h3>
-              <div class="review-meta">
-                ${r.vehicle} • ${r.category}
-              </div>
-            </div>
-
-            <div class="review-cat">
-              ${"★".repeat(r.stars)}
-            </div>
-          </div>
-
-          <div class="review-title">
-            ${r.jobTitle}
-          </div>
-
-          <p class="review-text">"${r.text}"</p>
-
-        </div>
-      </div>
-    `).join('');
-}
-  
-function openReview(id) {
-  const review = reviews.find(r => r.id === id);
-
-  document.getElementById('modalName').textContent =
-    review.name;
-
-  document.getElementById('modalVehicle').textContent =
-    review.vehicle;
-
-  document.getElementById('modalStars').textContent =
-    "★".repeat(review.stars);
-
-  document.getElementById('modalText').textContent =
-    review.text;
-
-  document.getElementById('modalJobLink').href =
-    '/index.html#jobs';
-
-  document.getElementById('reviewModal')
-    .classList.add('show');
-}
-
-function closeReview() {
-  document.getElementById('reviewModal')
-    .classList.remove('show');
-}
-
-function updateNavOffsets() {
-  const nav = document.querySelector('nav');
-  const menu = document.getElementById('mobileMenu');
-  const bookBtn = document.querySelector('.floating-book-btn');
-
-  const navHeight = nav.getBoundingClientRect().height;
-
-  document.documentElement.style.setProperty(
-    '--nav-height',
-    `${navHeight}px`
-  );
-
-  const menuHeight =
-    menu.classList.contains('open')
-      ? menu.getBoundingClientRect().height
-      : 0;
-
-  bookBtn.style.top = `${navHeight + menuHeight}px`;
-}
-
-window.addEventListener('load', updateNavOffsets);
-
-window.addEventListener('resize', () => {
-  updateNavOffsets();
-
-  if (window.innerWidth > 900) {
-    document.getElementById('mobileMenu').classList.remove('open');
-    document.getElementById('burger').classList.remove('open');
-  }
-});
-
-document.querySelectorAll('#mobileMenu a').forEach(link => {
-  link.addEventListener('click', () => {
-    const menu = document.getElementById('mobileMenu');
-    const burger = document.getElementById('burger');
-
-    menu.classList.remove('open');
-    burger.classList.remove('open');
-
-    updateNavOffsets();
-  });
-});
-
-function toggleMenu() {
-  const menu = document.getElementById('mobileMenu');
-  const burger = document.getElementById('burger');
-
-  menu.classList.toggle('open');
-  burger.classList.toggle('open');
-
-  updateNavOffsets();
-}
-
-// Search
-document
-  .getElementById('reviewSearch')
-  .addEventListener('input', renderReviews);
-
-// Star Filter
-const stars = document.querySelectorAll('.filter-star');
-
-stars.forEach(star => {
-
-  star.addEventListener('mouseenter', () => {
-
-    const rating = Number(star.dataset.rating);
-
-    stars.forEach(s => {
-      s.classList.toggle(
-        'hovered',
-        Number(s.dataset.rating) <= rating
-      );
-    });
-
-  });
-
-  star.addEventListener('mouseleave', () => {
-
-    stars.forEach(s => s.classList.remove('hovered'));
-
-  });
-
-  star.addEventListener('click', () => {
-
-  const clickedRating = Number(star.dataset.rating);
-
-  // If already selected, clear filter
-  if (selectedRating === clickedRating) {
-
-    selectedRating = null;
-
-    stars.forEach(s => {
-      s.classList.remove('active');
-    });
-
-  } else {
-
-    selectedRating = clickedRating;
-
-    stars.forEach(s => {
-      s.classList.toggle(
-        'active',
-        Number(s.dataset.rating) <= selectedRating
-      );
-    });
-
-  }
-
-  renderReviews();
-
-});
-
-});
-
-// Initial render
-renderReviews();
-
-</script>
-  <div
-    class="review-modal"
-    id="reviewModal"
-    onclick="closeReview()"
-  >
-  <div
-    class="review-modal-content"
-    onclick="event.stopPropagation()"
-  >
-
-    <button class="review-close" onclick="closeReview()">✕</button>
-
-    <div class="review-header">
-      <div class="modal-title-row">
-        <h3 id="modalName"></h3>
-        <div id="modalVehicle" class="modal-vehicle"></div>
-      </div>
-
-      <div id="modalStars" class="modal-stars"></div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="/index.html">About</a>
+      <a href="/services.html">Services</a>
+      <a href="/reviews.html" class="active">Reviews</a>
+      <a href="/index.html#jobs">Past jobs</a>
+      <a href="/index.html#schedule">Contact</a>
     </div>
 
-    <div id="modalJob" class="review-title"></div>
+    <!-- reviews -->
+    <section id="reviews">
+      <div class="container">
+        <div class="section-label">What They're Saying</div>
+        <div class="section-title">Our <span>Reviews</span></div>
+        <p class="section-desc">See what our previous customers think about our professional services</p>
+        <div class="reviews-content">
+          <div class="review-controls">
+            <div class="rating-filter" id="ratingFilter">
+              <span class="filter-star" data-rating="1">★</span>
+              <span class="filter-star" data-rating="2">★</span>
+              <span class="filter-star" data-rating="3">★</span>
+              <span class="filter-star" data-rating="4">★</span>
+              <span class="filter-star" data-rating="5">★</span>
+            </div>
+            <input type="text" id="reviewSearch" placeholder="Search reviews..." class="review-search" />
+          </div>
+          <div class="reviews-grid" id="reviewsGrid"></div>
+        </div>
+      </div>
+    </section>
+    <script src="data.js"></script>
+    <script>
+      function getJob(jobId) {
+        return jobs.find((j) => j.jobId === jobId);
+      }
 
-    <p id="modalText"></p>
+      function getReviewByJob(jobId) {
+        return reviews.find((r) => r.jobId === jobId);
+      }
 
-    <a id="modalJobLink" class="review-job-link">
-      View Completed Job →
-    </a>
+      function getReview(reviewId) {
+        return reviews.find((r) => r.reviewId === reviewId);
+      }
 
-  </div>
-</div>
-</body>
+      let selectedRating = null;
+
+      // ── RENDER REVIEWS ──
+      function renderReviews() {
+        const search = document.getElementById("reviewSearch").value.toLowerCase().trim();
+        let filtered = reviews;
+        if (selectedRating !== null) {
+          filtered = filtered.filter((r) => r.stars === selectedRating);
+        }
+        if (search) {
+          filtered = filtered.filter((r) => {
+            const job = getJob(r.jobId);
+            return [r.name, r.vehicle, r.text, job?.title || "", job?.category || ""]
+              .join(" ")
+              .toLowerCase()
+              .includes(search);
+          });
+        }
+
+        document.getElementById("reviewsGrid").innerHTML = filtered
+          .map((r) => {
+            const job = getJob(r.jobId);
+            return `
+            <div class="review-card"
+                 onclick="openReview(${r.reviewId})">
+                <div class="review-card-body">
+                    <div class="review-header">
+                        <div>
+                            <h3>${r.name}</h3>
+                            <div class="review-meta">
+                                ${r.vehicle}
+                                ${job ? `• ${job.category}` : ""}
+                            </div>
+                        </div>
+                        <div class="review-cat">
+                            ${"★".repeat(r.stars)}
+                        </div>
+                    </div>
+                    ${job ? `<div class="review-title">${job.title}</div>` : ""}
+                    <p class="review-text">
+                        "${r.text}"
+                    </p>
+                </div>
+            </div>
+            `;
+          })
+          .join("");
+      }
+
+      function openReview(reviewId) {
+        const review = getReview(reviewId);
+        const job = getJob(review.jobId);
+
+        document.getElementById("modalName").textContent = review.name;
+        document.getElementById("modalVehicle").textContent = review.vehicle;
+        document.getElementById("modalStars").textContent = "★".repeat(review.stars);
+
+        document.getElementById("modalJob").textContent = job ? job.title : "";
+
+        document.getElementById("modalText").textContent = review.text;
+
+        const link = document.getElementById("modalJobLink");
+
+        if (job) {
+          link.href = `/index.html#job-${job.jobId}`;
+          link.style.display = "";
+        } else {
+          link.style.display = "none";
+        }
+
+        document.getElementById("reviewModal").classList.add("show");
+      }
+
+      function closeReview() {
+        document.getElementById("reviewModal").classList.remove("show");
+      }
+
+      function updateNavOffsets() {
+        const nav = document.querySelector("nav");
+        const menu = document.getElementById("mobileMenu");
+        const bookBtn = document.querySelector(".floating-book-btn");
+
+        const navHeight = nav.getBoundingClientRect().height;
+
+        document.documentElement.style.setProperty("--nav-height", `${navHeight}px`);
+
+        const menuHeight = menu.classList.contains("open") ? menu.getBoundingClientRect().height : 0;
+
+        bookBtn.style.top = `${navHeight + menuHeight}px`;
+      }
+
+      window.addEventListener("load", updateNavOffsets);
+
+      window.addEventListener("resize", () => {
+        updateNavOffsets();
+
+        if (window.innerWidth > 900) {
+          document.getElementById("mobileMenu").classList.remove("open");
+          document.getElementById("burger").classList.remove("open");
+        }
+      });
+
+      document.querySelectorAll("#mobileMenu a").forEach((link) => {
+        link.addEventListener("click", () => {
+          const menu = document.getElementById("mobileMenu");
+          const burger = document.getElementById("burger");
+
+          menu.classList.remove("open");
+          burger.classList.remove("open");
+
+          updateNavOffsets();
+        });
+      });
+
+      function toggleMenu() {
+        const menu = document.getElementById("mobileMenu");
+        const burger = document.getElementById("burger");
+
+        menu.classList.toggle("open");
+        burger.classList.toggle("open");
+
+        updateNavOffsets();
+      }
+
+      // Search
+      document.getElementById("reviewSearch").addEventListener("input", renderReviews);
+
+      // Star Filter
+      const stars = document.querySelectorAll(".filter-star");
+
+      stars.forEach((star) => {
+        star.addEventListener("mouseenter", () => {
+          const rating = Number(star.dataset.rating);
+
+          stars.forEach((s) => {
+            s.classList.toggle("hovered", Number(s.dataset.rating) <= rating);
+          });
+        });
+
+        star.addEventListener("mouseleave", () => {
+          stars.forEach((s) => s.classList.remove("hovered"));
+        });
+
+        star.addEventListener("click", () => {
+          const clickedRating = Number(star.dataset.rating);
+
+          // If already selected, clear filter
+          if (selectedRating === clickedRating) {
+            selectedRating = null;
+
+            stars.forEach((s) => {
+              s.classList.remove("active");
+            });
+          } else {
+            selectedRating = clickedRating;
+
+            stars.forEach((s) => {
+              s.classList.toggle("active", Number(s.dataset.rating) <= selectedRating);
+            });
+          }
+
+          renderReviews();
+        });
+      });
+
+      // Initial render
+      renderReviews();
+    </script>
+    <div class="review-modal" id="reviewModal" onclick="closeReview()">
+      <div class="review-modal-content" onclick="event.stopPropagation()">
+        <button class="review-close" onclick="closeReview()">✕</button>
+
+        <div class="review-header">
+          <div class="modal-title-row">
+            <h3 id="modalName"></h3>
+            <div id="modalVehicle" class="modal-vehicle"></div>
+          </div>
+
+          <div id="modalStars" class="modal-stars"></div>
+        </div>
+
+        <div id="modalJob" class="review-title"></div>
+
+        <p id="modalText"></p>
+
+        <a id="modalJobLink" class="review-job-link"> View Completed Job → </a>
+      </div>
+    </div>
+  </body>
 </html>
