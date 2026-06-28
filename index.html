@@ -1,1689 +1,2602 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Garrett's Garage | Honda & Acura Specialists</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --red: #C8102E;
-    --red-dark: #9B0C23;
-    --red-glow: rgba(200,16,46,0.25);
-    --black: #080808;
-    --surface: #131313;
-    --surface2: #1C1C1C;
-    --border: #2A2A2A;
-    --text: #F0F0F0;
-    --text-muted: #888;
-    --white: #FFFFFF;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    color: var(--text);
-    font-family: 'Barlow', sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  /* ── NAV ── */
-  nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-
-  background: #000;
-  border-bottom: 1px solid var(--border);
-
-  height: clamp(70px, 8vw, 80px);
-  margin: 0;
-  border-top: none;
-}
-  
-.nav-right {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.burger {
-  width: 32px;
-  height: 24px;
-  position: relative;
-  z-index: 1002;
-
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  
-  margin-left: auto;
-
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.burger span {
-  display: block;
-  width: 100%;
-  height: 3px;
-
-  background: white;
-  border-radius: 3px;
-
-  transition: all 0.3s ease;
-}
-  
-.burger.open span:nth-child(1) {
-  transform: translateY(10.8px) rotate(45deg);
-}
-
-.burger.open span:nth-child(2) {
-  opacity: 0;
-}
-
-.burger.open span:nth-child(3) {
-  transform: translateY(-10.8px) rotate(-45deg);
-}
-
-.nav-inner {
-  max-width: 1280px;
-  width: 100%;
-  height: 100%;
-
-  margin: 0 auto;
-  padding: 0 20px;
-
-  display: flex;
-  align-items: center;
-}
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  flex-shrink: 0;
-  margin-right: clamp(24px, 4vw, 64px);
-}
-
-.nav-logo img {
-  height: clamp(30px, 4vw, 48px);
-  width: auto;
-  display: block;
-}
-.nav-links { display: flex; gap: clamp(16px, 2vw, 36px); list-style: none; flex: 1; justify-content: flex-start;}
-.nav-links a {
-  color: var(--text-muted); text-decoration: none;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 600; font-size: clamp(8px, 2vw, 20px); letter-spacing: 0.08em;
-  text-transform: uppercase;   transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--red); }
-  
-.nav-links a.active {
-  color: var(--red);
-}
-
-.nav-cta {
-  background: var(--red); color: var(--white);
-  padding: 9px 22px; border-radius: 3px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700; font-size: 15px; letter-spacing: 0.08em;
-  text-transform: uppercase; text-decoration: none;
-  transition: background 0.2s;
-}
-.nav-cta:hover { background: var(--red-dark); }
-  
-.mobile-menu {
-  position: fixed;
-  top: var(--nav-height);
-  left: 0;
-  right: 0;
-  height: 48px;
-
-  display: flex;
-  flex-direction: row;
-
-  background: #56000e;
-  z-index: 999;
-
-  overflow: hidden;
-
-  max-height: 0;
-  opacity: 0;
-
-  transition:
-    max-height 0.3s ease,
-    opacity 0.3s ease;
-}
-
-.mobile-menu.open {
-  max-height: 48px;
-  opacity: 1;
-}
-
-.mobile-menu a {
-  flex: 1;
-
-  padding: 12px 6px;
-
-  color: white;
-  text-decoration: none;
-
-  text-align: center;
-
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-
-  border: 1px solid rgb(0, 0, 0);
-  
-  transition: background 0.25s ease;
-}
-
-.mobile-menu a:last-child {
-  border-right: none;
-}
-
-.mobile-menu a:hover {
-  background: #991229;
-}
-  
-.floating-book-btn {
-  position: fixed;
-
-  top: calc(var(--nav-height) + 48px);
-  right: 0px;
-
-  z-index: 998;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  min-height: 48px;
-  padding: 12px 22px;
-
-  background: var(--red);
-  color: #fff;
-
-  text-decoration: none;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-
-  border: 1px solid rgba(255,255,255,0.15);
-  border-top: none;
-  border-radius: 0 0 4px 4px;
-
-  box-shadow: 0 4px 12px rgba(0,0,0,.3);
-
-  
-  transition:
-    top 0.3s ease,
-    right 0.3s ease,
-    background 0.25s ease,
-    transform 0.25s ease;
-}
-
-.floating-book-btn:hover { background: var(--white); border-color: var(--red-dark); color: var(--red); }
-  /* ── HERO ── */
-  .hero {
-    min-height: auto;
-    display: flex; 
-    align-items: flex-start;
-    position: relative;
-    overflow: hidden;
-    padding-top: 68px;
-    padding-bottom: clamp(30px, 4vw, 60px);
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background: 
-      linear-gradient(135deg, rgba(200,16,46,0.22) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 50%, rgba(200,16,46,0.06) 0%, transparent 60%);
-  }
-  .hero-slash {
-    position: absolute; right: -60px; top: 0; bottom: 0; width: 55%;
-    background: var(--surface);
-    transform: skewX(-8deg);
-    overflow: hidden;
-  }
-  .hero-slash::after {
-    content: '';
-    position: absolute; inset: 0;
-    z-index: 1;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><line x1="0" y1="0" x2="60" y2="60" stroke="%23C8102E" stroke-width="0.4" opacity="2"/></svg>');
-  }
-  .hero-slash-img {
-    position: absolute; inset: 0;
-    z-index: 2;
-    display: flex; align-items: center; justify-content: center;
-    transform: skewX(8deg);
-    padding: 60px;
-  }
-  .hero-slash-img .logo-display {
-    width: 100%;
-    filter: drop-shadow(0 0 60px rgba(200,16,46,0.3));
-    animation: float 4s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%,100% { transform: translateX(-30px) translateY(0); }
-    50% { transform: translateX(-30px) translateY(-12px); }
-  }
-  .hero-content {
-    position: relative; z-index: 2;
-    max-width: 1280px; width: 100%; margin: 0 auto;
-    padding:
-        clamp(30px, 4vw, 50px)
-        32px
-        clamp(20px, 3vw, 40px);
-    max-width: 560px; margin-left: max(32px, calc(50vw - 640px));
-  }
-  .hero-eyebrow {
-    height: clamp(60px, 4vw, 48px);
-    width: auto;
-    padding-bottom: 20px;
-    display: block;
-  }
-  
-  .hero h1 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: clamp(52px, 7vw, 80px);
-    line-height: 0.95; letter-spacing: -0.01em;
-    text-transform: uppercase; color: var(--white);
-    margin-bottom: 24px;
-  }
-  .hero h1 em { color: var(--red); font-style: normal; }
-  .hero-sub {
-    font-size: 17px; color: var(--text-muted);
-    line-height: 1.7; margin-bottom: 40px;
-    max-width: clamp(100px, 40vw, 440px);
-  }
-  .hero-actions { display: flex; gap: clamp(10px, 1vw, 16px); flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--red); color: var(--white);
-    padding:
-      clamp(5px, 1vw, 14px)
-      clamp(10px, 2vw, 32px);
-    border-radius: 3px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 16px; letter-spacing: 0.08em;
-    text-transform: uppercase; text-decoration: none;
-    transition: all 0.2s; border: 2px solid var(--red);
-    cursor: pointer; display: inline-block;
-  }
-  .btn-primary:hover { background: var(--white); border-color: var(--red-dark); color: var(--red); }
-  .btn-outline {
-    background: transparent; color: var(--white);
-    padding:
-      clamp(5px, 1vw, 14px)
-      clamp(10px, 2vw, 32px);
-    border-radius: 3px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 16px; letter-spacing: 0.08em;
-    text-transform: uppercase; text-decoration: none;
-    border: 2px solid var(--border); transition: all 0.2s;
-    cursor: pointer; display: inline-block;
-  }
-  .btn-outline:hover { border-color: var(--red); color: var(--red); }
-
-  .hero-stats {
-    display: flex; gap: clamp(20px, 3vw, 40px); margin-top: clamp(20px, 3vw, 40px);
-    width: clamp(250px, 25vw, 400px);
-    padding-top: clamp(15px, 2vw, 30px); border-top: 1px solid var(--border);
-  }
-  .stat-num {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: clamp(24px, 2.5vw, 36px); color: var(--red); line-height: 1;
-  }
-  .stat-label {
-    font-size: clamp(10px, 0.8vw, 12px); letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--text-muted);
-    margin-top: 4px;
-  }
-  
-  .hero-info-cards {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-
-    gap: clamp(8px, 2vw, 16px);
-    margin: 0 0 clamp(24px, 3vw, 32px);
-
-    width: 100%;
-    max-width: clamp(320px, 40vw, 700px);
-  }
-
-.hero-info-card {
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  align-items: center;
-  gap: clamp(8px, 1vw, 12px);
-
-  padding: clamp(8px, 1.5vw, 14px);
-
-  background: rgba(33, 33, 33, 0.77);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-
-  transition: all 0.25s ease;
-}
-
-.hero-info-card:hover {
-  border-color: var(--red);
-  background: rgba(85, 3, 17, 0.85);
-  transform: translateY(-2px);
-}
-
-.hero-info-icon {
-  width: clamp(32px, 5vw, 42px);
-  height: clamp(32px, 5vw, 42px);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: clamp(14px, 2vw, 18px);
-
-  background: rgba(200,16,46,0.12);
-  border: 1px solid rgba(200,16,46,0.3);
-  border-radius: 4px;
-}
-
-.hero-info-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: clamp(11px, 1.4vw, 14px);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--white);
-}
-
-.hero-info-text {
-  font-size: clamp(10px, 1.3vw, 13px);
-  color: var(--text-muted);
-}
-
-  /* ── SECTION COMMONS ── */
-  section { 
-    padding: 50px 0;
-    scroll-margin-top: 75px;
-  }
-  
-  section,
-  #contact {
-    scroll-margin-top: calc(var(--nav-height));
-  }
-  
-  
-  
-  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
-  .section-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 12px; letter-spacing: 0.25em;
-    text-transform: uppercase; color: var(--red);
-    margin-bottom: 16px;
-  }
-  .section-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: clamp(36px, 5vw, 56px);
-    text-transform: uppercase; color: var(--white);
-    line-height: 1; letter-spacing: -0.01em;
-    margin-bottom: 16px;
-  }
-  .section-title span { color: var(--red); }
-  .section-desc {
-    color: var(--text-muted); font-size: 16px; max-width: 520px;
-    line-height: 1.7; margin-bottom: 56px;
-  }
-  .slash-divider {
-    display: flex; align-items: center; gap: 16px;
-    margin-bottom: 24px;
-  }
-  .slash-divider::before, .slash-divider::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
-  }
-  .slash-divider-inner {
-    display: flex; gap: 4px;
-  }
-  .slash-divider-inner span {
-    width: 3px; height: 20px; background: var(--red);
-    transform: skewX(-15deg);
-  }
-  .slash-divider-inner span:nth-child(2) { opacity: 0.5; }
-  .slash-divider-inner span:nth-child(3) { opacity: 0.25; }
-
-  /* ── ABOUT / SPECIALTIES ── */
-  .about { background: var(--surface); }
-  .about-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 50px; align-items: top;
-  }
-  
-  .page-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-
-    margin-top: 24px;
-
-    color: var(--red);
-    text-decoration: none;
-
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-
-    transition: gap 0.2s ease,
-      color 0.2s ease;
-  }
-
-.page-link:hover {
-  gap: 10px;
-  color: var(--white);
-}
-  
-  .specialty-list { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
-  .specialty-item {
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px 20px;
-    background: var(--black);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--red);
-    border-radius: 0 4px 4px 0;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600; font-size: 17px; letter-spacing: 0.04em;
-    transition: border-color 0.25s ease,
-                background 0.25s ease;
-  }
-  
-  .specialty-item::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-
-    width: 3px;
-    height: 100%;
-
-    background: rgba(200,16,46,0.12);
-
-    transition: width 0.3s ease;
-  }
-  
-  .specialty-item:hover {
-    border-color: var(--red);
-    background: var(--surface2);
-  }
-
-  .specialty-item:hover::before {
-    width: 100%;
-  } 
-  
-  .specialty-icon { font-size: 20px; }
-  .about-text h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 48px; text-transform: uppercase; color: var(--white); line-height: 1; margin-bottom: 20px; }
-  .about-text h2 span { color: var(--red); }
-  .about-text p { color: var(--text-muted); font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
-  .badge-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-  .badge {
-    padding: 6px 14px; border: 1px solid var(--border);
-    border-radius: 2px; font-size: 12px; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--text-muted);
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
-  }
-  .badge.red { border-color: var(--red); color: var(--red); }
-
-  /* ── COMPLETED JOBS ── */
-  .jobs { background: var(--surface); }
-  .jobs-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 24px;
-  }
-  .job-card {
-    background: var(--black); border: 1px solid var(--border);
-    border-radius: 4px; overflow: hidden; transition: all 0.25s;
-    cursor: pointer; text-decoration: none; color: inherit;
-    display: block;
-  }
-  .job-card:hover { border-color: var(--red); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(200,16,46,0.12); }
-  .job-img {
-    width: 100%; aspect-ratio: 16/9;
-    background: var(--surface2);
-    display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden;
-  }
-  .job-img-placeholder {
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-    color: var(--text-muted);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 13px; letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .job-img-placeholder .car-icon { font-size: 48px; opacity: 0.3; }
-  .job-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 60%);
-  }
-  .job-tag {
-    position: absolute; top: 12px; left: 12px;
-    background: var(--red); color: var(--white);
-    padding: 4px 10px; border-radius: 2px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 12px; letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .job-body { padding: 20px 24px; }
-  .job-body h3 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800; font-size: 20px; text-transform: uppercase;
-    color: var(--white); margin-bottom: 6px;
-  }
-  .job-meta {
-    font-size: 13px; color: var(--text-muted);
-    display: flex; gap: 16px; align-items: center;
-  }
-  .job-meta-dot { color: var(--red); }
-  .job-review-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    margin-top: 12px; color: var(--red);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 14px; letter-spacing: 0.06em;
-    text-transform: uppercase; text-decoration: none;
-  }
-  .job-review-link:hover { text-decoration: underline; }
-
-  /* ── REVIEWS ── */
-  .review-viewport {
-    overflow: hidden;
-    width: 100%;
-  }
-
-  .featured-review {
-    flex: 0 0 100%;
-    min-width: 100%;
-    height: 240px;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .review-carousel {
-    position: relative;
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-
-    max-width: 1000px;
-    margin: 0 auto;
-    overflow: hidden;
-  }
-  
-  .review-track {
-    display: flex;
-    transition: transform 0.6s cubic-bezier(.22,.61,.36,1);
-  }
-
-  .review-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    width: 56px;
-    height: 56px;
-
-    border: 1px solid var(--border);
-    background: var(--surface);
-
-    color: var(--white);
-    font-size: 24px;
-
-    cursor: pointer;
-    transition: .25s ease;
-  }
-  
-  .review-arrow.prev {
-    left: 0;
-  }
-
-  .review-arrow.next {
-    right: 0;
-  }
-
-  .review-arrow:hover {
-    border-color: var(--red);
-    color: var(--red);
-  }
-
-  .featured-review {
-    min-width: 80%;
-    margin: 0 10%;
-    flex-shrink: 0;
-    flex: 1;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 32px;
-    border-radius: 4px;
-
-    opacity: 1;
-    transform: translateX(0);
-    transition:
-      opacity 0.35s ease,
-      transform 0.35s ease;
-  }
-
-  .featured-review.changing {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-
-  .review-dots {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-
-    margin-top: 24px;
-  }
-
-  .review-dot {
-    width: 10px;
-    height: 10px;
-
-    border-radius: 50%;
-    background: #444;
-
-    cursor: pointer;
-  }
-
-  .review-dot.active {
-    background: var(--red);
-  }
-  
-  .reviews-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-  }
-  .review-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 4px; padding: 28px;
-    transition: all 0.25s; cursor: pointer;
-    text-decoration: none; color: inherit; display: block;
-    position: relative;
-  }
-  .review-card:hover { border-color: var(--red); box-shadow: 0 8px 24px rgba(200,16,46,0.1); }
-  .review-stars { color: var(--red); font-size: 16px; margin-bottom: 14px; letter-spacing: 2px; }
-  .review-text {
-    font-size: 15px; color: var(--text); line-height: 1.7;
-    margin-bottom: 20px; font-style: italic;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* number of lines */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .review-author {
-    display: flex; align-items: center; gap: 12px; margin-top: auto;
-  }
-  .review-avatar {
-    width: 40px; height: 40px; border-radius: 50%;
-    background: rgba(200,16,46,0.15); border: 2px solid var(--red);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800; font-size: 16px; color: var(--red);
-    flex-shrink: 0;
-  }
-  .review-name {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 16px; color: var(--white);
-    text-transform: uppercase;
-  }
-  .review-vehicle { font-size: 12px; color: var(--text-muted); }
-  .review-job-link {
-    position: absolute; bottom: 20px; right: 20px;
-    font-size: 11px; color: var(--red);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  }
-
-  /* ── SCHEDULE ── */
-  .schedule { background: var(--surface); }
-  .schedule-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 64px; align-items: start;
-  }
-  .schedule-info h2 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: 48px; text-transform: uppercase;
-    color: var(--white); line-height: 1; margin-bottom: 20px;
-  }
-  .schedule-info h2 span { color: var(--red); }
-  .schedule-info p { color: var(--text-muted); font-size: 16px; line-height: 1.8; margin-bottom: 28px; }
-  .info-item {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    margin-bottom: 20px;
-    padding: 12px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    text-decoration: none;
-    color: inherit;
-    transition: 
-      border-color 0.25s ease,
-      background 0.25s ease,
-      transform 0.25s ease;
-  }
-  
-  .info-item:hover {
-    border-color: var(--red);
-    background: rgba(200,16,46,0.06);
-    transform: translateX(4px);
-  }
-  
-  .info-icon {
-    width: 40px; height: 40px; flex-shrink: 0;
-    background: rgba(200,16,46,0.1); border: 1px solid rgba(200,16,46,0.3);
-    border-radius: 3px; display: flex; align-items: center;
-    justify-content: center; font-size: 18px;
-  }
-  .info-content strong {
-    display: block; font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 16px; color: var(--white);
-    text-transform: uppercase; letter-spacing: 0.05em;
-  }
-  .info-content span { color: var(--text-muted); font-size: 14px; }
-
-  /* Form */
-  .schedule-form { display: flex; flex-direction: column; gap: 16px;}
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .form-group { display: flex; flex-direction: column; gap: 6px; }
-  .form-group label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 13px; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--text-muted);
-  }
-  .form-group input, .form-group select, .form-group textarea {
-    background: var(--black); border: 1px solid var(--border);
-    color: var(--white); padding: 12px 16px; border-radius: 3px;
-    font-family: 'Barlow', sans-serif; font-size: 15px;
-    outline: none; transition: border-color 0.2s;
-    width: 100%;
-  }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-    border-color: var(--red);
-  }
-  .form-group select option { background: var(--surface2); }
-  .form-group textarea { resize: vertical; min-height: 100px; }
-  .radio-group { display: flex; gap: 16px; }
-  .radio-label {
-    display: flex; align-items: center; gap: 8px;
-    cursor: pointer; padding: 10px 20px;
-    border: 1px solid var(--border); border-radius: 3px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 14px; letter-spacing: 0.06em;
-    text-transform: uppercase; transition: all 0.2s; flex: 1;
-    justify-content: center;
-  }
-  .radio-label input { accent-color: var(--red); }
-  .radio-label:has(input:checked) {
-    border-color: var(--red); background: rgba(200,16,46,0.1); color: var(--red);
-  }
-  .form-submit { width: 100%; margin-top: 8px; }
-
-  /* ── CONTACT ── */
-  .contact-bar {
-    background: var(--red); padding: 80px 0;
-  }
-  .contact-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 40px; align-items: center;
-  }
-  .contact-item {
-    display: flex; align-items: flex-start; gap: 16px;
-  }
-  .contact-icon {
-    width: 48px; height: 48px; flex-shrink: 0;
-    background: rgba(255,255,255,0.15); border-radius: 3px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
-  }
-  .contact-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 13px; letter-spacing: 0.15em;
-    text-transform: uppercase; opacity: 0.75; margin-bottom: 4px;
-  }
-  .contact-value {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800; font-size: 20px; line-height: 1.3;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--black); padding: 60px 0 32px;
-    border-top: 1px solid var(--border);
-  }
-  .footer-top {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    margin-bottom: 48px; gap: 40px;
-  }
-  .footer-brand p { color: var(--text-muted); font-size: 14px; max-width: 280px; margin-top: 12px; line-height: 1.7; }
-  .footer-brand h3 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: 28px; text-transform: uppercase;
-  }
-  .footer-brand h3 span { color: var(--red); }
-  .footer-links h4 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 14px; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--white); margin-bottom: 16px;
-  }
-  .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .footer-links a {
-    color: var(--text-muted); text-decoration: none; font-size: 14px;
-    transition: color 0.2s;
-  }
-  .footer-links a:hover { color: var(--red); }
-  .footer-bottom {
-    border-top: 1px solid var(--border); padding-top: 28px;
-    display: flex; justify-content: space-between; align-items: center;
-    color: var(--text-muted); font-size: 13px;
-  }
-  .footer-bottom span { color: var(--red); }
-
-  /* ── MODAL ── */
-  .modal-overlay {
-    position: fixed; inset: 0; z-index: 2000;
-    background: rgba(0,0,0,0.85);
-    display: flex; align-items: center; justify-content: center;
-    padding: 24px; opacity: 0; pointer-events: none;
-    transition: opacity 0.25s;
-  }
-  .modal-overlay.open { opacity: 1; pointer-events: all; }
-  .modal {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 6px; max-width: 700px; width: 100%;
-    max-height: 85vh; overflow-y: auto;
-    transform: translateY(24px); transition: transform 0.25s;
-  }
-  .modal-overlay.open .modal { transform: translateY(0); }
-  .modal-header {
-    padding: 24px 28px; border-bottom: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .modal-header h3 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800; font-size: 24px; text-transform: uppercase; color: var(--white);
-  }
-  .modal-close {
-    background: none; border: none; color: var(--text-muted);
-    font-size: 24px; cursor: pointer; line-height: 1;
-    padding: 4px; transition: color 0.2s;
-  }
-  .modal-close:hover { color: var(--red); }
-  .modal-body { padding: 28px; }
-  .modal-job-tag {
-    display: inline-block;
-    background: var(--red); color: var(--white);
-    padding: 4px 12px; border-radius: 2px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 12px; letter-spacing: 0.08em;
-    text-transform: uppercase; margin-bottom: 16px;
-  }
-  .modal-img {
-    width: 100%; aspect-ratio: 16/9;
-    background: var(--surface2); border-radius: 4px;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 20px; font-size: 72px; opacity: 0.3;
-  }
-  .modal-details {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 12px; margin-bottom: 20px;
-  }
-  .modal-detail {
-    background: var(--black); padding: 12px 16px;
-    border-radius: 3px; border: 1px solid var(--border);
-  }
-  .modal-detail label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 4px; }
-  .modal-detail strong { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 16px; }
-  .modal-review-section { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
-  .modal-review-section h4 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 18px; text-transform: uppercase;
-    margin-bottom: 14px; color: var(--white);
-  }
-
-  /* ── TOAST ── */
-  .toast {
-    position: fixed; bottom: 32px; right: 32px; z-index: 3000;
-    background: var(--surface); border: 1px solid var(--red);
-    border-radius: 4px; padding: 16px 24px;
-    transform: translateY(80px); opacity: 0;
-    transition: all 0.3s; pointer-events: none;
-  }
-  .toast.show { transform: translateY(0); opacity: 1; }
-  .toast-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800; font-size: 17px; color: var(--red); text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .toast-body { font-size: 14px; color: var(--text-muted); }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 800px) {
-
-    .hero {
-        padding-top: 40px;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Garrett's Garage | Honda & Acura Specialists</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap"
+      rel="stylesheet" />
+    <style>
+      :root {
+        --red: #c8102e;
+        --red-dark: #9b0c23;
+        --red-glow: rgba(200, 16, 46, 0.25);
+        --black: #080808;
+        --surface: #131313;
+        --surface2: #1c1c1c;
+        --border: #2a2a2a;
+        --text: #f0f0f0;
+        --text-muted: #888;
+        --white: #ffffff;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--black);
+        color: var(--text);
+        font-family: "Barlow", sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+
+        background: #000;
+        border-bottom: 1px solid var(--border);
+
+        height: clamp(70px, 8vw, 80px);
+        margin: 0;
+        border-top: none;
+      }
+
+      .nav-right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .burger {
+        width: 32px;
+        height: 24px;
+        position: relative;
+        z-index: 1002;
+
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+
+        margin-left: auto;
+
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+
+      .burger span {
+        display: block;
+        width: 100%;
+        height: 3px;
+
+        background: white;
+        border-radius: 3px;
+
+        transition: all 0.3s ease;
+      }
+
+      .burger.open span:nth-child(1) {
+        transform: translateY(10.8px) rotate(45deg);
+      }
+
+      .burger.open span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .burger.open span:nth-child(3) {
+        transform: translateY(-10.8px) rotate(-45deg);
+      }
+
+      .nav-inner {
+        max-width: 1280px;
+        width: 100%;
+        height: 100%;
+
+        margin: 0 auto;
+        padding: 0 20px;
+
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        flex-shrink: 0;
+        margin-right: clamp(24px, 4vw, 64px);
+      }
+
+      .nav-logo img {
+        height: clamp(30px, 4vw, 48px);
+        width: auto;
+        display: block;
+      }
+      .nav-links {
+        display: flex;
+        gap: clamp(16px, 2vw, 36px);
+        list-style: none;
+        flex: 1;
+        justify-content: flex-start;
+      }
+      .nav-links a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 600;
+        font-size: clamp(8px, 2vw, 20px);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--red);
+      }
+
+      .nav-links a.active {
+        color: var(--red);
+      }
+
+      .nav-cta {
+        background: var(--red);
+        color: var(--white);
+        padding: 9px 22px;
+        border-radius: 3px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .nav-cta:hover {
+        background: var(--red-dark);
+      }
+
+      .mobile-menu {
+        position: fixed;
+        top: var(--nav-height);
+        left: 0;
+        right: 0;
+        height: 48px;
+
+        display: flex;
+        flex-direction: row;
+
+        background: #56000e;
+        z-index: 999;
+
+        overflow: hidden;
+
+        max-height: 0;
+        opacity: 0;
+
+        transition:
+          max-height 0.3s ease,
+          opacity 0.3s ease;
+      }
+
+      .mobile-menu.open {
+        max-height: 48px;
+        opacity: 1;
+      }
+
+      .mobile-menu a {
+        flex: 1;
+
+        padding: 12px 6px;
+
+        color: white;
+        text-decoration: none;
+
+        text-align: center;
+
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+
+        border: 1px solid rgb(0, 0, 0);
+
+        transition: background 0.25s ease;
+      }
+
+      .mobile-menu a:last-child {
+        border-right: none;
+      }
+
+      .mobile-menu a:hover {
+        background: #991229;
+      }
+
+      .floating-book-btn {
+        position: fixed;
+
+        top: calc(var(--nav-height) + 48px);
+        right: 0px;
+
+        z-index: 998;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        min-height: 48px;
+        padding: 12px 22px;
+
+        background: var(--red);
+        color: #fff;
+
+        text-decoration: none;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        transition:
+          top 0.3s ease,
+          right 0.3s ease,
+          background 0.25s ease,
+          transform 0.25s ease;
+      }
+
+      .floating-book-btn:hover {
+        background: var(--white);
+        border-color: var(--red-dark);
+        color: var(--red);
+      }
+      /* ── HERO ── */
+      .hero {
         min-height: auto;
-        padding-bottom: 20px;
-    }
-    
-    .hero-bg {
+        display: flex;
+        align-items: flex-start;
+        position: relative;
+        overflow: hidden;
+        padding-top: 68px;
+        padding-bottom: clamp(30px, 4vw, 60px);
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(200, 16, 46, 0.22) 0%, transparent 50%),
+          radial-gradient(ellipse at 80% 50%, rgba(200, 16, 46, 0.06) 0%, transparent 60%);
+      }
+      .hero-slash {
+        position: absolute;
+        right: -60px;
+        top: 0;
+        bottom: 0;
+        width: 55%;
+        background: var(--surface);
+        transform: skewX(-8deg);
+        overflow: hidden;
+      }
+      .hero-slash::after {
+        content: "";
         position: absolute;
         inset: 0;
         z-index: 1;
-        background: linear-gradient(0deg, rgba(200,16,46,0.22) 0%, transparent 75%)
-    }
-
-    .hero-slash {
-        inset: 0;
-        width: 100%;
-        right: 0;
-        transform: none;
-        z-index: 0;
-        background: transparent;
-    }
-
-    .hero-slash::after {
-        opacity: 0.6;
-    }
-
-    .hero-slash-img {
-      position: absolute;
-      inset: -3%;
-      overflow: hidden;
-      background-image: url("images/gg.png");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: clamp(450px, 100vw, 1000px);
-      opacity: 0.2;
-    }
-
-    .hero-slash-img .logo-display {
-        display: none;
-        width: clamp(900px, 150vw, 1600px);
-        max-width: none;
-        height: auto;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><line x1="0" y1="0" x2="60" y2="60" stroke="%23C8102E" stroke-width="0.4" opacity="2"/></svg>');
+      }
+      .hero-slash-img {
         position: absolute;
-        left: 50%;
-        right: 50%;
-        transform: none;
-    }
-
-    .hero-content {
+        inset: 0;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: skewX(8deg);
+        padding: 60px;
+      }
+      .hero-slash-img .logo-display {
+        width: 100%;
+        filter: drop-shadow(0 0 60px rgba(200, 16, 46, 0.3));
+        animation: float 4s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateX(-30px) translateY(0);
+        }
+        50% {
+          transform: translateX(-30px) translateY(-12px);
+        }
+      }
+      .hero-content {
         position: relative;
-        z-index: 3;
-        max-width: 680px;
+        z-index: 2;
+        max-width: 1280px;
         width: 100%;
         margin: 0 auto;
-        padding: 100px 32px 80px;
+        padding: clamp(30px, 4vw, 50px) 32px clamp(20px, 3vw, 40px);
+        max-width: 560px;
+        margin-left: max(32px, calc(50vw - 640px));
+      }
+      .hero-eyebrow {
+        height: clamp(60px, 4vw, 48px);
+        width: auto;
         padding-bottom: 20px;
-    }
+        display: block;
+      }
 
-    .hero-sub {
-        max-width: 100%;
-        font-weight: 500;
+      .hero h1 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 900;
+        font-size: clamp(52px, 7vw, 80px);
+        line-height: 0.95;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        color: var(--white);
+        margin-bottom: 24px;
+      }
+      .hero h1 em {
+        color: var(--red);
+        font-style: normal;
+      }
+      .hero-sub {
+        font-size: 17px;
+        color: var(--text-muted);
+        line-height: 1.7;
         margin-bottom: 40px;
-        color: rgba(240, 240, 240, 0.82);
-    }
-    
-    .hero-info-cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-
-      gap: clamp(8px, 2vw, 16px);
-      margin: 0 0 clamp(24px, 3vw, 32px);
-
-      width: 100%;
-      max-width: clamp(320px, 40vw, 700px);
-    }
-
-    .btn-outline {
-      border-color: var(--text-muted);
-    }
-    
-    .hero-stats {
-        border-color: var(--white);
-        width: 100%;
-        max-width: 500px;
-        gap: clamp(12px, 4vw, 24px);
-    }
-
-    .stat-num {
-        font-size: clamp(24px, 7vw, 40px);
-    }
-
-    .stat-label {
-        font-size: clamp(12px, 3vw, 16px);
-    }
-
-    .about-grid,
-    .schedule-grid,
-    .contact-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-
-    .modal-details {
-        grid-template-columns: 1fr;
-    }
-
-    .footer-top {
-        flex-direction: column;
-    }
-
-    nav .nav-links {
-        display: none;
-    }
-
-    .footer-bottom {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .burger {
+        max-width: clamp(100px, 40vw, 440px);
+      }
+      .hero-actions {
         display: flex;
-    }
-    
-    .specialty-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
+        gap: clamp(10px, 1vw, 16px);
+        flex-wrap: wrap;
+      }
+      .btn-primary {
+        background: var(--red);
+        color: var(--white);
+        padding: clamp(5px, 1vw, 14px) clamp(10px, 2vw, 32px);
+        border-radius: 3px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: all 0.2s;
+        border: 2px solid var(--red);
+        cursor: pointer;
+        display: inline-block;
+      }
+      .btn-primary:hover {
+        background: var(--white);
+        border-color: var(--red-dark);
+        color: var(--red);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--white);
+        padding: clamp(5px, 1vw, 14px) clamp(10px, 2vw, 32px);
+        border-radius: 3px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border: 2px solid var(--border);
+        transition: all 0.2s;
+        cursor: pointer;
+        display: inline-block;
+      }
+      .btn-outline:hover {
+        border-color: var(--red);
+        color: var(--red);
+      }
 
-  .specialty-item {
-    min-height: 72px;
-    padding: 14px;
-    font-size: 15px;
-    line-height: 1.2;
-  }
-    
-}
-</style>
-</head>
-<body>
+      .hero-stats {
+        display: flex;
+        gap: clamp(20px, 3vw, 40px);
+        margin-top: clamp(20px, 3vw, 40px);
+        width: clamp(250px, 25vw, 400px);
+        padding-top: clamp(15px, 2vw, 30px);
+        border-top: 1px solid var(--border);
+      }
+      .stat-num {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 900;
+        font-size: clamp(24px, 2.5vw, 36px);
+        color: var(--red);
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: clamp(10px, 0.8vw, 12px);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
+      .hero-info-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
 
-    <a href="#home" class="nav-logo">
-      <img src="images/banner.png" alt="Garrett's Garage">
-    </a>
+        gap: clamp(8px, 2vw, 16px);
+        margin: 0 0 clamp(24px, 3vw, 32px);
 
-    <ul class="nav-links">
-      <li><a href="#home">About</a></li>
-      <li><a href="#about">Services</a></li>
-      <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#jobs">Completed Jobs</a></li>
-      <li><a href="#schedule">Contact</a></li>
-    </ul>
+        width: 100%;
+        max-width: clamp(320px, 40vw, 700px);
+      }
 
-    <button class="burger" id="burger" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+      .hero-info-card {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        align-items: center;
+        gap: clamp(8px, 1vw, 12px);
 
-  </div>
-</nav>
-  
-<a href="#schedule" class="floating-book-btn">
-    Book Service
-</a>
+        padding: clamp(8px, 1.5vw, 14px);
 
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#home">About</a>
-  <a href="#about">Services</a>
-  <a href="#reviews">Reviews</a>
-  <a href="#jobs">Past jobs</a>
-  <a href="#schedule">Contact</a>
-</div>
+        background: rgba(33, 33, 33, 0.77);
+        border: 1px solid var(--border);
+        border-radius: 4px;
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-slash">
-    <div class="hero-slash-img">
-    <picture>
-      <source
-        media="(max-width: 700px)"
-        srcset="images/gg.png"
-      >
+        transition: all 0.25s ease;
+      }
 
-      <img
-        src="images/hero-img.png"
-        alt="Garrett's Garage Hero Vehicle"
-        class="logo-display"
-      />
-    </picture>
-</div>
-  </div>
-  <div class="hero-content">
-    <img
-        src="images/HAlogos.png"
-        alt="Garrett's Garage Hero Vehicle"
-        class="hero-eyebrow"
-      />
-    <h1>Dealer <em>Quality.</em><br>Real Prices.</h1>
-    <p class="hero-sub">Garrett's Garage delivers factory-level expertise on your Honda or Acura — without the dealership markup. Trusted by locals to keep their vehicles running right.</p>
-    
-    <div class="hero-info-cards">
-      <a href="https://www.google.com/maps/place/Garrett%E2%80%99s+Garage/@38.6270242,-77.3302342,10z/data=!4m6!3m5!1s0x89b765288f856479:0x92c8d74c1635c9a2!8m2!3d38.3601797!4d-76.5685214!16s%2Fg%2F11nhk9b_qs?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D"
-         class="hero-info-card"
-         target="_blank">
+      .hero-info-card:hover {
+        border-color: var(--red);
+        background: rgba(85, 3, 17, 0.85);
+        transform: translateY(-2px);
+      }
 
-        <div class="hero-info-icon">📍</div>
-        <div>
-          <div class="hero-info-title">Location</div>
-          <div class="hero-info-text">Hollywood, MD</div>
-        </div>
-      </a>
+      .hero-info-icon {
+        width: clamp(32px, 5vw, 42px);
+        height: clamp(32px, 5vw, 42px);
 
-      <a href="tel:+12405233675" class="hero-info-card">
-        <div class="hero-info-icon">📞</div>
-        <div>
-          <div class="hero-info-title">Call or Text</div>
-          <div class="hero-info-text">(240) 523-3675</div>
-        </div>
-      </a>
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-      <a href="mailto:garrettshollywood@gmail.com" class="hero-info-card">
-        <div class="hero-info-icon">✉️</div>
-        <div>
-          <div class="hero-info-title">Email</div>
-          <div class="hero-info-text">Email Us</div>
-        </div>
-      </a>
-    </div>
+        font-size: clamp(14px, 2vw, 18px);
 
-<div class="hero-actions">
-    
-    <div class="hero-actions">
-      <a href="#schedule" class="btn-primary">Schedule Service</a>
-      <a href="#services" class="btn-outline">Our Services</a>
-    </div>
-    <div class="hero-stats">
-      <div>
-        <div class="stat-num">5.0 ★</div>
-        <div class="stat-label">Avg. Rating</div>
-      </div>
-      <div>
-        <div class="stat-num">6 yr</div>
-        <div class="stat-label">Experience</div>
-      </div>
-      <div>
-        <div class="stat-num" id="todayHours">11AM – 11PM</div>
-        <div class="stat-label">Today's Hours</div>
-      </div>
-    </div>
-  </div>
-  </div>
-</section>
+        background: rgba(200, 16, 46, 0.12);
+        border: 1px solid rgba(200, 16, 46, 0.3);
+        border-radius: 4px;
+      }
 
-<!-- ABOUT -->
-<section class="about" id="about">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-text">
-        <div class="section-label">Who We Are</div>
-        <h2>Built on <span>Expertise</span></h2>
-        <p>Garrett's Garage was founded on a simple belief: you shouldn't have to pay dealership prices to get dealership-quality service. With over 6 years of specialized experience in Honda and Acura vehicles, we've built our reputation one satisfied customer at a time.</p>
-        <p>We use OEM or OEM-equivalent parts on every job — because your vehicle deserves nothing less.</p>
-        <div class="badge-row">
-          <span class="badge red">Honda Certified</span>
-          <span class="badge red">Acura Certified</span>
-          <span class="badge red">OEM Parts</span>
-        </div>
-      </div>
-      <div>
-        <div class="section-label">What We Do</div>
-        <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 20px;">From routine maintenance to complex engine work — we handle it all.</p>
-        <div class="specialty-list">
-          <div class="specialty-item"><span class="specialty-icon">🛢️</span> Scheduled Maintenance</div>
-          <div class="specialty-item"><span class="specialty-icon">🔧</span> Engine Diagnostics & Repair</div>
-          <div class="specialty-item"><span class="specialty-icon">🔋</span> Head Gasket Replacement (1.5T/2.0T)</div>
-          <div class="specialty-item"><span class="specialty-icon">🛑</span> Brakes &amp; Suspension Repair</div>
-          <div class="specialty-item"><span class="specialty-icon">⚙️</span>Transmission and Clutch Replacement</div>
-          <div class="specialty-item"><span class="specialty-icon">🌡️</span>A/C & Heating Systems (R-134a)</div>
-        </div>
-        <a href="services.html" class="page-link">
-          View Full Service Catalog →
+      .hero-info-title {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: clamp(11px, 1.4vw, 14px);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--white);
+      }
+
+      .hero-info-text {
+        font-size: clamp(10px, 1.3vw, 13px);
+        color: var(--text-muted);
+      }
+
+      /* ── SECTION COMMONS ── */
+      section {
+        padding: 50px 0;
+        scroll-margin-top: 75px;
+      }
+
+      section,
+      #contact {
+        scroll-margin-top: calc(var(--nav-height));
+      }
+
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+      .section-label {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 16px;
+      }
+      .section-title {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 900;
+        font-size: clamp(36px, 5vw, 56px);
+        text-transform: uppercase;
+        color: var(--white);
+        line-height: 1;
+        letter-spacing: -0.01em;
+        margin-bottom: 16px;
+      }
+      .section-title span {
+        color: var(--red);
+      }
+      .section-desc {
+        color: var(--text-muted);
+        font-size: 16px;
+        max-width: 520px;
+        line-height: 1.7;
+        margin-bottom: 56px;
+      }
+      .slash-divider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+      .slash-divider::before,
+      .slash-divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+      .slash-divider-inner {
+        display: flex;
+        gap: 4px;
+      }
+      .slash-divider-inner span {
+        width: 3px;
+        height: 20px;
+        background: var(--red);
+        transform: skewX(-15deg);
+      }
+      .slash-divider-inner span:nth-child(2) {
+        opacity: 0.5;
+      }
+      .slash-divider-inner span:nth-child(3) {
+        opacity: 0.25;
+      }
+
+      /* ── ABOUT / SPECIALTIES ── */
+      .about {
+        background: var(--surface);
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: top;
+      }
+
+      .page-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+
+        margin-top: 24px;
+
+        color: var(--red);
+        text-decoration: none;
+
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+
+        transition:
+          gap 0.2s ease,
+          color 0.2s ease;
+      }
+
+      .page-link:hover {
+        gap: 10px;
+        color: var(--white);
+      }
+
+      .specialty-list {
+        margin-top: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .specialty-item {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 20px;
+        background: var(--black);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--red);
+        border-radius: 0 4px 4px 0;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 600;
+        font-size: 17px;
+        letter-spacing: 0.04em;
+        transition:
+          border-color 0.25s ease,
+          background 0.25s ease;
+      }
+
+      .specialty-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        width: 3px;
+        height: 100%;
+
+        background: rgba(200, 16, 46, 0.12);
+
+        transition: width 0.3s ease;
+      }
+
+      .specialty-item:hover {
+        border-color: var(--red);
+        background: var(--surface2);
+      }
+
+      .specialty-item:hover::before {
+        width: 100%;
+      }
+
+      .specialty-icon {
+        font-size: 20px;
+      }
+      .about-text h2 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 900;
+        font-size: 48px;
+        text-transform: uppercase;
+        color: var(--white);
+        line-height: 1;
+        margin-bottom: 20px;
+      }
+      .about-text h2 span {
+        color: var(--red);
+      }
+      .about-text p {
+        color: var(--text-muted);
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 16px;
+      }
+      .badge-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+      .badge {
+        padding: 6px 14px;
+        border: 1px solid var(--border);
+        border-radius: 2px;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 600;
+      }
+      .badge.red {
+        border-color: var(--red);
+        color: var(--red);
+      }
+
+      /* ── COMPLETED JOBS ── */
+      .jobs {
+        background: var(--surface);
+      }
+      .jobs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 24px;
+      }
+      .job-card {
+        background: var(--black);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        overflow: hidden;
+        transition: all 0.25s;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      .job-card:hover {
+        border-color: var(--red);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(200, 16, 46, 0.12);
+      }
+      .job-img {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: var(--surface2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .job-img-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-muted);
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .job-img-placeholder .car-icon {
+        font-size: 48px;
+        opacity: 0.3;
+      }
+      .job-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(8, 8, 8, 0.8) 0%, transparent 60%);
+      }
+      .job-tag {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: var(--red);
+        color: var(--white);
+        padding: 4px 10px;
+        border-radius: 2px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .job-body {
+        padding: 20px 24px;
+      }
+      .job-body h3 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 20px;
+        text-transform: uppercase;
+        color: var(--white);
+        margin-bottom: 6px;
+      }
+      .job-meta {
+        font-size: 13px;
+        color: var(--text-muted);
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+      .job-meta-dot {
+        color: var(--red);
+      }
+      .job-review-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 12px;
+        color: var(--red);
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        text-decoration: none;
+      }
+      .job-review-link:hover {
+        text-decoration: underline;
+      }
+
+      /* ── REVIEWS ── */
+      .review-viewport {
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .featured-review {
+        cursor: pointer;
+        flex: 0 0 100%;
+        min-width: 100%;
+        height: 240px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .review-carousel {
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+
+        max-width: 1000px;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+
+      .review-track {
+        display: flex;
+        transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+
+      .review-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        width: 56px;
+        height: 56px;
+
+        border: 1px solid var(--border);
+        background: var(--surface);
+
+        color: var(--white);
+        font-size: 24px;
+
+        cursor: pointer;
+        transition: 0.25s ease;
+      }
+
+      .review-arrow.prev {
+        left: 0;
+      }
+
+      .review-arrow.next {
+        right: 0;
+      }
+
+      .review-arrow:hover {
+        border-color: var(--red);
+        color: var(--red);
+      }
+
+      .featured-review {
+        min-width: 80%;
+        margin: 0 10%;
+        flex-shrink: 0;
+        flex: 1;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 32px;
+        border-radius: 4px;
+
+        opacity: 1;
+        transform: translateX(0);
+        transition:
+          opacity 0.35s ease,
+          transform 0.35s ease;
+      }
+
+      .featured-review.changing {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+
+      .featured-review .review-text {
+        color: var(--text);
+        font-style: italic;
+        font-size: 18px;
+        line-height: 1.7;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Change to 3 if you want another line */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .featured-review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .featured-review .review-title {
+        flex: 1;
+        color: var(--red);
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        text-transform: uppercase;
+        line-height: 1.15;
+      }
+
+      .featured-review .review-stars {
+        flex-shrink: 0;
+        color: #ffd700;
+        font-size: 18px;
+        letter-spacing: 2px;
+        white-space: nowrap;
+      }
+
+      .review-dots {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+
+        margin-top: 24px;
+      }
+
+      .review-dot {
+        width: 10px;
+        height: 10px;
+
+        border-radius: 50%;
+        background: #444;
+
+        cursor: pointer;
+      }
+
+      .review-dot.active {
+        background: var(--red);
+      }
+
+      .reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+      }
+      .review-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 28px;
+        transition: all 0.25s;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        position: relative;
+      }
+      .review-card:hover {
+        border-color: var(--red);
+        box-shadow: 0 8px 24px rgba(200, 16, 46, 0.1);
+      }
+      .review-stars {
+        color: #ffd700;
+        font-size: 16px;
+        margin-bottom: 14px;
+        letter-spacing: 2px;
+      }
+      .review-text {
+        font-size: 15px;
+        color: var(--text);
+        line-height: 1.7;
+        margin-bottom: 20px;
+        font-style: italic;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* number of lines */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .review-author {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: auto;
+      }
+      .review-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(200, 16, 46, 0.15);
+        border: 2px solid var(--red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 16px;
+        color: var(--red);
+        flex-shrink: 0;
+      }
+      .review-name {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--white);
+        text-transform: uppercase;
+      }
+      .review-vehicle {
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .review-job-link {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 11px;
+        color: var(--red);
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        margin-bottom: 14px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .review-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 5000;
+      }
+
+      .review-modal.open {
+        display: flex;
+      }
+
+      .review-modal-content {
+        position: relative;
+        background: var(--surface);
+        border: 1px solid var(--red);
+        border-radius: 6px;
+        padding: 32px;
+        width: min(700px, 90vw);
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      .review-modal-content::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--red);
+      }
+
+      .review-close {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        z-index: 2;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .modal-title-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      #modalName {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 42px;
+        text-transform: uppercase;
+        color: var(--white);
+        margin: 0;
+      }
+
+      .modal-vehicle {
+        color: var(--text-muted);
+        font-size: 20px;
+        font-weight: 500;
+        padding-left: 20px;
+      }
+
+      .modal-stars {
+        color: #ffd700;
+        font-size: 28px;
+        padding-right: 40px;
+      }
+
+      .review-title {
+        color: var(--red);
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+
+      #modalText {
+        color: var(--white);
+        font-style: italic;
+        font-size: 18px;
+        line-height: 1.8;
+        margin-top: 20px;
+        margin-bottom: 24px;
+      }
+
+      .review-job-link {
+        display: inline-block;
+        color: var(--red);
+        text-decoration: none;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        transition: 0.2s;
+      }
+
+      .review-job-link:hover {
+        color: white;
+      }
+
+      .review-close {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+
+        background: none;
+        border: none;
+
+        color: white;
+        font-size: 28px;
+
+        cursor: pointer;
+      }
+
+      .review-close:hover {
+        color: var(--red);
+      }
+
+      .modal-stars {
+        color: #ffd700;
+        font-size: 28px;
+        letter-spacing: 2px;
+        margin: 12px 0;
+        padding-right: 40px;
+      }
+
+      .review-title {
+        color: var(--red);
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+
+      #modalText {
+        line-height: 1.8;
+        color: var(--text);
+        margin-bottom: 24px;
+      }
+
+      .modal-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+
+      .modal-vehicle {
+        color: var(--text-muted);
+      }
+
+      /* ── SCHEDULE ── */
+      .schedule {
+        background: var(--surface);
+      }
+      .schedule-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        align-items: start;
+      }
+      .schedule-info h2 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 900;
+        font-size: 48px;
+        text-transform: uppercase;
+        color: var(--white);
+        line-height: 1;
+        margin-bottom: 20px;
+      }
+      .schedule-info h2 span {
+        color: var(--red);
+      }
+      .schedule-info p {
+        color: var(--text-muted);
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 28px;
+      }
+      .info-item {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        padding: 12px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        text-decoration: none;
+        color: inherit;
+        transition:
+          border-color 0.25s ease,
+          background 0.25s ease,
+          transform 0.25s ease;
+      }
+
+      .info-item:hover {
+        border-color: var(--red);
+        background: rgba(200, 16, 46, 0.06);
+        transform: translateX(4px);
+      }
+
+      .info-icon {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        background: rgba(200, 16, 46, 0.1);
+        border: 1px solid rgba(200, 16, 46, 0.3);
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+      }
+      .info-content strong {
+        display: block;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--white);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .info-content span {
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+
+      /* Form */
+      .schedule-form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .form-group label {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        background: var(--black);
+        border: 1px solid var(--border);
+        color: var(--white);
+        padding: 12px 16px;
+        border-radius: 3px;
+        font-family: "Barlow", sans-serif;
+        font-size: 15px;
+        outline: none;
+        transition: border-color 0.2s;
+        width: 100%;
+      }
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        border-color: var(--red);
+      }
+      .form-group select option {
+        background: var(--surface2);
+      }
+      .form-group textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+      .radio-group {
+        display: flex;
+        gap: 16px;
+      }
+      .radio-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 10px 20px;
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        transition: all 0.2s;
+        flex: 1;
+        justify-content: center;
+      }
+      .radio-label input {
+        accent-color: var(--red);
+      }
+      .radio-label:has(input:checked) {
+        border-color: var(--red);
+        background: rgba(200, 16, 46, 0.1);
+        color: var(--red);
+      }
+      .form-submit {
+        width: 100%;
+        margin-top: 8px;
+      }
+
+      /* ── CONTACT ── */
+      .contact-bar {
+        background: var(--red);
+        padding: 80px 0;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        align-items: center;
+      }
+      .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .contact-icon {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+      }
+      .contact-label {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        opacity: 0.75;
+        margin-bottom: 4px;
+      }
+      .contact-value {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 20px;
+        line-height: 1.3;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: var(--black);
+        padding: 60px 0 32px;
+        border-top: 1px solid var(--border);
+      }
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 48px;
+        gap: 40px;
+      }
+      .footer-brand p {
+        color: var(--text-muted);
+        font-size: 14px;
+        max-width: 280px;
+        margin-top: 12px;
+        line-height: 1.7;
+      }
+      .footer-brand h3 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 900;
+        font-size: 28px;
+        text-transform: uppercase;
+      }
+      .footer-brand h3 span {
+        color: var(--red);
+      }
+      .footer-links h4 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--white);
+        margin-bottom: 16px;
+      }
+      .footer-links ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .footer-links a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.2s;
+      }
+      .footer-links a:hover {
+        color: var(--red);
+      }
+      .footer-bottom {
+        border-top: 1px solid var(--border);
+        padding-top: 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--text-muted);
+        font-size: 13px;
+      }
+      .footer-bottom span {
+        color: var(--red);
+      }
+
+      /* ── MODAL ── */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        background: rgba(0, 0, 0, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s;
+      }
+      .modal-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .modal {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        max-width: 700px;
+        width: 100%;
+        max-height: 85vh;
+        overflow-y: auto;
+        transform: translateY(24px);
+        transition: transform 0.25s;
+      }
+      .modal-overlay.open .modal {
+        transform: translateY(0);
+      }
+      .modal-header {
+        padding: 24px 28px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .modal-header h3 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 24px;
+        text-transform: uppercase;
+        color: var(--white);
+      }
+      .modal-close {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        font-size: 24px;
+        cursor: pointer;
+        line-height: 1;
+        padding: 4px;
+        transition: color 0.2s;
+      }
+      .modal-close:hover {
+        color: var(--red);
+      }
+      .modal-body {
+        padding: 28px;
+      }
+      .modal-job-tag {
+        display: inline-block;
+        background: var(--red);
+        color: var(--white);
+        padding: 4px 12px;
+        border-radius: 2px;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+
+      .modal-job-link {
+        display: inline-block;
+        margin-top: 24px;
+
+        color: var(--red);
+        text-decoration: none;
+
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+
+        transition: 0.2s;
+      }
+
+      .modal-job-link:hover {
+        color: white;
+      }
+
+      .modal-img {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: var(--surface2);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        font-size: 72px;
+        opacity: 0.3;
+      }
+      .modal-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .modal-detail {
+        background: var(--black);
+        padding: 12px 16px;
+        border-radius: 3px;
+        border: 1px solid var(--border);
+      }
+      .modal-detail label {
+        font-size: 11px;
+        color: var(--text-muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 4px;
+      }
+      .modal-detail strong {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+      }
+      .modal-review-section {
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+      }
+      .modal-review-section h4 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+        color: var(--white);
+      }
+
+      /* ── TOAST ── */
+      .toast {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        z-index: 3000;
+        background: var(--surface);
+        border: 1px solid var(--red);
+        border-radius: 4px;
+        padding: 16px 24px;
+        transform: translateY(80px);
+        opacity: 0;
+        transition: all 0.3s;
+        pointer-events: none;
+      }
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      .toast-title {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 17px;
+        color: var(--red);
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .toast-body {
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 800px) {
+        .hero {
+          padding-top: 40px;
+          min-height: auto;
+          padding-bottom: 20px;
+        }
+
+        .hero-bg {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          background: linear-gradient(0deg, rgba(200, 16, 46, 0.22) 0%, transparent 75%);
+        }
+
+        .hero-slash {
+          inset: 0;
+          width: 100%;
+          right: 0;
+          transform: none;
+          z-index: 0;
+          background: transparent;
+        }
+
+        .hero-slash::after {
+          opacity: 0.6;
+        }
+
+        .hero-slash-img {
+          position: absolute;
+          inset: -3%;
+          overflow: hidden;
+          background-image: url("images/gg.png");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: clamp(450px, 100vw, 1000px);
+          opacity: 0.2;
+        }
+
+        .hero-slash-img .logo-display {
+          display: none;
+          width: clamp(900px, 150vw, 1600px);
+          max-width: none;
+          height: auto;
+          position: absolute;
+          left: 50%;
+          right: 50%;
+          transform: none;
+        }
+
+        .hero-content {
+          position: relative;
+          z-index: 3;
+          max-width: 680px;
+          width: 100%;
+          margin: 0 auto;
+          padding: 100px 32px 80px;
+          padding-bottom: 20px;
+        }
+
+        .hero-sub {
+          max-width: 100%;
+          font-weight: 500;
+          margin-bottom: 40px;
+          color: rgba(240, 240, 240, 0.82);
+        }
+
+        .hero-info-cards {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+
+          gap: clamp(8px, 2vw, 16px);
+          margin: 0 0 clamp(24px, 3vw, 32px);
+
+          width: 100%;
+          max-width: clamp(320px, 40vw, 700px);
+        }
+
+        .btn-outline {
+          border-color: var(--text-muted);
+        }
+
+        .hero-stats {
+          border-color: var(--white);
+          width: 100%;
+          max-width: 500px;
+          gap: clamp(12px, 4vw, 24px);
+        }
+
+        .stat-num {
+          font-size: clamp(24px, 7vw, 40px);
+        }
+
+        .stat-label {
+          font-size: clamp(12px, 3vw, 16px);
+        }
+
+        .about-grid,
+        .schedule-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        .modal-details {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-top {
+          flex-direction: column;
+        }
+
+        nav .nav-links {
+          display: none;
+        }
+
+        .footer-bottom {
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .burger {
+          display: flex;
+        }
+
+        .specialty-list {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+
+        .specialty-item {
+          min-height: 72px;
+          padding: 14px;
+          font-size: 15px;
+          line-height: 1.2;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <div class="nav-inner">
+        <a href="#home" class="nav-logo">
+          <img src="images/banner.png" alt="Garrett's Garage" />
         </a>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- REVIEWS -->
-<section id="reviews">
-  <div class="container">
-  <div class="section-label">What They're Saying</div>
-  <div class="section-title">Customer <span>Reviews</span></div>
-  <div class="review-carousel">
-    <button class="review-arrow prev" onclick="prevReview()">‹</button>
-    <div class="review-viewport">
-      <div class="review-track" id="reviewTrack">
-        <!-- all review cards here -->
-      </div>
-    </div>
-    <button class="review-arrow next" onclick="nextReview()">›</button>
-  </div>
-  <div class="review-dots" id="reviewDots"></div>
-    <a href="reviews.html" class="page-link">
-      View All Reviews →
-    </a>
-  </div>
-</section>
-  
-<!-- COMPLETED JOBS -->
-<section class="jobs" id="jobs">
-  <div class="container">
-    <div class="section-label">Proof of Work</div>
-    <div class="section-title">Completed <span>Jobs</span></div>
-    <p class="section-desc">Real vehicles, real results. Click any job to see full details — and the customer review behind it.</p>
-    <div class="jobs-grid" id="jobsGrid"></div>
-  </div>
-</section>
-
-<!-- SCHEDULE -->
-<section class="schedule" id="schedule">
-  <div class="container">
-    <div class="schedule-grid">
-      <div class="schedule-info">
-        <div class="section-label">Book an Appointment</div>
-        <h2>Schedule <span>Service</span></h2>
-        <p>Ready to get your Honda or Acura taken care of? Fill out the form and we'll confirm your appointment within a few hours.</p>
-
-        <a
-          href="https://www.google.com/maps/place/Garrett%E2%80%99s+Garage/@38.6270242,-77.3302342,10z/data=!4m6!3m5!1s0x89b765288f856479:0x92c8d74c1635c9a2!8m2!3d38.3601797!4d-76.5685214!16s%2Fg%2F11nhk9b_qs?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D"
-          target="_blank"
-          class="info-item"
-        >
-          <div class="info-icon">📍</div>
-          <div class="info-content">
-            <strong>Our Location</strong>
-            <span>25215 Vista Road<br>Hollywood, MD 20636</span>
-          </div>
-        </a>
-
-        <a href="tel:+12405233675" class="info-item">
-          <div class="info-icon">📞</div>
-          <div class="info-content">
-            <strong>Call or Text</strong>
-            <span>(240) 523-3675</span>
-          </div>
-        </a>
-
-        <a href="#contact" class="info-item">
-          <div class="info-icon">🕐</div>
-          <div class="info-content">
-            <strong>Hours</strong>
-            <span>
-              Mon – Fri: 11:00 AM – 11:00 PM<br>
-              Sat: 11:00 AM – Midnight<br>
-              Sun: 11 AM - 5 PM
-            </span>
-          </div>
-        </a>
-
-        <a href="mailto:garrettshollywood@gmail.com" class="info-item">
-          <div class="info-icon">✉️</div>
-          <div class="info-content">
-            <strong>Email</strong>
-            <span>garrettshollywood@gmail.com</span>
-          </div>
-        </a>
-      </div>
-
-      <div>
-        <div class="schedule-form" id="scheduleForm">
-          <div style="background: var(--black); border: 1px solid var(--border); border-radius: 4px; padding: 28px;">
-            <p style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 18px; text-transform: uppercase; color: var(--white); margin-bottom: 20px; letter-spacing: 0.04em;">Your Information</p>
-            <div class="form-row">
-              <div class="form-group">
-                <label>First Name</label>
-                <input type="text" id="fname" placeholder="John">
-              </div>
-              <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" id="lname" placeholder="Smith">
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Phone</label>
-                <input type="tel" id="phone" placeholder="(555) 000-0000">
-              </div>
-              <div class="form-group">
-                <label>Email</label>
-                <input type="email" id="email" placeholder="john@email.com">
-              </div>
-            </div>
-
-            <p style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 18px; text-transform: uppercase; color: var(--white); margin: 24px 0 16px; letter-spacing: 0.04em;">Vehicle Details</p>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Make</label>
-                <select id="make">
-                  <option value="">Select Make</option>
-                  <option>Honda</option>
-                  <option>Acura</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Year</label>
-                <input type="number" id="year" placeholder="2019" min="1990" max="2025">
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Model</label>
-              <input type="text" id="model" placeholder="e.g. Civic, Accord, CR-V, MDX...">
-            </div>
-
-            <p style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 18px; text-transform: uppercase; color: var(--white); margin: 24px 0 16px; letter-spacing: 0.04em;">Service Details</p>
-            <div class="form-group">
-              <label>Type of Service</label>
-              <select id="serviceType">
-                <option value="">Select Service</option>
-                <option>Oil Change / Scheduled Maintenance</option>
-                <option>Brake Inspection / Repair</option>
-                <option>Engine Diagnostics</option>
-                <option>Transmission Service</option>
-                <option>A/C Service</option>
-                <option>Electrical / Battery</option>
-                <option>Suspension / Steering</option>
-                <option>Tires</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Preferred Date</label>
-              <input type="date" id="apptDate">
-            </div>
-
-            <p style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 16px; text-transform: uppercase; color: var(--white); margin: 20px 0 12px; letter-spacing: 0.04em;">Service Type</p>
-            <div class="radio-group">
-              <label class="radio-label">
-                <input type="radio" name="dropoff" value="dropoff" checked> 🔑 Drop-Off
-              </label>
-              <label class="radio-label">
-                <input type="radio" name="dropoff" value="pickup"> 🚗 Needs Pickup
-              </label>
-            </div>
-
-            <div class="form-group" style="margin-top: 16px;">
-              <label>Additional Notes</label>
-              <textarea id="notes" placeholder="Any symptoms, warning lights, or other details…"></textarea>
-            </div>
-
-            <button class="btn-primary form-submit" onclick="submitAppointment()">
-              Request Appointment →
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT BAR -->
-<section class="contact-bar" id="contact">
-  <div class="container">
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="container">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <h3>GARRETT'S <span>GARAGE</span></h3>
-        <p>Dealer quality without dealer price. Honda and Acura specialists serving our community for over 6 years.</p>
-      </div>
-      <div class="footer-links">
-        <h4>Navigate</h4>
-        <ul>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#jobs">Completed Jobs</a></li>
+        <ul class="nav-links">
+          <li><a href="#home">About</a></li>
+          <li><a href="#about">Services</a></li>
           <li><a href="#reviews">Reviews</a></li>
-          <li><a href="#schedule">Book Service</a></li>
+          <li><a href="#jobs">Completed Jobs</a></li>
+          <li><a href="#schedule">Contact</a></li>
         </ul>
+
+        <button class="burger" id="burger" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
-      <div class="footer-links">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="#services">Oil Changes</a></li>
-          <li><a href="#services">Brake Service</a></li>
-          <li><a href="#services">Engine Repair</a></li>
-          <li><a href="#services">Transmission</a></li>
-          <li><a href="#services">A/C & Heating</a></li>
-        </ul>
-      </div>
-      <div class="footer-links">
-        <h4>Hours</h4>
-        <ul>
-          <li><a><span style="color: rgb(136, 136, 136);">Mon – Fri: 11:00 AM – 11:00 PM</span><br style="color: rgb(136, 136, 136);"><span style="color: rgb(136, 136, 136);">Sat: 11:00 AM – Midnight</span><br style="color: rgb(136, 136, 136);"><span style="color: rgb(136, 136, 136);">Sun: 11 AM - 5 PM</span></a></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
+    </nav>
+
+    <a href="#schedule" class="floating-book-btn"> Book Service </a>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#home">About</a>
+      <a href="#about">Services</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#jobs">Past jobs</a>
+      <a href="#schedule">Contact</a>
     </div>
-    <div class="footer-bottom">
-      <div>© 2025 Garrett's Garage. All rights reserved.</div>
-      <div>Built for <span>Honda & Acura</span> owners</div>
-    </div>
-  </div>
-</footer>
 
-<!-- JOB MODAL -->
-<div class="modal-overlay" id="jobModal">
-  <div class="modal">
-    <div class="modal-header">
-      <h3 id="modalTitle">Job Details</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body" id="modalBody"></div>
-  </div>
-</div>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-bg"></div>
+      <div class="hero-slash">
+        <div class="hero-slash-img">
+          <picture>
+            <source media="(max-width: 700px)" srcset="images/gg.png" />
 
-<!-- TOAST -->
-<div class="toast" id="toast">
-  <div class="toast-title">✅ Appointment Requested!</div>
-  <div class="toast-body">We'll confirm your booking within a few hours.</div>
-</div>
-<script src="data.js"></script>
-<script>
-// ── DATA ──
-const services = [
-  { cat: 'maintenance', icon: '🛢️', name: 'Oil Change & Filter', desc: 'Full synthetic or conventional oil change with filter replacement and multi-point inspection.', price: 'From $49', priceNote: '/visit' },
-  { cat: 'maintenance', icon: '🔍', name: 'Multi-Point Inspection', desc: 'Comprehensive 27-point inspection covering brakes, fluids, belts, hoses, and more.', price: 'Free', priceNote: ' with service' },
-  { cat: 'maintenance', icon: '💧', name: 'Fluid Services', desc: 'Coolant, brake fluid, power steering, and transmission fluid flush and fill services.', price: 'From $79', priceNote: '/service' },
-  { cat: 'engine', icon: '🔧', name: 'Engine Diagnostics', desc: 'Computer scan plus hands-on diagnosis to identify the root cause of check engine lights or unusual symptoms.', price: 'From $89', priceNote: '/diagnostic' },
-  { cat: 'engine', icon: '⚡', name: 'Timing Belt / Chain', desc: 'Factory-spec timing belt or chain replacement with tensioners and water pump where applicable.', price: 'From $349', priceNote: '/job' },
-  { cat: 'engine', icon: '🌀', name: 'Head Gasket Repair', desc: 'Full head gasket replacement with resurfacing and pressure testing. Guaranteed work.', price: 'From $899', priceNote: '/job' },
-  { cat: 'brakes', icon: '🛑', name: 'Brake Pad Replacement', desc: 'OEM-quality pads front or rear with hardware kit and brake dust check.', price: 'From $149', priceNote: '/axle' },
-  { cat: 'brakes', icon: '⭕', name: 'Rotor Replacement', desc: 'Rotors machined or replaced to spec — paired with new pads for peak stopping power.', price: 'From $249', priceNote: '/axle' },
-  { cat: 'brakes', icon: '🔩', name: 'Suspension & Struts', desc: 'Shocks, struts, control arms, and alignment — handle vibration and uneven wear before it gets worse.', price: 'From $299', priceNote: '/corner' },
-  { cat: 'transmission', icon: '⚙️', name: 'Transmission Service', desc: 'Fluid drain and fill or full flush with filter replacement. CVT and automatic specialists.', price: 'From $199', priceNote: '/service' },
-  { cat: 'transmission', icon: '🔄', name: 'Transmission Rebuild', desc: 'Full transmission rebuild using quality rebuild kits — backed by a 12-month warranty.', price: 'From $1,499', priceNote: '/job' },
-  { cat: 'electrical', icon: '🔋', name: 'Battery Service', desc: 'Battery test, replacement, and charging system inspection. Honda OEM batteries available.', price: 'From $99', priceNote: '/installed' },
-  { cat: 'electrical', icon: '💡', name: 'Electrical Diagnosis', desc: 'Pinpoint shorts, bad grounds, sensor failures, and other electrical gremlins in your Honda/Acura.', price: 'From $89', priceNote: '/hour' },
-  { cat: 'ac', icon: '❄️', name: 'A/C Recharge', desc: 'Refrigerant recharge with leak inspection to get your cabin cool again.', price: 'From $129', priceNote: '/service' },
-  { cat: 'ac', icon: '🌡️', name: 'A/C Compressor Replacement', desc: 'Full compressor R&R with dye test and system recharge. OEM compressors available.', price: 'From $599', priceNote: '/job' },
-];
-
-// ── RENDER JOBS ──
-function renderJobs() {
-  document.getElementById('jobsGrid').innerHTML = jobs.map(j => `
-    <a class="job-card" onclick="openJobModal(${j.id}); return false;" href="#">
-      <div class="job-img">
-        <div class="job-img-placeholder">
-          <div class="car-icon">🚗</div>
-          <div>${j.vehicle}</div>
+            <img src="images/hero-img.png" alt="Garrett's Garage Hero Vehicle" class="logo-display" />
+          </picture>
         </div>
-        <div class="job-overlay"></div>
-        <div class="job-tag">${j.cat}</div>
       </div>
-      <div class="job-body">
-        <h3>${j.title}</h3>
-        <div class="job-meta">
-          <span>${j.vehicle}</span>
-          <span class="job-meta-dot">•</span>
-          <span>${j.hours}</span>
-        </div>
-        <div class="job-review-link">View Review →</div>
-      </div>
-    </a>
-  `).join('');
-}
-
-// ── REVIEW CAROUSEL ──
-let currentReview = 0;
-
-function updateCarousel() {
-  const track = document.getElementById('reviewTrack');
-
-  track.style.transform =
-    `translateX(-${currentReview * 100}%)`;
-
-  document.getElementById('reviewDots').innerHTML =
-    reviews.map((_, i) => `
-      <span
-        class="review-dot ${i === currentReview ? 'active' : ''}"
-        onclick="goToReview(${i})"
-      ></span>
-    `).join('');
-}
-  
-let carouselInterval;
-function renderReviews() {
-  document.getElementById('reviewTrack').innerHTML =
-    reviews.map(review => `
-      <div class="featured-review">
-        <div class="review-stars">
-          ${'★'.repeat(review.stars)}
-        </div>
-
-        <p class="review-text">
-          "${review.text}"
+      <div class="hero-content">
+        <img src="images/HAlogos.png" alt="Garrett's Garage Hero Vehicle" class="hero-eyebrow" />
+        <h1>Dealer <em>Quality.</em><br />Real Prices.</h1>
+        <p class="hero-sub">
+          Garrett's Garage delivers factory-level expertise on your Honda or Acura — without the dealership markup.
+          Trusted by locals to keep their vehicles running right.
         </p>
 
-        <div class="review-author">
-          <div class="review-avatar">
-            ${review.name.charAt(0)}
+        <div class="hero-info-cards">
+          <a
+            href="https://www.google.com/maps/place/Garrett%E2%80%99s+Garage/@38.6270242,-77.3302342,10z/data=!4m6!3m5!1s0x89b765288f856479:0x92c8d74c1635c9a2!8m2!3d38.3601797!4d-76.5685214!16s%2Fg%2F11nhk9b_qs?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D"
+            class="hero-info-card"
+            target="_blank">
+            <div class="hero-info-icon">📍</div>
+            <div>
+              <div class="hero-info-title">Location</div>
+              <div class="hero-info-text">Hollywood, MD</div>
+            </div>
+          </a>
+
+          <a href="tel:+12405233675" class="hero-info-card">
+            <div class="hero-info-icon">📞</div>
+            <div>
+              <div class="hero-info-title">Call or Text</div>
+              <div class="hero-info-text">(240) 523-3675</div>
+            </div>
+          </a>
+
+          <a href="mailto:garrettshollywood@gmail.com" class="hero-info-card">
+            <div class="hero-info-icon">✉️</div>
+            <div>
+              <div class="hero-info-title">Email</div>
+              <div class="hero-info-text">Email Us</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="hero-actions">
+          <div class="hero-actions">
+            <a href="#schedule" class="btn-primary">Schedule Service</a>
+            <a href="#services" class="btn-outline">Our Services</a>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <div class="stat-num">5.0 ★</div>
+              <div class="stat-label">Avg. Rating</div>
+            </div>
+            <div>
+              <div class="stat-num">6 yr</div>
+              <div class="stat-label">Experience</div>
+            </div>
+            <div>
+              <div class="stat-num" id="todayHours">11AM – 11PM</div>
+              <div class="stat-label">Today's Hours</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-text">
+            <div class="section-label">Who We Are</div>
+            <h2>Built on <span>Expertise</span></h2>
+            <p>
+              Garrett's Garage was founded on a simple belief: you shouldn't have to pay dealership prices to get
+              dealership-quality service. With over 6 years of specialized experience in Honda and Acura vehicles, we've
+              built our reputation one satisfied customer at a time.
+            </p>
+            <p>We use OEM or OEM-equivalent parts on every job — because your vehicle deserves nothing less.</p>
+            <div class="badge-row">
+              <span class="badge red">Honda Certified</span>
+              <span class="badge red">Acura Certified</span>
+              <span class="badge red">OEM Parts</span>
+            </div>
+          </div>
+          <div>
+            <div class="section-label">What We Do</div>
+            <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 20px">
+              From routine maintenance to complex engine work — we handle it all.
+            </p>
+            <div class="specialty-list">
+              <div class="specialty-item"><span class="specialty-icon">🛢️</span> Scheduled Maintenance</div>
+              <div class="specialty-item"><span class="specialty-icon">🔧</span> Engine Diagnostics & Repair</div>
+              <div class="specialty-item">
+                <span class="specialty-icon">🔋</span> Head Gasket Replacement (1.5T/2.0T)
+              </div>
+              <div class="specialty-item"><span class="specialty-icon">🛑</span> Brakes &amp; Suspension Repair</div>
+              <div class="specialty-item">
+                <span class="specialty-icon">⚙️</span>Transmission and Clutch Replacement
+              </div>
+              <div class="specialty-item"><span class="specialty-icon">🌡️</span>A/C & Heating Systems (R-134a)</div>
+            </div>
+            <a href="services.html" class="page-link"> View Full Service Catalog → </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="reviews">
+      <div class="container">
+        <div class="section-label">What They're Saying</div>
+        <div class="section-title">Customer <span>Reviews</span></div>
+        <div class="review-carousel">
+          <button class="review-arrow prev" onclick="prevReview()">‹</button>
+          <div class="review-viewport">
+            <div class="review-track" id="reviewTrack">
+              <!-- all review cards here -->
+            </div>
+          </div>
+          <button class="review-arrow next" onclick="nextReview()">›</button>
+        </div>
+        <div class="review-dots" id="reviewDots"></div>
+        <a href="reviews.html" class="page-link"> View All Reviews → </a>
+      </div>
+    </section>
+
+    <!-- COMPLETED JOBS -->
+    <section class="jobs" id="jobs">
+      <div class="container">
+        <div class="section-label">Proof of Work</div>
+        <div class="section-title">Completed <span>Jobs</span></div>
+        <p class="section-desc">
+          Real vehicles, real results. Click any job to see full details — and the customer review behind it.
+        </p>
+        <div class="jobs-grid" id="jobsGrid"></div>
+        <a href="jobs.html" class="page-link"> View All Completed Jobs → </a>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section class="schedule" id="schedule">
+      <div class="container">
+        <div class="schedule-grid">
+          <div class="schedule-info">
+            <div class="section-label">Book an Appointment</div>
+            <h2>Schedule <span>Service</span></h2>
+            <p>
+              Ready to get your Honda or Acura taken care of? Fill out the form and we'll confirm your appointment
+              within a few hours.
+            </p>
+
+            <a
+              href="https://www.google.com/maps/place/Garrett%E2%80%99s+Garage/@38.6270242,-77.3302342,10z/data=!4m6!3m5!1s0x89b765288f856479:0x92c8d74c1635c9a2!8m2!3d38.3601797!4d-76.5685214!16s%2Fg%2F11nhk9b_qs?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              class="info-item">
+              <div class="info-icon">📍</div>
+              <div class="info-content">
+                <strong>Our Location</strong>
+                <span>25215 Vista Road<br />Hollywood, MD 20636</span>
+              </div>
+            </a>
+
+            <a href="tel:+12405233675" class="info-item">
+              <div class="info-icon">📞</div>
+              <div class="info-content">
+                <strong>Call or Text</strong>
+                <span>(240) 523-3675</span>
+              </div>
+            </a>
+
+            <a href="#contact" class="info-item">
+              <div class="info-icon">🕐</div>
+              <div class="info-content">
+                <strong>Hours</strong>
+                <span>
+                  Mon – Fri: 11:00 AM – 11:00 PM<br />
+                  Sat: 11:00 AM – Midnight<br />
+                  Sun: 11 AM - 5 PM
+                </span>
+              </div>
+            </a>
+
+            <a href="mailto:garrettshollywood@gmail.com" class="info-item">
+              <div class="info-icon">✉️</div>
+              <div class="info-content">
+                <strong>Email</strong>
+                <span>garrettshollywood@gmail.com</span>
+              </div>
+            </a>
           </div>
 
           <div>
-            <div class="review-name">${review.name}</div>
-            <div class="review-vehicle">${review.vehicle}</div>
+            <div class="schedule-form" id="scheduleForm">
+              <div style="background: var(--black); border: 1px solid var(--border); border-radius: 4px; padding: 28px">
+                <p
+                  style="
+                    font-family: &quot;Barlow Condensed&quot;, sans-serif;
+                    font-weight: 700;
+                    font-size: 18px;
+                    text-transform: uppercase;
+                    color: var(--white);
+                    margin-bottom: 20px;
+                    letter-spacing: 0.04em;
+                  ">
+                  Your Information
+                </p>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" id="fname" placeholder="John" />
+                  </div>
+                  <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" id="lname" placeholder="Smith" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" id="phone" placeholder="(555) 000-0000" />
+                  </div>
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="john@email.com" />
+                  </div>
+                </div>
+
+                <p
+                  style="
+                    font-family: &quot;Barlow Condensed&quot;, sans-serif;
+                    font-weight: 700;
+                    font-size: 18px;
+                    text-transform: uppercase;
+                    color: var(--white);
+                    margin: 24px 0 16px;
+                    letter-spacing: 0.04em;
+                  ">
+                  Vehicle Details
+                </p>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Make</label>
+                    <select id="make">
+                      <option value="">Select Make</option>
+                      <option>Honda</option>
+                      <option>Acura</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Year</label>
+                    <input type="number" id="year" placeholder="2019" min="1990" max="2025" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Model</label>
+                  <input type="text" id="model" placeholder="e.g. Civic, Accord, CR-V, MDX..." />
+                </div>
+
+                <p
+                  style="
+                    font-family: &quot;Barlow Condensed&quot;, sans-serif;
+                    font-weight: 700;
+                    font-size: 18px;
+                    text-transform: uppercase;
+                    color: var(--white);
+                    margin: 24px 0 16px;
+                    letter-spacing: 0.04em;
+                  ">
+                  Service Details
+                </p>
+                <div class="form-group">
+                  <label>Type of Service</label>
+                  <select id="serviceType">
+                    <option value="">Select Service</option>
+                    <option>Oil Change / Scheduled Maintenance</option>
+                    <option>Brake Inspection / Repair</option>
+                    <option>Engine Diagnostics</option>
+                    <option>Transmission Service</option>
+                    <option>A/C Service</option>
+                    <option>Electrical / Battery</option>
+                    <option>Suspension / Steering</option>
+                    <option>Tires</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Preferred Date</label>
+                  <input type="date" id="apptDate" />
+                </div>
+
+                <p
+                  style="
+                    font-family: &quot;Barlow Condensed&quot;, sans-serif;
+                    font-weight: 700;
+                    font-size: 16px;
+                    text-transform: uppercase;
+                    color: var(--white);
+                    margin: 20px 0 12px;
+                    letter-spacing: 0.04em;
+                  ">
+                  Service Type
+                </p>
+                <div class="radio-group">
+                  <label class="radio-label">
+                    <input type="radio" name="dropoff" value="dropoff" checked /> 🔑 Drop-Off
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" name="dropoff" value="pickup" /> 🚗 Needs Pickup
+                  </label>
+                </div>
+
+                <div class="form-group" style="margin-top: 16px">
+                  <label>Additional Notes</label>
+                  <textarea id="notes" placeholder="Any symptoms, warning lights, or other details…"></textarea>
+                </div>
+
+                <button class="btn-primary form-submit" onclick="submitAppointment()">Request Appointment →</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    `).join('');
+    </section>
 
-  document.getElementById('reviewDots').innerHTML =
-    reviews.map((_, i) => `
+    <!-- CONTACT BAR -->
+    <section class="contact-bar" id="contact">
+      <div class="container"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <h3>GARRETT'S <span>GARAGE</span></h3>
+            <p>
+              Dealer quality without dealer price. Honda and Acura specialists serving our community for over 6 years.
+            </p>
+          </div>
+          <div class="footer-links">
+            <h4>Navigate</h4>
+            <ul>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#jobs">Completed Jobs</a></li>
+              <li><a href="#reviews">Reviews</a></li>
+              <li><a href="#schedule">Book Service</a></li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="#services">Oil Changes</a></li>
+              <li><a href="#services">Brake Service</a></li>
+              <li><a href="#services">Engine Repair</a></li>
+              <li><a href="#services">Transmission</a></li>
+              <li><a href="#services">A/C & Heating</a></li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h4>Hours</h4>
+            <ul>
+              <li>
+                <a
+                  ><span style="color: rgb(136, 136, 136)">Mon – Fri: 11:00 AM – 11:00 PM</span
+                  ><br style="color: rgb(136, 136, 136)" /><span style="color: rgb(136, 136, 136)"
+                    >Sat: 11:00 AM – Midnight</span
+                  ><br style="color: rgb(136, 136, 136)" /><span style="color: rgb(136, 136, 136)"
+                    >Sun: 11 AM - 5 PM</span
+                  ></a
+                >
+              </li>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div>© 2025 Garrett's Garage. All rights reserved.</div>
+          <div>Built for <span>Honda & Acura</span> owners</div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JOB MODAL -->
+    <div class="modal-overlay" id="jobModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="modalTitle">Job Details</h3>
+          <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+      </div>
+    </div>
+
+    <div class="review-modal" id="reviewModal" onclick="closeReviewModal()">
+      <div class="review-modal-content" onclick="event.stopPropagation()">
+        <button class="review-close" onclick="closeReviewModal()">✕</button>
+        <div class="review-header">
+          <div class="modal-title-row">
+            <h3 id="modalName"></h3>
+            <div id="modalVehicle" class="modal-vehicle"></div>
+          </div>
+          <div id="modalStars" class="modal-stars"></div>
+        </div>
+        <div id="modalJob" class="review-title"></div>
+        <p id="modalText"></p>
+        <a id="modalJobLink" class="modal-job-link"> View Completed Job → </a>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+      <div class="toast-title">✅ Appointment Requested!</div>
+      <div class="toast-body">We'll confirm your booking within a few hours.</div>
+    </div>
+    <script src="data.js"></script>
+    <script>
+      function getJob(jobId) {
+        return jobs.find((j) => j.jobId === jobId);
+      }
+
+      function getReviewByJob(jobId) {
+        return reviews.find((r) => r.jobId === jobId);
+      }
+
+      function getReview(reviewId) {
+        return reviews.find((r) => r.reviewId === reviewId);
+      }
+
+      const featuredReviews = reviews;
+
+      // ── DATA ──
+      const services = [
+        {
+          cat: "maintenance",
+          icon: "🛢️",
+          name: "Oil Change & Filter",
+          desc: "Full synthetic or conventional oil change with filter replacement and multi-point inspection.",
+          price: "From $49",
+          priceNote: "/visit"
+        },
+        {
+          cat: "maintenance",
+          icon: "🔍",
+          name: "Multi-Point Inspection",
+          desc: "Comprehensive 27-point inspection covering brakes, fluids, belts, hoses, and more.",
+          price: "Free",
+          priceNote: " with service"
+        },
+        {
+          cat: "maintenance",
+          icon: "💧",
+          name: "Fluid Services",
+          desc: "Coolant, brake fluid, power steering, and transmission fluid flush and fill services.",
+          price: "From $79",
+          priceNote: "/service"
+        },
+        {
+          cat: "engine",
+          icon: "🔧",
+          name: "Engine Diagnostics",
+          desc: "Computer scan plus hands-on diagnosis to identify the root cause of check engine lights or unusual symptoms.",
+          price: "From $89",
+          priceNote: "/diagnostic"
+        },
+        {
+          cat: "engine",
+          icon: "⚡",
+          name: "Timing Belt / Chain",
+          desc: "Factory-spec timing belt or chain replacement with tensioners and water pump where applicable.",
+          price: "From $349",
+          priceNote: "/job"
+        },
+        {
+          cat: "engine",
+          icon: "🌀",
+          name: "Head Gasket Repair",
+          desc: "Full head gasket replacement with resurfacing and pressure testing. Guaranteed work.",
+          price: "From $899",
+          priceNote: "/job"
+        },
+        {
+          cat: "brakes",
+          icon: "🛑",
+          name: "Brake Pad Replacement",
+          desc: "OEM-quality pads front or rear with hardware kit and brake dust check.",
+          price: "From $149",
+          priceNote: "/axle"
+        },
+        {
+          cat: "brakes",
+          icon: "⭕",
+          name: "Rotor Replacement",
+          desc: "Rotors machined or replaced to spec — paired with new pads for peak stopping power.",
+          price: "From $249",
+          priceNote: "/axle"
+        },
+        {
+          cat: "brakes",
+          icon: "🔩",
+          name: "Suspension & Struts",
+          desc: "Shocks, struts, control arms, and alignment — handle vibration and uneven wear before it gets worse.",
+          price: "From $299",
+          priceNote: "/corner"
+        },
+        {
+          cat: "transmission",
+          icon: "⚙️",
+          name: "Transmission Service",
+          desc: "Fluid drain and fill or full flush with filter replacement. CVT and automatic specialists.",
+          price: "From $199",
+          priceNote: "/service"
+        },
+        {
+          cat: "transmission",
+          icon: "🔄",
+          name: "Transmission Rebuild",
+          desc: "Full transmission rebuild using quality rebuild kits — backed by a 12-month warranty.",
+          price: "From $1,499",
+          priceNote: "/job"
+        },
+        {
+          cat: "electrical",
+          icon: "🔋",
+          name: "Battery Service",
+          desc: "Battery test, replacement, and charging system inspection. Honda OEM batteries available.",
+          price: "From $99",
+          priceNote: "/installed"
+        },
+        {
+          cat: "electrical",
+          icon: "💡",
+          name: "Electrical Diagnosis",
+          desc: "Pinpoint shorts, bad grounds, sensor failures, and other electrical gremlins in your Honda/Acura.",
+          price: "From $89",
+          priceNote: "/hour"
+        },
+        {
+          cat: "ac",
+          icon: "❄️",
+          name: "A/C Recharge",
+          desc: "Refrigerant recharge with leak inspection to get your cabin cool again.",
+          price: "From $129",
+          priceNote: "/service"
+        },
+        {
+          cat: "ac",
+          icon: "🌡️",
+          name: "A/C Compressor Replacement",
+          desc: "Full compressor R&R with dye test and system recharge. OEM compressors available.",
+          price: "From $599",
+          priceNote: "/job"
+        }
+      ];
+
+      // ── RENDER JOBS ──
+      function renderJobs() {
+        document.getElementById("jobsGrid").innerHTML = jobs
+          .map((job) => {
+            const review = getReviewByJob(job.jobId);
+            return `
+      <a class="job-card"
+         onclick="openJobModal(${job.jobId}); return false;"
+         href="#">
+        <div class="job-img">
+          <div class="job-img-placeholder">
+            <div class="car-icon">🚗</div>
+            <div>${job.vehicle}</div>
+          </div>
+          <div class="job-overlay"></div>
+          <div class="job-tag">${job.category}</div>
+        </div>
+        <div class="job-body">
+          <h3>${job.title}</h3>
+          <div class="job-meta">
+            <span>${job.vehicle}</span>
+            <span class="job-meta-dot">•</span>
+            <span>${job.hours}</span>
+          </div>
+          ${
+            review
+              ? `<div class="job-review-link">View Review →</div>`
+              : `<div class="job-review-link" style="opacity:.5">No Review Yet</div>`
+          }
+        </div>
+      </a>
+    `;
+          })
+          .join("");
+      }
+
+      // ── REVIEW CAROUSEL ──
+      let currentReview = 0;
+
+      function updateCarousel() {
+        document.getElementById("reviewTrack").style.transform = `translateX(-${currentReview * 100}%)`;
+
+        document.getElementById("reviewDots").innerHTML = featuredReviews
+          .map(
+            (_, i) => `
       <span
-        class="review-dot ${i === currentReview ? 'active' : ''}"
+        class="review-dot ${i === currentReview ? "active" : ""}"
         onclick="goToReview(${i})"
       ></span>
-    `).join('');
+    `
+          )
+          .join("");
+      }
 
-  updateCarousel();
-}
+      let carouselInterval;
+      function renderReviews() {
+        document.getElementById("reviewTrack").innerHTML = featuredReviews
+          .map((review) => {
+            const job = getJob(review.jobId);
 
-function nextReview() {
-  currentReview++;
+            return `
+        <div class="featured-review"
+          onclick="openReviewModal(${review.reviewId})">
 
-  if (currentReview >= reviews.length) {
-    currentReview = 0;
-  }
+          <div class="featured-review-header">
 
-  updateCarousel();
-}
+              ${job ? `<div class="review-title">${job.title}</div>` : ""}
 
-function prevReview() {
-  currentReview--;
+              <div class="review-stars">
+                  ${"★".repeat(review.stars)}
+              </div>
 
-  if (currentReview < 0) {
-    currentReview = reviews.length - 1;
-  }
+          </div>
 
-  updateCarousel();
-}
-  
-function goToReview(index) {
-  currentReview = index;
-  renderReviews();
-  restartCarousel();
-}
+          <p class="review-text">
+              "${review.text}"
+          </p>
 
-function startCarousel() {
-  carouselInterval = setInterval(() => {
-    nextReview();
-  }, 5000);
-}
+          <div class="review-author">
+              <div class="review-avatar">
+                  ${review.name.charAt(0)}
+              </div>
 
-function restartCarousel() {
-  clearInterval(carouselInterval);
-  startCarousel();
-}
+              <div>
+                  <div class="review-name">${review.name}</div>
+                  <div class="review-vehicle">${review.vehicle}</div>
+              </div>
+          </div>
 
-// ── MODAL ──
-function openJobModal(jobId) {
-  const job = jobs.find(j => j.id === jobId);
-  const review = reviews.find(r => r.jobId === jobId);
-  if (!job) return;
+      </div>
+      `;
+          })
+          .join("");
 
-  document.getElementById('modalTitle').textContent = job.title;
-  document.getElementById('modalBody').innerHTML = `
-    <div class="modal-job-tag">${job.cat}</div>
+        document.getElementById("reviewDots").innerHTML = featuredReviews
+          .map(
+            (_, i) => `
+      <span
+        class="review-dot ${i === currentReview ? "active" : ""}"
+        onclick="goToReview(${i})"
+      ></span>
+    `
+          )
+          .join("");
+
+        updateCarousel();
+      }
+
+      function nextReview() {
+        currentReview++;
+
+        if (currentReview >= featuredReviews.length) {
+          currentReview = 0;
+        }
+
+        updateCarousel();
+      }
+
+      function prevReview() {
+        currentReview--;
+
+        if (currentReview < 0) {
+          currentReview = featuredReviews.length - 1;
+        }
+
+        updateCarousel();
+      }
+
+      function goToReview(index) {
+        currentReview = index;
+        renderReviews();
+        restartCarousel();
+      }
+
+      function startCarousel() {
+        carouselInterval = setInterval(() => {
+          nextReview();
+        }, 5000);
+      }
+
+      function restartCarousel() {
+        clearInterval(carouselInterval);
+        startCarousel();
+      }
+
+      function openReviewModal(reviewId) {
+        const review = getReview(reviewId);
+        const job = getJob(review.jobId);
+        document.getElementById("modalName").textContent = review.name;
+        document.getElementById("modalVehicle").textContent = review.vehicle;
+        document.getElementById("modalStars").textContent = "★".repeat(review.stars);
+        document.getElementById("modalJob").textContent = job ? job.title : "";
+        document.getElementById("modalText").textContent = review.text;
+        const link = document.getElementById("modalJobLink");
+        if (job) {
+          link.href = `jobs.html#job-${job.jobId}`;
+          link.style.display = "";
+        } else {
+          link.style.display = "none";
+        }
+        document.getElementById("reviewModal").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeReviewModal() {
+        document.getElementById("reviewModal").classList.remove("open");
+
+        document.body.style.overflow = "";
+      }
+
+      document.getElementById("reviewModal").addEventListener("click", (e) => {
+        if (e.target === document.getElementById("reviewModal")) {
+          closeReviewModal();
+        }
+      });
+
+      // ── MODAL ──
+      function openJobModal(jobId) {
+        const job = getJob(jobId);
+        const review = getReviewByJob(jobId);
+        if (!job) return;
+
+        document.getElementById("modalTitle").textContent = job.title;
+        document.getElementById("modalBody").innerHTML = `
+    <div class="modal-job-tag">${job.category}</div>
     <div class="modal-img">🚗</div>
-    <p style="color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 20px;">${job.desc}</p>
+    <p style="color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 20px;">${job.description}</p>
     <div class="modal-details">
       <div class="modal-detail"><label>Vehicle</label><strong>${job.vehicle}</strong></div>
       <div class="modal-detail"><label>Technician</label><strong>${job.tech}</strong></div>
       <div class="modal-detail"><label>Labor Time</label><strong>${job.hours}</strong></div>
-      <div class="modal-detail"><label>Job Type</label><strong>${job.cat}</strong></div>
+      <div class="modal-detail"><label>Job Type</label><strong>${job.category}</strong></div>
     </div>
-    ${review ? `
+    ${
+      review
+        ? `
     <div class="modal-review-section">
       <h4>Customer Review</h4>
       <div class="review-card" style="cursor: default; pointer-events: none;">
-        <div class="review-stars">${'★'.repeat(review.stars)}</div>
+        <div class="review-stars">${"★".repeat(review.stars)}</div>
         <p class="review-text">"${review.text}"</p>
         <div class="review-author">
           <div class="review-avatar">${review.name.charAt(0)}</div>
@@ -1693,239 +2606,245 @@ function openJobModal(jobId) {
           </div>
         </div>
       </div>
-    </div>` : ''}
+    </div>`
+        : ""
+    }
   `;
 
-  document.getElementById('jobModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-  document.getElementById('jobModal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-document.getElementById('jobModal').addEventListener('click', e => {
-  if (e.target === document.getElementById('jobModal')) closeModal();
-});
-
-// ── APPOINTMENT SUBMISSION ──
-function submitAppointment() {
-  const fname = document.getElementById('fname').value.trim();
-  const lname = document.getElementById('lname').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const make = document.getElementById('make').value;
-  const model = document.getElementById('model').value.trim();
-  const year = document.getElementById('year').value.trim();
-  const serviceType = document.getElementById('serviceType').value;
-  const apptDate = document.getElementById('apptDate').value;
-  const dropoff = document.querySelector('input[name="dropoff"]:checked')?.value;
-  const notes = document.getElementById('notes').value.trim();
-
-  if (!fname || !lname || !phone || !make || !model || !year || !serviceType || !apptDate) {
-    alert('Please fill in all required fields.');
-    return;
-  }
-
-  // Simulate database save
-  const appointment = {
-    id: Date.now(),
-    customer: { fname, lname, phone, email },
-    vehicle: { make, model, year },
-    service: { serviceType, apptDate, dropoff, notes },
-    submitted: new Date().toISOString()
-  };
-
-  // Store in localStorage (simulating DB)
-  const existing = JSON.parse(localStorage.getItem('gg_appointments') || '[]');
-  existing.push(appointment);
-  localStorage.setItem('gg_appointments', JSON.stringify(existing));
-
-  // Store customer record
-  const customers = JSON.parse(localStorage.getItem('gg_customers') || '[]');
-  const existingCustomer = customers.find(c => c.phone === phone);
-  if (!existingCustomer) {
-    customers.push({ id: Date.now(), fname, lname, phone, email, vehicles: [`${year} ${make} ${model}`], firstVisit: new Date().toISOString() });
-  } else {
-    const veh = `${year} ${make} ${model}`;
-    if (!existingCustomer.vehicles.includes(veh)) existingCustomer.vehicles.push(veh);
-  }
-  localStorage.setItem('gg_customers', JSON.stringify(customers));
-
-  // Reset form
-  ['fname','lname','phone','email','model','year','notes','apptDate'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('make').value = '';
-  document.getElementById('serviceType').value = '';
-
-  // Show toast
-  const toast = document.getElementById('toast');
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 4000);
-  
-}
-  
-function toggleMenu() {
-  const menu = document.getElementById('mobileMenu');
-  const burger = document.getElementById('burger');
-  const bookBtn = document.querySelector('.floating-book-btn');
-  const nav = document.querySelector('nav');
-
-  menu.classList.toggle('open');
-  burger.classList.toggle('open');
-
-  const navHeight = nav.offsetHeight;
-
-  if (menu.classList.contains('open')) {
-    bookBtn.style.top = `${navHeight + 48}px`;
-  } else {
-    bookBtn.style.top = `${navHeight}px`;
-  }
-}
-
-// ── INIT ──
-renderJobs();
-renderReviews();
-startCarousel();
-
-// Animate on scroll
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.style.opacity = '1';
-      e.target.style.transform = 'translateY(0)';
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.service-card, .job-card, .review-card, .specialty-item').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(20px)';
-  el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-  observer.observe(el);
-});
-  
-function updateNavOffsets() {
-  const nav = document.querySelector('nav');
-  const menu = document.getElementById('mobileMenu');
-  const bookBtn = document.querySelector('.floating-book-btn');
-
-  const navHeight = nav.getBoundingClientRect().height;
-
-  document.documentElement.style.setProperty(
-    '--nav-height',
-    `${navHeight}px`
-  );
-
-  const menuHeight = menu.classList.contains('open')
-    ? menu.getBoundingClientRect().height
-    : 0;
-
-  bookBtn.style.top = `${navHeight + menuHeight}px`;
-}
-
-document.querySelectorAll('#mobileMenu a').forEach(link => {
-  link.addEventListener('click', () => {
-    const menu = document.getElementById('mobileMenu');
-    const burger = document.getElementById('burger');
-
-    menu.classList.remove('open');
-    burger.classList.remove('open');
-
-    updateNavOffsets();
-  });
-});
-  
-window.addEventListener('load', updateNavOffsets);
-window.addEventListener('resize', () => {
-  updateNavOffsets();
-
-  if (window.innerWidth > 900) {
-    document.getElementById('mobileMenu').classList.remove('open');
-    document.getElementById('burger').classList.remove('open');
-  }
-});
-  
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a');
-
-let navLock = false;
-
-navLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    navLock = true;
-
-    navLinks.forEach(l => l.classList.remove('active'));
-    link.classList.add('active');
-
-    const targetId = link.getAttribute('href').replace('#', '');
-    const target = document.getElementById(targetId);
-
-    function checkArrival() {
-      if (!target) {
-        navLock = false;
-        return;
+        document.getElementById("jobModal").classList.add("open");
+        document.body.style.overflow = "hidden";
       }
 
-      const distance = Math.abs(target.getBoundingClientRect().top - 80);
-
-      if (distance < 10) {
-        navLock = false;
-        window.removeEventListener('scroll', checkArrival);
+      function closeModal() {
+        document.getElementById("jobModal").classList.remove("open");
+        document.body.style.overflow = "";
       }
-    }
 
-    window.addEventListener('scroll', checkArrival);
-  });
-});
+      document.getElementById("jobModal").addEventListener("click", (e) => {
+        if (e.target === document.getElementById("jobModal")) closeModal();
+      });
 
-function updateActiveNav() {
-  if (navLock) return;
+      // ── APPOINTMENT SUBMISSION ──
+      function submitAppointment() {
+        const fname = document.getElementById("fname").value.trim();
+        const lname = document.getElementById("lname").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const make = document.getElementById("make").value;
+        const model = document.getElementById("model").value.trim();
+        const year = document.getElementById("year").value.trim();
+        const serviceType = document.getElementById("serviceType").value;
+        const apptDate = document.getElementById("apptDate").value;
+        const dropoff = document.querySelector('input[name="dropoff"]:checked')?.value;
+        const notes = document.getElementById("notes").value.trim();
 
-  let current = '';
+        if (!fname || !lname || !phone || !make || !model || !year || !serviceType || !apptDate) {
+          alert("Please fill in all required fields.");
+          return;
+        }
 
-  sections.forEach(section => {
-    const top = section.offsetTop;
+        // Simulate database save
+        const appointment = {
+          id: Date.now(),
+          customer: { fname, lname, phone, email },
+          vehicle: { make, model, year },
+          service: { serviceType, apptDate, dropoff, notes },
+          submitted: new Date().toISOString()
+        };
 
-    if (window.scrollY >= top - 120) {
-      current = section.id;
-    }
-  });
+        // Store in localStorage (simulating DB)
+        const existing = JSON.parse(localStorage.getItem("gg_appointments") || "[]");
+        existing.push(appointment);
+        localStorage.setItem("gg_appointments", JSON.stringify(existing));
 
-  navLinks.forEach(link => {
-    link.classList.remove('active');
+        // Store customer record
+        const customers = JSON.parse(localStorage.getItem("gg_customers") || "[]");
+        const existingCustomer = customers.find((c) => c.phone === phone);
+        if (!existingCustomer) {
+          customers.push({
+            id: Date.now(),
+            fname,
+            lname,
+            phone,
+            email,
+            vehicles: [`${year} ${make} ${model}`],
+            firstVisit: new Date().toISOString()
+          });
+        } else {
+          const veh = `${year} ${make} ${model}`;
+          if (!existingCustomer.vehicles.includes(veh)) existingCustomer.vehicles.push(veh);
+        }
+        localStorage.setItem("gg_customers", JSON.stringify(customers));
 
-    const href = link.getAttribute('href');
+        // Reset form
+        ["fname", "lname", "phone", "email", "model", "year", "notes", "apptDate"].forEach(
+          (id) => (document.getElementById(id).value = "")
+        );
+        document.getElementById("make").value = "";
+        document.getElementById("serviceType").value = "";
 
-    if (
-      href === `#${current}` ||
-      (current === 'schedule' && href === '#schedule')
-    ) {
-      link.classList.add('active');
-    }
-  });
-}
+        // Show toast
+        const toast = document.getElementById("toast");
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 4000);
+      }
 
-window.addEventListener('scroll', updateActiveNav);
-window.addEventListener('load', updateActiveNav);
-  
-function updateTodayHours() {
-  const schedule = {
-    0: { day: "Sunday", hours: "11am – 5pm" },
-    1: { day: "Monday", hours: "11am – 11pm" },
-    2: { day: "Tuesday", hours: "11am – 11pm" },
-    3: { day: "Wednesday", hours: "11am – 11pm" },
-    4: { day: "Thursday", hours: "11am – 11pm" },
-    5: { day: "Friday", hours: "11am – 11pm" },
-    6: { day: "Saturday", hours: "11am – 12pm" }
-  };
+      function toggleMenu() {
+        const menu = document.getElementById("mobileMenu");
+        const burger = document.getElementById("burger");
+        const bookBtn = document.querySelector(".floating-book-btn");
+        const nav = document.querySelector("nav");
 
-  const today = schedule[new Date().getDay()];
+        menu.classList.toggle("open");
+        burger.classList.toggle("open");
 
-  document.getElementById("todayHours").textContent = today.hours;
-}
+        const navHeight = nav.offsetHeight;
 
-updateTodayHours();
-</script>
-</body>
+        if (menu.classList.contains("open")) {
+          bookBtn.style.top = `${navHeight + 48}px`;
+        } else {
+          bookBtn.style.top = `${navHeight}px`;
+        }
+      }
+
+      // ── INIT ──
+      renderJobs();
+      renderReviews();
+      startCarousel();
+
+      // Animate on scroll
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.style.opacity = "1";
+              e.target.style.transform = "translateY(0)";
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document.querySelectorAll(".service-card, .job-card, .review-card, .specialty-item").forEach((el) => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(20px)";
+        el.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+        observer.observe(el);
+      });
+
+      function updateNavOffsets() {
+        const nav = document.querySelector("nav");
+        const menu = document.getElementById("mobileMenu");
+        const bookBtn = document.querySelector(".floating-book-btn");
+
+        const navHeight = nav.getBoundingClientRect().height;
+
+        document.documentElement.style.setProperty("--nav-height", `${navHeight}px`);
+
+        const menuHeight = menu.classList.contains("open") ? menu.getBoundingClientRect().height : 0;
+
+        bookBtn.style.top = `${navHeight + menuHeight}px`;
+      }
+
+      document.querySelectorAll("#mobileMenu a").forEach((link) => {
+        link.addEventListener("click", () => {
+          const menu = document.getElementById("mobileMenu");
+          const burger = document.getElementById("burger");
+
+          menu.classList.remove("open");
+          burger.classList.remove("open");
+
+          updateNavOffsets();
+        });
+      });
+
+      window.addEventListener("load", updateNavOffsets);
+      window.addEventListener("resize", () => {
+        updateNavOffsets();
+
+        if (window.innerWidth > 900) {
+          document.getElementById("mobileMenu").classList.remove("open");
+          document.getElementById("burger").classList.remove("open");
+        }
+      });
+
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll(".nav-links a");
+
+      let navLock = false;
+
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          navLock = true;
+
+          navLinks.forEach((l) => l.classList.remove("active"));
+          link.classList.add("active");
+
+          const targetId = link.getAttribute("href").replace("#", "");
+          const target = document.getElementById(targetId);
+
+          function checkArrival() {
+            if (!target) {
+              navLock = false;
+              return;
+            }
+
+            const distance = Math.abs(target.getBoundingClientRect().top - 80);
+
+            if (distance < 10) {
+              navLock = false;
+              window.removeEventListener("scroll", checkArrival);
+            }
+          }
+
+          window.addEventListener("scroll", checkArrival);
+        });
+      });
+
+      function updateActiveNav() {
+        if (navLock) return;
+
+        let current = "";
+
+        sections.forEach((section) => {
+          const top = section.offsetTop;
+
+          if (window.scrollY >= top - 120) {
+            current = section.id;
+          }
+        });
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+
+          const href = link.getAttribute("href");
+
+          if (href === `#${current}` || (current === "schedule" && href === "#schedule")) {
+            link.classList.add("active");
+          }
+        });
+      }
+
+      window.addEventListener("scroll", updateActiveNav);
+      window.addEventListener("load", updateActiveNav);
+
+      function updateTodayHours() {
+        const schedule = {
+          0: { day: "Sunday", hours: "11am – 5pm" },
+          1: { day: "Monday", hours: "11am – 11pm" },
+          2: { day: "Tuesday", hours: "11am – 11pm" },
+          3: { day: "Wednesday", hours: "11am – 11pm" },
+          4: { day: "Thursday", hours: "11am – 11pm" },
+          5: { day: "Friday", hours: "11am – 11pm" },
+          6: { day: "Saturday", hours: "11am – 12pm" }
+        };
+
+        const today = schedule[new Date().getDay()];
+
+        document.getElementById("todayHours").textContent = today.hours;
+      }
+
+      updateTodayHours();
+    </script>
+  </body>
 </html>
