@@ -10,10 +10,6 @@
                 return publicReviews.find((r) => r.jobId === jobId);
             }
 
-            function getReview(reviewId) {
-                return publicReviews.find((r) => r.reviewId === reviewId);
-            }
-
             function getReviewVehicle(review) {
                 const job = getJob(review.jobId);
                 return review.vehicle || (job ? job.vehicle : "");

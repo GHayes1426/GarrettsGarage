@@ -43,23 +43,6 @@ body::after {
   pointer-events: none;
   z-index: 0;
 }
-.nav-home {
-  display: flex;
-  align-items: center;
-  padding: 10px 22px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  color: var(--text);
-  text-decoration: none;
-  font-family: "Barlow Condensed", sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  transition: 0.25s ease;
-}
-.nav-home:hover {
-  border-color: var(--red);
-  color: var(--red);
-}
 .section-label {
   color: var(--text);
   padding-top: 0;
@@ -146,17 +129,6 @@ body::after {
   line-height: 1.7;
   margin-bottom: 16px;
 }
-.review-price {
-  font-family: "Barlow Condensed", sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  color: var(--white);
-}
-.review-price span {
-  font-size: 13px;
-  color: var(--text-muted);
-  font-weight: 400;
-}
 .review-header {
   display: flex;
   justify-content: space-between;
@@ -180,21 +152,6 @@ body::after {
 .review-search:focus {
   outline: none;
   border-color: var(--red);
-}
-#ratingFilter {
-  min-width: 160px;
-}
-.filter-bar {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
-}
-.filter-btn {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--white);
-  padding: 8px 16px;
 }
 .review-controls {
   display: flex;
@@ -344,4 +301,80 @@ body::after {
   line-height: 1.2;
   text-transform: uppercase;
   margin-bottom: 12px;
+}
+
+/* Mobile review modal compact layout */
+@media (max-width: 560px) {
+  .review-modal {
+    align-items: center;
+    padding: 10px;
+  }
+
+  .review-modal-content {
+    width: min(100%, 452px);
+    max-height: 74vh;
+    padding: 22px 22px 20px;
+    border-radius: 5px;
+  }
+
+  .review-modal-content .review-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .modal-title-row {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  #modalName {
+    font-size: clamp(23px, 7vw, 29px);
+    line-height: 1;
+    max-width: 100%;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .modal-vehicle {
+    padding-left: 0;
+    font-size: clamp(13px, 4vw, 16px);
+    line-height: 1.22;
+    color: var(--text-muted);
+  }
+
+  .modal-stars {
+    padding-right: 28px;
+    font-size: clamp(18px, 5.7vw, 22px);
+    letter-spacing: 0;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .review-close {
+    top: 17px;
+    right: 17px;
+    font-size: 20px;
+  }
+
+  #modalJob.review-title {
+    font-size: clamp(14px, 4.3vw, 17px);
+    line-height: 1.15;
+    margin: 8px 0 16px;
+  }
+
+  #modalText {
+    font-size: clamp(13px, 3.9vw, 15px);
+    line-height: 1.45;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  .review-job-link {
+    font-size: clamp(11px, 3.4vw, 13px);
+    letter-spacing: 0.08em;
+  }
 }

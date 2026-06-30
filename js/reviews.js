@@ -6,10 +6,6 @@
         return publicJobs.find((j) => j.jobId === jobId);
       }
 
-      function getReviewByJob(jobId) {
-        return publicReviews.find((r) => r.jobId === jobId);
-      }
-
       function getReview(reviewId) {
         return publicReviews.find((r) => r.reviewId === reviewId);
       }
@@ -35,7 +31,6 @@
         }
         if (search) {
           filtered = filtered.filter((r) => {
-            const job = getJob(r.jobId);
             return [r.name, getReviewVehicle(r), getReviewJobTitle(r), r.text]
               .join(" ")
               .toLowerCase()
@@ -45,7 +40,6 @@
 
         document.getElementById("reviewsGrid").innerHTML = filtered
           .map((r) => {
-            const job = getJob(r.jobId);
             return `
             <div class="review-card" id="review-${r.reviewId}"
                  onclick="openReview(${r.reviewId})">

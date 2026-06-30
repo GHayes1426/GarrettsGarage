@@ -621,15 +621,7 @@ section,
   align-items: flex-start;
   gap: 20px;
 }
-.featured-review .review-title {
-  flex: 1;
-  color: var(--red);
-  font-family: "Barlow Condensed", sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  text-transform: uppercase;
-  line-height: 1.15;
-}
+.featured-review 
 .featured-review .review-stars {
   flex-shrink: 0;
   color: #ffd700;
@@ -767,17 +759,7 @@ section,
   height: 3px;
   background: var(--red);
 }
-.review-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  z-index: 2;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-}
+
 .review-header {
   display: flex;
   justify-content: space-between;
@@ -785,12 +767,7 @@ section,
   gap: 16px;
   margin-bottom: 16px;
 }
-.modal-title-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
+
 #modalName {
   font-family: "Barlow Condensed", sans-serif;
   font-weight: 800;
@@ -799,33 +776,8 @@ section,
   color: var(--white);
   margin: 0;
 }
-.modal-vehicle {
-  color: var(--text-muted);
-  font-size: 20px;
-  font-weight: 500;
-  padding-left: 20px;
-}
-.modal-stars {
-  color: #ffd700;
-  font-size: 28px;
-  padding-right: 40px;
-}
-.review-title {
-  color: var(--red);
-  font-family: "Barlow Condensed", sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-#modalText {
-  color: var(--white);
-  font-style: italic;
-  font-size: 18px;
-  line-height: 1.8;
-  margin-top: 20px;
-  margin-bottom: 24px;
-}
+
+
 .review-job-link {
   display: inline-block;
   color: var(--red);
@@ -843,6 +795,7 @@ section,
   position: absolute;
   top: 18px;
   right: 18px;
+  z-index: 2;
   background: none;
   border: none;
   color: white;
@@ -868,17 +821,25 @@ section,
   margin-bottom: 12px;
 }
 #modalText {
-  line-height: 1.8;
   color: var(--text);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.8;
+  margin-top: 20px;
   margin-bottom: 24px;
 }
 .modal-title-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 .modal-vehicle {
   color: var(--text-muted);
+  font-size: 20px;
+  font-weight: 500;
+  padding-left: 20px;
 }
 .schedule {
   background: var(--surface);
@@ -1669,4 +1630,83 @@ footer {
   opacity: 1;
   object-fit: cover;
   font-size: 0;
+}
+
+/* Main page mobile review modal compact layout */
+@media (max-width: 560px) {
+  .review-modal {
+    align-items: center;
+    padding: 10px;
+  }
+
+  .review-modal-content {
+    width: min(100%, 452px);
+    max-height: 74vh;
+    padding: 22px 22px 20px;
+    border-radius: 5px;
+  }
+
+  .review-modal-content .review-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .modal-title-row {
+    display: grid;
+    justify-content: stretch;
+    align-items: start;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  #modalName {
+    font-size: clamp(23px, 7vw, 29px);
+    line-height: 1;
+    max-width: 100%;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .modal-vehicle {
+    padding-left: 0;
+    font-size: clamp(13px, 4vw, 16px);
+    line-height: 1.22;
+    color: var(--text-muted);
+  }
+
+  .modal-stars {
+    padding-right: 28px;
+    margin: 0;
+    font-size: clamp(18px, 5.7vw, 22px);
+    letter-spacing: 0;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .review-close {
+    top: 17px;
+    right: 17px;
+    font-size: 20px;
+  }
+
+  #modalJob.review-title {
+    font-size: clamp(14px, 4.3vw, 17px);
+    line-height: 1.15;
+    margin: 8px 0 16px;
+  }
+
+  #modalText {
+    font-size: clamp(13px, 3.9vw, 15px);
+    line-height: 1.45;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  .review-job-link {
+    font-size: clamp(11px, 3.4vw, 13px);
+    letter-spacing: 0.08em;
+  }
 }
