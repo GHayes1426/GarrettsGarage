@@ -1,106 +1,29 @@
+
+            const managedData = getManagedData();
+            const publicServices = managedData.services;
+
             function getJob(jobId) {
-                return jobs.find((j) => j.jobId === jobId);
+                return managedData.jobs.find((j) => j.jobId === jobId);
             }
 
             function getReviewByJob(jobId) {
-                return reviews.find((r) => r.jobId === jobId);
+                return managedData.reviews.find((r) => r.jobId === jobId);
             }
 
             function getReview(reviewId) {
-                return reviews.find((r) => r.reviewId === reviewId);
+                return managedData.reviews.find((r) => r.reviewId === reviewId);
             }
 
-            const services = [
-                {
-                    cat: "maintenance",
-                    icon: "🛢️",
-                    name: "Oil Change & Filter",
-                    desc: "Full synthetic or conventional oil change with filter replacement and multi-point inspection.",
-                    price: "From $100",
-                    priceNote: "/visit"
-                },
-                {
-                    cat: "maintenance",
-                    icon: "🔍",
-                    name: "Multi-Point Inspection",
-                    desc: "Comprehensive inspection covering brakes, fluids, belts, hoses, and more.",
-                    price: "Free",
-                    priceNote: " with service"
-                },
-                {
-                    cat: "engine",
-                    icon: "🔧",
-                    name: "Engine Diagnostics",
-                    desc: "Computer scan plus hands-on diagnosis to identify the root cause of check engine lights or unusual symptoms.",
-                    price: "From $100",
-                    priceNote: "/diagnostic"
-                },
-                {
-                    cat: "engine",
-                    icon: "⚡",
-                    name: "Timing Belt Package",
-                    desc: "Factory-spec timing belt replacement with tensioners.",
-                    price: "From $1300",
-                    priceNote: "/job"
-                },
-                {
-                    cat: "engine",
-                    icon: "⛓️",
-                    name: "Timing Chain Package",
-                    desc: "Factory-spec chain replacement with tensioners. VTC Actuator",
-                    price: "From $1400",
-                    priceNote: "/job"
-                },
-                {
-                    cat: "engine",
-                    icon: "🌀",
-                    name: "Head Gasket Repair",
-                    desc: "Full head gasket replacement with warpage inspection. Guaranteed work.",
-                    price: "From $2500",
-                    priceNote: "/without ARP Head Studs"
-                },
-                {
-                    cat: "brakes",
-                    icon: "🛑",
-                    name: "Brake Pad & Rotor Replacement",
-                    desc: "OEM-quality pads and rotors for peak stopping power with hardware kit and brake dust check.",
-                    price: "From $350",
-                    priceNote: "/axle"
-                },
-                {
-                    cat: "brakes",
-                    icon: "🔩",
-                    name: "Suspension & Struts",
-                    desc: "Shocks, struts, control arms, handle vibration and uneven wear before it gets worse.",
-                    price: "From $900",
-                    priceNote: "/corner"
-                },
-                {
-                    cat: "transmission",
-                    icon: "⚙️",
-                    name: "Transmission Service",
-                    desc: "Fluid drain and fill. CVT, ATF, MTF",
-                    price: "From $170",
-                    priceNote: "/service"
-                },
-                {
-                    cat: "ac",
-                    icon: "❄️",
-                    name: "R-134a A/C Services",
-                    desc: "Refrigerant recharge with leak inspection to get your cabin cool again.",
-                    price: "From $180",
-                    priceNote: "/must pass full AC System Vacuum Test"
-                }
-            ];
+            
 
             // ── RENDER SERVICES ──
             function renderServices(filter = "all") {
                 const grid = document.getElementById("servicesGrid");
-                const filtered = filter === "all" ? services : services.filter((s) => s.cat === filter);
+                const filtered = filter === "all" ? publicServices : publicServices.filter((s) => s.cat === filter);
                 grid.innerHTML = filtered
                     .map(
                         (s) => `
-    <div class="service-card" data-cat="${s.cat}">
+    <div class="service-card" data-cat="${s.cat}" onclick="openServiceModal(${publicServices.indexOf(s)})">
       <div class="service-card-body">
         <div class="service-icon-wrap">${s.icon}</div>
         <div class="service-cat">${s.cat.toUpperCase()}</div>
@@ -112,6 +35,30 @@
   `
                     )
                     .join("");
+            }
+
+            function openServiceModal(index) {
+                const service = publicServices[index];
+                if (!service) return;
+
+                document.getElementById("serviceModalTitle").textContent = service.name;
+                document.getElementById("serviceModalBody").innerHTML = [
+                    `<div class="modal-job-tag">${service.cat.toUpperCase()}</div>`,
+                    `<div class="service-icon-wrap" style="margin-bottom:16px">${service.icon}</div>`,
+                    `<p style="color: var(--text); font-size: 17px; line-height: 1.7; margin-bottom: 20px;">${service.desc}</p>`,
+                    `<div class="modal-details">`,
+                    `<div class="modal-detail"><label>Price</label><strong>${service.price}</strong></div>`,
+                    `<div class="modal-detail"><label>Note</label><strong>${service.priceNote || "Ask for details"}</strong></div>`,
+                    `</div>`,
+                    `<a href="index.html#schedule" class="modal-job-link">Schedule This Service →</a>`
+                ].join("");
+                document.getElementById("serviceModal").classList.add("open");
+                document.body.style.overflow = "hidden";
+            }
+
+            function closeServiceModal() {
+                document.getElementById("serviceModal").classList.remove("open");
+                document.body.style.overflow = "";
             }
 
             function updateNavOffsets() {

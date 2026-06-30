@@ -1,144 +1,38 @@
+      const managedData = getManagedData();
+      const publicJobs = managedData.jobs;
+      const publicReviews = managedData.reviews;
+      const publicServices = managedData.services;
+
       function getJob(jobId) {
-        return jobs.find((j) => j.jobId === jobId);
+        return publicJobs.find((j) => j.jobId === jobId);
       }
 
       function getReviewByJob(jobId) {
-        return reviews.find((r) => r.jobId === jobId);
+        return publicReviews.find((r) => r.jobId === jobId);
       }
 
       function getReview(reviewId) {
-        return reviews.find((r) => r.reviewId === reviewId);
+        return publicReviews.find((r) => r.reviewId === reviewId);
       }
 
-      const featuredReviews = reviews;
+      function getReviewVehicle(review) {
+        const job = getJob(review.jobId);
+        return review.vehicle || (job ? job.vehicle : "");
+      }
+
+      function getReviewJobTitle(review) {
+        const job = getJob(review.jobId);
+        return review.jobTitle || (job ? job.title : "");
+      }
+
+      const featuredReviews = publicReviews.filter((review) => review.featured !== false);
 
       // ── DATA ──
-      const services = [
-        {
-          cat: "maintenance",
-          icon: "🛢️",
-          name: "Oil Change & Filter",
-          desc: "Full synthetic or conventional oil change with filter replacement and multi-point inspection.",
-          price: "From $49",
-          priceNote: "/visit"
-        },
-        {
-          cat: "maintenance",
-          icon: "🔍",
-          name: "Multi-Point Inspection",
-          desc: "Comprehensive 27-point inspection covering brakes, fluids, belts, hoses, and more.",
-          price: "Free",
-          priceNote: " with service"
-        },
-        {
-          cat: "maintenance",
-          icon: "💧",
-          name: "Fluid Services",
-          desc: "Coolant, brake fluid, power steering, and transmission fluid flush and fill services.",
-          price: "From $79",
-          priceNote: "/service"
-        },
-        {
-          cat: "engine",
-          icon: "🔧",
-          name: "Engine Diagnostics",
-          desc: "Computer scan plus hands-on diagnosis to identify the root cause of check engine lights or unusual symptoms.",
-          price: "From $89",
-          priceNote: "/diagnostic"
-        },
-        {
-          cat: "engine",
-          icon: "⚡",
-          name: "Timing Belt / Chain",
-          desc: "Factory-spec timing belt or chain replacement with tensioners and water pump where applicable.",
-          price: "From $349",
-          priceNote: "/job"
-        },
-        {
-          cat: "engine",
-          icon: "🌀",
-          name: "Head Gasket Repair",
-          desc: "Full head gasket replacement with resurfacing and pressure testing. Guaranteed work.",
-          price: "From $899",
-          priceNote: "/job"
-        },
-        {
-          cat: "brakes",
-          icon: "🛑",
-          name: "Brake Pad Replacement",
-          desc: "OEM-quality pads front or rear with hardware kit and brake dust check.",
-          price: "From $149",
-          priceNote: "/axle"
-        },
-        {
-          cat: "brakes",
-          icon: "⭕",
-          name: "Rotor Replacement",
-          desc: "Rotors machined or replaced to spec — paired with new pads for peak stopping power.",
-          price: "From $249",
-          priceNote: "/axle"
-        },
-        {
-          cat: "brakes",
-          icon: "🔩",
-          name: "Suspension & Struts",
-          desc: "Shocks, struts, control arms, and alignment — handle vibration and uneven wear before it gets worse.",
-          price: "From $299",
-          priceNote: "/corner"
-        },
-        {
-          cat: "transmission",
-          icon: "⚙️",
-          name: "Transmission Service",
-          desc: "Fluid drain and fill or full flush with filter replacement. CVT and automatic specialists.",
-          price: "From $199",
-          priceNote: "/service"
-        },
-        {
-          cat: "transmission",
-          icon: "🔄",
-          name: "Transmission Rebuild",
-          desc: "Full transmission rebuild using quality rebuild kits — backed by a 12-month warranty.",
-          price: "From $1,499",
-          priceNote: "/job"
-        },
-        {
-          cat: "electrical",
-          icon: "🔋",
-          name: "Battery Service",
-          desc: "Battery test, replacement, and charging system inspection. Honda OEM batteries available.",
-          price: "From $99",
-          priceNote: "/installed"
-        },
-        {
-          cat: "electrical",
-          icon: "💡",
-          name: "Electrical Diagnosis",
-          desc: "Pinpoint shorts, bad grounds, sensor failures, and other electrical gremlins in your Honda/Acura.",
-          price: "From $89",
-          priceNote: "/hour"
-        },
-        {
-          cat: "ac",
-          icon: "❄️",
-          name: "A/C Recharge",
-          desc: "Refrigerant recharge with leak inspection to get your cabin cool again.",
-          price: "From $129",
-          priceNote: "/service"
-        },
-        {
-          cat: "ac",
-          icon: "🌡️",
-          name: "A/C Compressor Replacement",
-          desc: "Full compressor R&R with dye test and system recharge. OEM compressors available.",
-          price: "From $599",
-          priceNote: "/job"
-        }
-      ];
+      
 
       // ── RENDER JOBS ──
       function renderJobs() {
-        document.getElementById("jobsGrid").innerHTML = jobs
+        document.getElementById("jobsGrid").innerHTML = publicJobs
           .map((job) => {
             const review = getReviewByJob(job.jobId);
             return `
@@ -146,6 +40,7 @@
          onclick="openJobModal(${job.jobId}); return false;"
          href="#">
         <div class="job-img">
+          ${getPrimaryJobImage(job) ? `<img class="job-card-photo" src="${getPrimaryJobImage(job)}" alt="${job.title}" />` : ``}
           <div class="job-img-placeholder">
             <div class="car-icon">🚗</div>
             <div>${job.vehicle}</div>
@@ -156,13 +51,13 @@
         <div class="job-body">
           <h3>${job.title}</h3>
           <div class="job-meta">
-            <span>${job.vehicle}</span>
+            <span class="job-vehicle">${job.vehicle}</span>
             <span class="job-meta-dot">•</span>
             <span>${job.hours}</span>
           </div>
           ${
             review
-              ? `<div class="job-review-link">View Review →</div>`
+              ? `<button class="job-review-link" onclick="event.stopPropagation(); openReviewModal(${review.reviewId}); return false;">View Review →</button>`
               : `<div class="job-review-link" style="opacity:.5">No Review Yet</div>`
           }
         </div>
@@ -202,7 +97,7 @@
 
           <div class="featured-review-header">
 
-              ${job ? `<div class="review-title">${job.title}</div>` : ""}
+              ${getReviewJobTitle(review) ? `<div class="review-title">${getReviewJobTitle(review)}</div>` : ""}
 
               <div class="review-stars">
                   ${"★".repeat(review.stars)}
@@ -221,7 +116,7 @@
 
               <div>
                   <div class="review-name">${review.name}</div>
-                  <div class="review-vehicle">${review.vehicle}</div>
+                  <div class="review-vehicle">${getReviewVehicle(review)}</div>
               </div>
           </div>
 
@@ -285,9 +180,9 @@
         const review = getReview(reviewId);
         const job = getJob(review.jobId);
         document.getElementById("modalName").textContent = review.name;
-        document.getElementById("modalVehicle").textContent = review.vehicle;
+        document.getElementById("modalVehicle").textContent = getReviewVehicle(review);
         document.getElementById("modalStars").textContent = "★".repeat(review.stars);
-        document.getElementById("modalJob").textContent = job ? job.title : "";
+        document.getElementById("modalJob").textContent = getReviewJobTitle(review);
         document.getElementById("modalText").textContent = review.text;
         const link = document.getElementById("modalJobLink");
         if (job) {
@@ -313,6 +208,12 @@
       });
 
       // ── MODAL ──
+      function renderJobImageGallery(job) {
+        const images = getJobImages(job).slice(1);
+        if (!images.length) return "";
+        return `<div class="job-image-gallery">${images.map((image, index) => `<img src="${image}" alt="${job.title} photo ${index + 2}" />`).join("")}</div>`;
+      }
+
       function openJobModal(jobId) {
         const job = getJob(jobId);
         const review = getReviewByJob(jobId);
@@ -321,7 +222,9 @@
         document.getElementById("modalTitle").textContent = job.title;
         document.getElementById("modalBody").innerHTML = `
     <div class="modal-job-tag">${job.category}</div>
-    <div class="modal-img">🚗</div>
+    ${getPrimaryJobImage(job) ? `<img class="modal-img job-modal-photo" src="${getPrimaryJobImage(job)}" alt="${job.title}" />` : `<div class="modal-img">🚗</div>`}
+    <div class="job-image-gallery">${getJobImages(job).map((image, i) => `<img src="${image}" alt="${job.title} photo ${i + 1}" />`).join("")}</div>
+    ${renderJobImageGallery(job)}
     <p style="color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 20px;">${job.description}</p>
     <div class="modal-details">
       <div class="modal-detail"><label>Vehicle</label><strong>${job.vehicle}</strong></div>
@@ -334,14 +237,14 @@
         ? `
     <div class="modal-review-section">
       <h4>Customer Review</h4>
-      <div class="review-card" style="cursor: default; pointer-events: none;">
-        <div class="review-stars">${"★".repeat(review.stars)}</div>
+      <div class="review-card modal-review-card" style="cursor: default; pointer-events: none;">
+        <div class="modal-review-top"><div class="review-title">${getReviewJobTitle(review)}</div><div class="review-stars">${"★".repeat(review.stars)}</div></div>
         <p class="review-text">"${review.text}"</p>
-        <div class="review-author">
+        <div class="modal-review-author">
           <div class="review-avatar">${review.name.charAt(0)}</div>
           <div>
             <div class="review-name">${review.name}</div>
-            <div class="review-vehicle">${review.vehicle}</div>
+            <div class="review-vehicle">${getReviewVehicle(review)}</div>
           </div>
         </div>
       </div>
@@ -509,6 +412,9 @@
 
       const sections = document.querySelectorAll("section[id]");
       const navLinks = document.querySelectorAll(".nav-links a, #mobileMenu a");
+      let keepAboutHashActive = window.location.hash === "#about";
+      let aboutHashStart = null;
+
       const sectionNavTargets = {
         home: "#about",
         about: "services.html",
@@ -534,7 +440,14 @@
 
       function updateActiveNav() {
         const current = getSectionForScroll();
-        const activeTarget = sectionNavTargets[current];
+
+        if (keepAboutHashActive) {
+          const aboutSection = document.getElementById("about");
+          if (aboutSection && aboutHashStart === null) aboutHashStart = aboutSection.offsetTop;
+          if (!aboutSection || Math.abs(window.scrollY - aboutHashStart) > 140) keepAboutHashActive = false;
+        }
+
+        const activeTarget = keepAboutHashActive && current === "about" ? "#about" : sectionNavTargets[current];
 
         navLinks.forEach((link) => {
           link.classList.toggle("active", Boolean(activeTarget) && link.getAttribute("href") === activeTarget);

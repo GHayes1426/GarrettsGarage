@@ -92,8 +92,16 @@
               <div class="hero-info-text">Email Us</div>
             </div>
           </a>
-        </div>
 
+          <div class="hero-social-card">
+            <a href="https://www.facebook.com/share/18oDTxfBEQ/?mibextid=wwXIfr" target="_blank">
+              <img src="images/icons/fbook.svg" alt="Facebook" />
+            </a>
+            <a href="https://www.instagram.com/_garretts_garage" target="_blank">
+              <img src="images/icons/insta.svg" alt="Instagram" />
+            </a>
+          </div>
+        </div>
         <div class="hero-actions">
           <div class="hero-actions">
             <a href="#schedule" class="btn-primary">Schedule Service</a>
@@ -173,7 +181,13 @@
           </div>
           <button class="review-arrow next" onclick="nextReview()">›</button>
         </div>
-        <div class="review-dots" id="reviewDots"></div>
+         <div class="review-controls">
+          <button class="review-arrow prev mobile-arrow" onclick="prevReview()">‹</button>
+
+          <div class="review-dots" id="reviewDots"></div>
+
+          <button class="review-arrow next mobile-arrow" onclick="nextReview()">›</button>
+        </div>
         <a href="reviews.html" class="page-link"> View All Reviews → </a>
       </div>
     </section>
@@ -203,44 +217,62 @@
               within a few hours.
             </p>
 
-            <a
-              href="https://www.google.com/maps/place/Garrett%E2%80%99s+Garage/@38.6270242,-77.3302342,10z/data=!4m6!3m5!1s0x89b765288f856479:0x92c8d74c1635c9a2!8m2!3d38.3601797!4d-76.5685214!16s%2Fg%2F11nhk9b_qs?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D"
-              target="_blank"
-              class="info-item">
-              <div class="info-icon">📍</div>
-              <div class="info-content">
-                <strong>Our Location</strong>
-                <span>25215 Vista Road<br />Hollywood, MD 20636</span>
-              </div>
-            </a>
+            <div class="contact-cards">
+              <a
+                href="https://www.google.com/maps/place/Garrett%E2%80%99s+Garage/@38.6270242,-77.3302342,10z/data=!4m6!3m5!1s0x89b765288f856479:0x92c8d74c1635c9a2!8m2!3d38.3601797!4d-76.5685214!16s%2Fg%2F11nhk9b_qs?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank"
+                class="info-item">
+                <div class="info-icon">📍</div>
+                <div class="info-content">
+                  <strong>Our Location</strong>
+                  <span>25215 Vista Road<br />Hollywood, MD 20636</span>
+                </div>
+              </a>
 
-            <a href="tel:+12405233675" class="info-item">
-              <div class="info-icon">📞</div>
-              <div class="info-content">
-                <strong>Call or Text</strong>
-                <span>(240) 523-3675</span>
-              </div>
-            </a>
+              <a href="tel:+12405233675" class="info-item">
+                <div class="info-icon">📞</div>
+                <div class="info-content">
+                  <strong>Call or Text</strong>
+                  <span>(240) 523-3675</span>
+                </div>
+              </a>
 
-            <a href="#contact" class="info-item">
-              <div class="info-icon">🕐</div>
-              <div class="info-content">
-                <strong>Hours</strong>
-                <span>
-                  Mon – Fri: 11:00 AM – 11:00 PM<br />
-                  Sat: 11:00 AM – Midnight<br />
-                  Sun: 11 AM - 5 PM
-                </span>
-              </div>
-            </a>
+              <a href="#contact" class="info-item">
+                <div class="info-icon">🕐</div>
+                <div class="info-content">
+                  <strong>Hours</strong>
+                  <span>
+                    Mon – Fri: 11:00 AM – 11:00 PM<br />
+                    Sat: 11:00 AM – Midnight<br />
+                    Sun: 11 AM - 5 PM
+                  </span>
+                </div>
+              </a>
 
-            <a href="mailto:garrettshollywood@gmail.com" class="info-item">
-              <div class="info-icon">✉️</div>
-              <div class="info-content">
-                <strong>Email</strong>
-                <span>garrettshollywood@gmail.com</span>
+              <a href="mailto:garrettshollywood@gmail.com" class="info-item">
+                <div class="info-icon">✉️</div>
+                <div class="info-content">
+                  <strong>Email</strong>
+                  <span>garrettshollywood@gmail.com</span>
+                </div>
+              </a>
+            </div>
+
+            <div class="schedule-map">
+              <div class="map-card">
+                <h3 class="map-title">Find Us</h3>
+                <iframe
+                  title="map"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6284334.366061177!2d-85.99079784425763!3d39.72790943332553!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b765288f856479%3A0x92c8d74c1635c9a2!2sGarrett%E2%80%99s%20Garage!5e0!3m2!1sen!2sus!4v1782768122105!5m2!1sen!2sus"
+                  width="600"
+                  height="450"
+                  style="border: 0"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="strict-origin-when-cross-origin">
+                </iframe>
               </div>
-            </a>
+            </div>
           </div>
 
           <div>

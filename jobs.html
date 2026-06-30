@@ -65,6 +65,15 @@
                 <div class="jobs-grid" id="jobsGrid"></div>
             </div>
         </section>
+        <div class="modal-overlay" id="jobModal" onclick="closeModal()">
+            <div class="modal" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Job Details</h3>
+                    <button class="modal-close" onclick="closeModal()">✕</button>
+                </div>
+                <div class="modal-body" id="modalBody"></div>
+            </div>
+        </div>
         <script src="js/data.js"></script>
         <script src="js/jobs.js"></script>
     </body>

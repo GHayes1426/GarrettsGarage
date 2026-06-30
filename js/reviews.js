@@ -1,13 +1,27 @@
+      const managedData = getManagedData();
+      const publicJobs = managedData.jobs;
+      const publicReviews = managedData.reviews;
+
       function getJob(jobId) {
-        return jobs.find((j) => j.jobId === jobId);
+        return publicJobs.find((j) => j.jobId === jobId);
       }
 
       function getReviewByJob(jobId) {
-        return reviews.find((r) => r.jobId === jobId);
+        return publicReviews.find((r) => r.jobId === jobId);
       }
 
       function getReview(reviewId) {
-        return reviews.find((r) => r.reviewId === reviewId);
+        return publicReviews.find((r) => r.reviewId === reviewId);
+      }
+
+      function getReviewVehicle(review) {
+        const job = getJob(review.jobId);
+        return review.vehicle || (job ? job.vehicle : "");
+      }
+
+      function getReviewJobTitle(review) {
+        const job = getJob(review.jobId);
+        return review.jobTitle || (job ? job.title : "");
       }
 
       let selectedRating = null;
@@ -15,14 +29,14 @@
       // ── RENDER REVIEWS ──
       function renderReviews() {
         const search = document.getElementById("reviewSearch").value.toLowerCase().trim();
-        let filtered = reviews;
+        let filtered = publicReviews;
         if (selectedRating !== null) {
           filtered = filtered.filter((r) => r.stars === selectedRating);
         }
         if (search) {
           filtered = filtered.filter((r) => {
             const job = getJob(r.jobId);
-            return [r.name, r.vehicle, r.text, job?.title || "", job?.category || ""]
+            return [r.name, getReviewVehicle(r), getReviewJobTitle(r), r.text]
               .join(" ")
               .toLowerCase()
               .includes(search);
@@ -33,22 +47,19 @@
           .map((r) => {
             const job = getJob(r.jobId);
             return `
-            <div class="review-card"
+            <div class="review-card" id="review-${r.reviewId}"
                  onclick="openReview(${r.reviewId})">
                 <div class="review-card-body">
                     <div class="review-header">
                         <div>
                             <h3>${r.name}</h3>
-                            <div class="review-meta">
-                                ${r.vehicle}
-                                ${job ? `• ${job.category}` : ""}
-                            </div>
                         </div>
                         <div class="review-cat">
                             ${"★".repeat(r.stars)}
                         </div>
                     </div>
-                    ${job ? `<div class="review-title">${job.title}</div>` : ""}
+                    <div class="review-meta"><span class="vehicle-name">${getReviewVehicle(r)}</span></div>
+                    ${getReviewJobTitle(r) ? `<div class="review-title">${getReviewJobTitle(r)}</div>` : ""}
                     <p class="review-text">
                         "${r.text}"
                     </p>
@@ -64,17 +75,19 @@
         const job = getJob(review.jobId);
 
         document.getElementById("modalName").textContent = review.name;
-        document.getElementById("modalVehicle").textContent = review.vehicle;
+        document.getElementById("modalVehicle").textContent = getReviewVehicle(review);
+        document.getElementById("modalVehicle").style.display = getReviewVehicle(review) ? "" : "none";
         document.getElementById("modalStars").textContent = "★".repeat(review.stars);
 
-        document.getElementById("modalJob").textContent = job ? job.title : "";
+        document.getElementById("modalJob").textContent = getReviewJobTitle(review);
+        document.getElementById("modalJob").style.display = getReviewJobTitle(review) ? "" : "none";
 
         document.getElementById("modalText").textContent = review.text;
 
         const link = document.getElementById("modalJobLink");
 
         if (job) {
-          link.href = `/index.html#job-${job.jobId}`;
+          link.href = `jobs.html#job-${job.jobId}`;
           link.style.display = "";
         } else {
           link.style.display = "none";
@@ -182,6 +195,18 @@
           renderReviews();
         });
       });
+
+      function openReviewFromHash() {
+        const match = window.location.hash.match(/^#review-(\d+)$/);
+        if (!match) return;
+        const reviewId = Number(match[1]);
+        const card = document.getElementById(`review-${reviewId}`);
+        if (card) card.scrollIntoView({ block: "center" });
+        openReview(reviewId);
+      }
+
+      window.addEventListener("load", openReviewFromHash);
+      window.addEventListener("hashchange", openReviewFromHash);
 
       // Initial render
       renderReviews();

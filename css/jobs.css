@@ -307,3 +307,27 @@ body::after {
 
 @media (max-width: 800px) {
 }
+.job-card-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.job-card-photo + .job-img-placeholder {
+  opacity: 0;
+}
+
+.job-review-link {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.job-modal-photo {
+  opacity: 1;
+  object-fit: cover;
+  font-size: 0;
+}

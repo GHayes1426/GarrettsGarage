@@ -65,6 +65,16 @@
                 <div class="services-grid" id="servicesGrid"></div>
             </div>
         </section>
-        <script src="js/services.js"></script>
+        <div class="modal-overlay" id="serviceModal" onclick="closeServiceModal()">
+            <div class="modal" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <h3 id="serviceModalTitle">Service Details</h3>
+                    <button class="modal-close" onclick="closeServiceModal()">✕</button>
+                </div>
+                <div class="modal-body" id="serviceModalBody"></div>
+            </div>
+        </div>
+        <script src="js/data.js"></script>
+    <script src="js/services.js"></script>
     </body>
 </html>

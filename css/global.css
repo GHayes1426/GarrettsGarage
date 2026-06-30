@@ -269,3 +269,255 @@ nav {
     display: flex;
   }
 }
+
+/* Shared modal styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.85);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  width: min(700px, 92vw);
+  max-height: 86vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 26px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h3 {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 900;
+  font-size: clamp(24px, 6vw, 34px);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.modal-close {
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: var(--red);
+}
+
+.modal-body {
+  padding: clamp(20px, 5vw, 28px);
+}
+
+.modal-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  background: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  opacity: 0.95;
+}
+
+.modal-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.modal-detail {
+  background: var(--black);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 12px 14px;
+}
+
+.modal-detail label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text-muted);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.modal-job-tag,
+.modal-job-link {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.modal-job-tag {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 5px 12px;
+  border-radius: 3px;
+  background: var(--red);
+  color: var(--white);
+  font-size: 12px;
+}
+
+.modal-job-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: var(--red);
+  text-decoration: none;
+}
+
+.modal-review-section {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+}
+
+.service-card {
+  cursor: pointer;
+}
+
+@media (max-width: 520px) {
+  .modal-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Garage color accents */
+.review-stars,
+.review-cat,
+.modal-stars {
+  color: #ffd700;
+}
+
+.modal-vehicle {
+  color: var(--text-muted);
+}
+
+.review-vehicle,
+.review-meta .vehicle-name,
+.job-vehicle {
+  color: var(--red);
+}
+
+.review-meta,
+.review-author,
+.job-meta {
+  gap: 12px;
+}
+
+.service-cat {
+  color: #28d17c;
+}
+
+.job-image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+  gap: 10px;
+  margin: -6px 0 20px;
+}
+
+.job-image-gallery img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+
+.modal-review-card {
+  margin-top: 14px;
+  background: var(--black);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: clamp(18px, 4vw, 24px);
+}
+
+.modal-review-card .review-stars {
+  margin-bottom: 0;
+}
+
+.modal-review-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.modal-review-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.review-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(200, 16, 46, 0.15);
+  border: 2px solid var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--red);
+  flex-shrink: 0;
+}
+
+.review-name {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.modal-review-card .review-vehicle {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.modal-review-card .review-text {
+  margin-bottom: 18px;
+}
+
+
+.modal-review-card .review-title {
+  color: var(--red);
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: clamp(18px, 4vw, 22px);
+  line-height: 1.15;
+  text-transform: uppercase;
+}

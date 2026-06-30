@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Garrett's Garage Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+  <body class="admin-page">
+    <main class="admin-shell">
+      <nav class="admin-tabs" aria-label="Admin sections">
+        <button class="admin-tab active" data-tab="reviews">Reviews</button>
+        <button class="admin-tab" data-tab="jobs">Completed Jobs</button>
+        <button class="admin-tab" data-tab="services">Services</button>
+      </nav>
+      <header class="admin-header">
+        <div><div class="section-label">Garage Control</div><h1>Admin</h1></div>
+        <div class="admin-actions">
+          <a href="index.html" class="admin-link">View Site</a>
+          <button class="admin-btn ghost" id="exportDataBtn">Export JSON</button>
+          <button class="admin-btn ghost" id="exportDataJsBtn">Export data.js</button>
+          <button class="admin-btn ghost" id="resetDataBtn">Reset</button>
+        </div>
+      </header>
+      <section class="admin-panel active" id="reviewsPanel">
+        <div class="panel-head"><h2>Reviews</h2><div class="panel-actions"><button class="admin-btn ghost" data-save="reviews">Saved</button><button class="admin-btn" data-add="reviews">Add Review</button></div></div>
+        <div class="admin-controls review-admin-controls">
+          <div class="rating-filter" id="adminRatingFilter" aria-label="Filter reviews by rating">
+            <span class="filter-star" data-admin-rating="1">★</span>
+            <span class="filter-star" data-admin-rating="2">★</span>
+            <span class="filter-star" data-admin-rating="3">★</span>
+            <span class="filter-star" data-admin-rating="4">★</span>
+            <span class="filter-star" data-admin-rating="5">★</span>
+          </div>
+          <input type="text" id="adminReviewSearch" placeholder="Search reviews..." class="admin-search" />
+        </div>
+        <div class="editor-grid" id="reviewsEditor"></div>
+      </section>
+      <section class="admin-panel" id="jobsPanel">
+        <div class="panel-head"><h2>Completed Jobs</h2><div class="panel-actions"><button class="admin-btn ghost" data-save="jobs">Saved</button><button class="admin-btn" data-add="jobs">Add Job</button></div></div>
+        <div class="admin-controls stacked">
+          <input type="text" id="adminJobSearch" placeholder="Search completed jobs..." class="admin-search" />
+          <div class="filter-bar admin-filter-bar" id="adminJobFilterBar">
+            <button class="filter-btn active" data-admin-filter="all">All Jobs</button>
+            <button class="filter-btn" data-admin-filter="Maintenance">Maintenance</button>
+            <button class="filter-btn" data-admin-filter="Engine">Engine</button>
+            <button class="filter-btn" data-admin-filter="Brakes & Suspension">Brakes & Suspension</button>
+            <button class="filter-btn" data-admin-filter="Transmission">Transmission</button>
+            <button class="filter-btn" data-admin-filter="A/C & Heating">A/C & Heating</button>
+          </div>
+        </div>
+        <div class="editor-grid" id="jobsEditor"></div>
+      </section>
+      <section class="admin-panel" id="servicesPanel">
+        <div class="panel-head"><h2>Services</h2><div class="panel-actions"><button class="admin-btn ghost" data-save="services">Saved</button><button class="admin-btn" data-add="services">Add Service</button></div></div>
+        <div class="admin-controls">
+          <div class="filter-bar admin-filter-bar" id="adminServiceFilterBar">
+            <button class="filter-btn active" data-admin-filter="all">All Services</button>
+            <button class="filter-btn" data-admin-filter="maintenance">Maintenance</button>
+            <button class="filter-btn" data-admin-filter="engine">Engine</button>
+            <button class="filter-btn" data-admin-filter="brakes">Brakes & Suspension</button>
+            <button class="filter-btn" data-admin-filter="transmission">Transmission</button>
+            <button class="filter-btn" data-admin-filter="ac">A/C & Heating</button>
+          </div>
+        </div>
+        <div class="editor-grid" id="servicesEditor"></div>
+      </section>
+    </main>
+    <script src="js/data.js"></script>
+    <script src="js/admin.js"></script>
+  </body>
+</html>
